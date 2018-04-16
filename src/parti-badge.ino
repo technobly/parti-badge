@@ -1,3 +1,5 @@
+#include "Particle.h"
+
 // OLED Includes
 #include <SPI.h>
 #include <Wire.h>
@@ -28,13 +30,17 @@ String textStrings[TEXTARRAYSIZE] = { "Brandon", "Satrom", "DevRel @", "Particle
 
 // Loop control booleans
 bool displayUpdating = false;
-bool neoPixelsUpdating = false;
+bool rainbowAnimationsPlaying = false;
+bool theaterChaseAnimationsPlaying = false;
 bool clearingDisplay = false;
 
 Adafruit_SSD1306 display(OLED_RESET);
 Adafruit_NeoPixel strip(32, NEOPIXEL_PIN, WS2812B);
 
 void setup() {
+  // Subscribe to IFTTT Event when a person tweets the badge
+  Particle.subscribe("New_Tweet", notifyNewTweet);
+
   // Configure Hardware Input Buttons
   pinMode(BUTTON_A, INPUT_PULLUP);
   pinMode(BUTTON_B, INPUT_PULLUP);
@@ -55,8 +61,8 @@ void setup() {
 }
 
 void loop() {
-  // If both buttons are pressed, clear the display
-  if (! digitalRead(BUTTON_C) && ! digitalRead(BUTTON_A) && !clearingDisplay) {
+  // If button C is pressed, clear the display
+  if (!digitalRead(BUTTON_C) && !clearingDisplay) {
     clearingDisplay = true;
     clearNeoPixelDisplay();
     clearingDisplay = false;
@@ -64,19 +70,11 @@ void loop() {
     return;
   }
 
-  if (! digitalRead(BUTTON_A) && !neoPixelsUpdating) {
-    neoPixelsUpdating = true;
+  if (!digitalRead(BUTTON_B) && !rainbowAnimationsPlaying) {
+    rainbowAnimationsPlaying = true;
 
     clearNeoPixelDisplay();
     strip.setBrightness(15);
-
-    colorWipe(strip.Color(255, 0, 0), 50); // Red
-    colorWipe(strip.Color(0, 255, 0), 50); // Green
-    colorWipe(strip.Color(0, 0, 255), 50); // Blue
-    // Send a theater pixel chase in...
-    theaterChase(strip.Color(127, 127, 127), 50); // White
-    theaterChase(strip.Color(127, 0, 0), 50); // Red
-    theaterChase(strip.Color(0, 0, 127), 50); // Blue
 
     rainbow(20);
     rainbowCycle(20);
@@ -84,7 +82,25 @@ void loop() {
 
     clearNeoPixelDisplay();
 
-    neoPixelsUpdating = false;
+    rainbowAnimationsPlaying = false;
+
+    return;
+  }
+
+  if (!digitalRead(BUTTON_A) && !theaterChaseAnimationsPlaying) {
+    theaterChaseAnimationsPlaying = true;
+
+    clearNeoPixelDisplay();
+    strip.setBrightness(15);
+
+    // Send a theater pixel chase in...
+    theaterChase(strip.Color(127, 127, 127), 50); // White
+    theaterChase(strip.Color(127, 0, 0), 50); // Red
+    theaterChase(strip.Color(0, 0, 127), 50); // Blue
+
+    clearNeoPixelDisplay();
+
+    theaterChaseAnimationsPlaying = false;
 
     return;
   }
@@ -101,18 +117,18 @@ void loop() {
 }
 
 void initNeoPixelDisplay() {
-  strip.setBrightness(25);
   strip.begin();
+  strip.setBrightness(15);
 
   strip.show(); // Initialize all pixels to 'off'
+  colorWipe(strip.Color(255, 0, 0), 50); // Red
+  colorWipe(strip.Color(0, 255, 0), 50); // Green
   colorWipe(strip.Color(0, 0, 255), 50); // Blue
 }
 
 void clearNeoPixelDisplay() {
   strip.setBrightness(0);
   strip.show();
-  strip.show();
-  strip.show(); // Seem to have to call 3x to really get all pixels off
 }
 
 void paintScreen() {
@@ -137,6 +153,17 @@ void scrollText(String line1, String line2, int textSize) {
   display.println(line2);
   display.display();
   display.startscrollleft(0x00, 0x0F);
+}
+
+void notifyNewTweet (const char *event, const char *data) {
+  clearNeoPixelDisplay();
+
+  strip.setBrightness(15);
+  theaterChase(strip.Color(0, 0, 127), 50); // Blue
+  theaterChase(strip.Color(255, 255, 255), 50); // White
+  theaterChase(strip.Color(0, 0, 127), 50); // Blue
+
+  clearNeoPixelDisplay();
 }
 
 // Fill the dots one after the other with a color
