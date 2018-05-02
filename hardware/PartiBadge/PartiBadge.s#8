@@ -3823,12 +3823,6 @@ Warning: This is the KIT version of this package. This package has a smaller dia
 <label x="-45.72" y="91.44" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="N$14" class="0">
-<segment>
-<pinref part="J2" gate="G$1" pin="7"/>
-<wire x1="-35.56" y1="76.2" x2="-38.1" y2="76.2" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="SPI_CS" class="0">
 <segment>
 <pinref part="J2" gate="G$1" pin="5"/>
@@ -3839,6 +3833,18 @@ Warning: This is the KIT version of this package. This package has a smaller dia
 <pinref part="J2" gate="G$1" pin="6"/>
 <wire x1="-35.56" y1="78.74" x2="-38.1" y2="78.74" width="0.1524" layer="91"/>
 <label x="-45.72" y="78.74" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="SPI_DC" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="D2"/>
+<wire x1="48.26" y1="48.26" x2="50.8" y2="48.26" width="0.1524" layer="91"/>
+<label x="50.8" y="48.26" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="J2" gate="G$1" pin="7"/>
+<wire x1="-35.56" y1="76.2" x2="-38.1" y2="76.2" width="0.1524" layer="91"/>
+<label x="-45.72" y="76.2" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
