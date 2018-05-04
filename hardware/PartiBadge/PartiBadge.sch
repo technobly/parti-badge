@@ -9307,11 +9307,6 @@ FRAME-LETTER</description>
 <pinref part="+3V6" gate="G$1" pin="+3V3"/>
 <wire x1="78.74" y1="25.4" x2="78.74" y2="30.48" width="0.1524" layer="91"/>
 </segment>
-<segment>
-<pinref part="S5" gate="1" pin="P"/>
-<pinref part="R8" gate="G$1" pin="1"/>
-<wire x1="60.96" y1="15.24" x2="78.74" y2="15.24" width="0.1524" layer="91"/>
-</segment>
 </net>
 <net name="N$4" class="0">
 <segment>
@@ -9645,6 +9640,13 @@ FRAME-LETTER</description>
 <pinref part="ELECTRON" gate="G$1" pin="D7"/>
 <wire x1="48.26" y1="73.66" x2="53.34" y2="73.66" width="0.1524" layer="91"/>
 <label x="48.26" y="73.66" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="N$14" class="0">
+<segment>
+<pinref part="S5" gate="1" pin="P"/>
+<pinref part="R8" gate="G$1" pin="1"/>
+<wire x1="60.96" y1="15.24" x2="78.74" y2="15.24" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
