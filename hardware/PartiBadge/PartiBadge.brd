@@ -3053,7 +3053,7 @@ design rules under a new name.</description>
 </element>
 <element name="SJ1" library="jumper" library_urn="urn:adsk.eagle:library:252" package="SJ_2" package3d_urn="urn:adsk.eagle:package:15474/1" value="" x="15.367" y="32.131" rot="MR180"/>
 <element name="ELECTRON" library="Particle-Devices" package="ELECTRON" value="ELECTRON_WITH_HEADERS" x="27.94" y="91.44" smashed="yes" rot="R270">
-<attribute name="NAME" x="25.4" y="88.392" size="1.778" layer="25" ratio="18" rot="R270"/>
+<attribute name="NAME" x="25.527" y="86.741" size="1.778" layer="25" font="vector" ratio="18" rot="R270"/>
 </element>
 <element name="YELLOW" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" package="TACTILE_SWITCH_LED_PTH_12MM_KIT" package3d_urn="urn:adsk.eagle:package:40174/1" value="MOMENTARY-SWITCH-SPST-LED" x="78.74" y="24.13">
 <attribute name="PROD_ID" value="SWCH-11758" x="78.74" y="24.13" size="1.778" layer="27" display="off"/>
@@ -3134,6 +3134,16 @@ design rules under a new name.</description>
 <wire x1="16.002" y1="50.038" x2="17.653" y2="51.816" width="0.3048" layer="1"/>
 <wire x1="17.653" y1="51.816" x2="17.399" y2="52.959" width="0.3048" layer="1"/>
 <wire x1="14.731996875" y1="50.038" x2="16.002" y2="50.038" width="0.3048" layer="1"/>
+<polygon width="0.3048" layer="1">
+<vertex x="29.21" y="109.22"/>
+<vertex x="74.93" y="109.22"/>
+<vertex x="107.95" y="76.2"/>
+<vertex x="107.95" y="38.1"/>
+<vertex x="72.39" y="2.54"/>
+<vertex x="35.56" y="2.54"/>
+<vertex x="-3.81" y="41.91"/>
+<vertex x="-3.81" y="76.2"/>
+</polygon>
 </signal>
 <signal name="N$2">
 <contactref element="S5" pad="1"/>
@@ -3639,6 +3649,9 @@ design rules under a new name.</description>
 <approved hash="3,16,4664c6a649c768a0"/>
 <approved hash="1,20,f9c2c1fec1fef9c2"/>
 <approved hash="1,20,f1c3c1ffc1fff1c3"/>
+<approved hash="4,16,8d7ca90495c03ccf"/>
+<approved hash="4,1,94b3f7f9fa30a6ff"/>
+<approved hash="4,1,c042e898d032d162"/>
 </errors>
 </board>
 </drawing>
