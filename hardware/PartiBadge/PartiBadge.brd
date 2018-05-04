@@ -3,7 +3,7 @@
 <eagle version="9.0.0">
 <drawing>
 <settings>
-<setting alwaysvectorfont="no"/>
+<setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
 <grid distance="50" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="5" altunitdist="mil" altunit="mil"/>
@@ -177,15 +177,17 @@
 <hole x="78.74" y="36.83" drill="0.0022"/>
 <hole x="78.74" y="66.04" drill="0.0022"/>
 <hole x="27.94" y="36.83" drill="0.0022"/>
-<circle x="53.848" y="80.518" radius="2.032" width="0.3048" layer="20"/>
-<circle x="61.722" y="80.518" radius="2.032" width="0.3048" layer="20"/>
-<wire x1="51.816" y1="82.55" x2="63.754" y2="82.55" width="0.3048" layer="46"/>
-<wire x1="51.816" y1="82.55" x2="51.816" y2="78.486" width="0.3048" layer="46"/>
-<wire x1="51.816" y1="78.486" x2="63.754" y2="78.486" width="0.3048" layer="46"/>
-<wire x1="63.754" y1="78.486" x2="63.754" y2="82.55" width="0.3048" layer="46"/>
+<circle x="53.975" y="80.772" radius="2.286" width="0.3048" layer="20"/>
+<circle x="61.722" y="80.772" radius="2.286" width="0.3048" layer="20"/>
+<wire x1="51.689" y1="83.058" x2="64.008" y2="83.058" width="0.3048" layer="46"/>
+<wire x1="51.689" y1="83.058" x2="51.689" y2="78.486" width="0.3048" layer="46"/>
+<wire x1="51.689" y1="78.486" x2="64.008" y2="78.486" width="0.3048" layer="46"/>
+<wire x1="64.008" y1="78.486" x2="64.008" y2="83.058" width="0.3048" layer="46"/>
 <text x="55.753" y="55.118" size="3.81" layer="22" font="vector" ratio="18" rot="MR0" align="center">Designed by
 The Particle Team
 http://Particle.io</text>
+<dimension x1="51.689" y1="83.058" x2="64.008" y2="83.058" x3="57.8485" y3="82.931" textsize="1.778" layer="1" dtype="vertical"/>
+<dimension x1="51.689" y1="83.058" x2="64.008" y2="83.058" x3="57.8485" y3="82.931" textsize="1.778" layer="1" dtype="vertical"/>
 </plain>
 <libraries>
 <library name="SparkFun-Switches" urn="urn:adsk.eagle:library:535">
@@ -3598,11 +3600,11 @@ design rules under a new name.</description>
 <signal name="RIGHT">
 <contactref element="S1" pad="B"/>
 <contactref element="ELECTRON" pad="3"/>
-<via x="22.098" y="84.201" extent="1-16" drill="0.5"/>
-<wire x1="22.098" y1="84.201" x2="65.278" y2="84.201" width="0.3048" layer="16"/>
-<wire x1="65.278" y1="84.201" x2="68.58" y2="87.63" width="0.3048" layer="16"/>
+<via x="22.098" y="84.328" extent="1-16" drill="0.5"/>
+<wire x1="22.098" y1="84.328" x2="65.786" y2="84.455" width="0.3048" layer="16"/>
+<wire x1="65.786" y1="84.455" x2="68.58" y2="87.63" width="0.3048" layer="16"/>
 <wire x1="68.58" y1="87.63" x2="69.85" y2="90.17" width="0.3048" layer="16"/>
-<wire x1="18.542" y1="80.772" x2="22.098" y2="84.201" width="0.3048" layer="1"/>
+<wire x1="18.542" y1="80.772" x2="22.098" y2="84.328" width="0.3048" layer="1"/>
 <wire x1="14.771078125" y1="51.97881875" x2="15.14881875" y2="51.97881875" width="0.3048" layer="1"/>
 <wire x1="15.14881875" y1="51.97881875" x2="18.542" y2="55.372" width="0.3048" layer="1"/>
 <wire x1="18.542" y1="55.372" x2="18.542" y2="80.772" width="0.3048" layer="1"/>
