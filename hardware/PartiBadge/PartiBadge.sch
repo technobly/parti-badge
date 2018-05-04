@@ -9112,7 +9112,7 @@ FRAME-LETTER</description>
 <part name="J1" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" deviceset="CONN_02" device="" package3d_urn="urn:adsk.eagle:package:38039/1" value="I2C"/>
 <part name="J2" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" deviceset="CONN_02" device="" package3d_urn="urn:adsk.eagle:package:38039/1" value="Supply"/>
 <part name="R7" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="M0805" package3d_urn="urn:adsk.eagle:package:23556/1" value="100"/>
-<part name="S1" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" deviceset="JOYSTICK_MINI" device="" package3d_urn="urn:adsk.eagle:package:40157/1"/>
+<part name="JOYSTICK" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" deviceset="JOYSTICK_MINI" device="" package3d_urn="urn:adsk.eagle:package:40157/1"/>
 <part name="GND6" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="+3V6" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="PARTIFRAME" library="SparkFun-Aesthetics" library_urn="urn:adsk.eagle:library:507" deviceset="FRAME-LETTER" device="NO_PACKAGE" package3d_urn="urn:adsk.eagle:package:37104/1">
@@ -9163,7 +9163,7 @@ FRAME-LETTER</description>
 <instance part="J1" gate="G$1" x="93.98" y="10.16"/>
 <instance part="J2" gate="G$1" x="111.76" y="10.16"/>
 <instance part="R7" gate="G$1" x="55.88" y="7.62"/>
-<instance part="S1" gate="G$1" x="-10.16" y="104.14"/>
+<instance part="JOYSTICK" gate="G$1" x="-10.16" y="104.14"/>
 <instance part="GND6" gate="1" x="-33.02" y="101.6" rot="R270"/>
 <instance part="+3V6" gate="G$1" x="78.74" y="33.02"/>
 <instance part="PARTIFRAME" gate="G$1" x="-60.96" y="-40.64" smashed="yes">
@@ -9250,7 +9250,7 @@ FRAME-LETTER</description>
 <wire x1="127" y1="10.16" x2="127" y2="7.62" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="S1" gate="G$1" pin="GND"/>
+<pinref part="JOYSTICK" gate="G$1" pin="GND"/>
 <pinref part="GND6" gate="1" pin="GND"/>
 <wire x1="-22.86" y1="101.6" x2="-30.48" y2="101.6" width="0.1524" layer="91"/>
 </segment>
@@ -9584,7 +9584,7 @@ FRAME-LETTER</description>
 </net>
 <net name="UP" class="0">
 <segment>
-<pinref part="S1" gate="G$1" pin="UP"/>
+<pinref part="JOYSTICK" gate="G$1" pin="UP"/>
 <wire x1="-22.86" y1="106.68" x2="-27.94" y2="106.68" width="0.1524" layer="91"/>
 <label x="-27.94" y="106.68" size="1.778" layer="95"/>
 </segment>
@@ -9596,7 +9596,7 @@ FRAME-LETTER</description>
 </net>
 <net name="DOWN" class="0">
 <segment>
-<pinref part="S1" gate="G$1" pin="DOWN"/>
+<pinref part="JOYSTICK" gate="G$1" pin="DOWN"/>
 <wire x1="-22.86" y1="104.14" x2="-30.48" y2="104.14" width="0.1524" layer="91"/>
 <label x="-30.48" y="104.14" size="1.778" layer="95"/>
 </segment>
@@ -9608,7 +9608,7 @@ FRAME-LETTER</description>
 </net>
 <net name="LEFT" class="0">
 <segment>
-<pinref part="S1" gate="G$1" pin="LEFT"/>
+<pinref part="JOYSTICK" gate="G$1" pin="LEFT"/>
 <wire x1="2.54" y1="106.68" x2="10.16" y2="106.68" width="0.1524" layer="91"/>
 <label x="5.08" y="106.68" size="1.778" layer="95"/>
 </segment>
@@ -9620,7 +9620,7 @@ FRAME-LETTER</description>
 </net>
 <net name="RIGHT" class="0">
 <segment>
-<pinref part="S1" gate="G$1" pin="RIGHT"/>
+<pinref part="JOYSTICK" gate="G$1" pin="RIGHT"/>
 <wire x1="2.54" y1="104.14" x2="12.7" y2="104.14" width="0.1524" layer="91"/>
 <label x="5.08" y="104.14" size="1.778" layer="95"/>
 </segment>
@@ -9632,7 +9632,7 @@ FRAME-LETTER</description>
 </net>
 <net name="CENT" class="0">
 <segment>
-<pinref part="S1" gate="G$1" pin="CENT"/>
+<pinref part="JOYSTICK" gate="G$1" pin="CENT"/>
 <wire x1="2.54" y1="101.6" x2="12.7" y2="101.6" width="0.1524" layer="91"/>
 <label x="5.08" y="101.6" size="1.778" layer="95"/>
 </segment>
