@@ -9118,6 +9118,7 @@ FRAME-LETTER</description>
 <part name="PARTIFRAME" library="SparkFun-Aesthetics" library_urn="urn:adsk.eagle:library:507" deviceset="FRAME-LETTER" device="NO_PACKAGE" package3d_urn="urn:adsk.eagle:package:37104/1">
 <attribute name="DESIGNER" value="Brandon Satrom"/>
 </part>
+<part name="R8" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="M0805" package3d_urn="urn:adsk.eagle:package:23556/1" value="100"/>
 </parts>
 <sheets>
 <sheet>
@@ -9136,7 +9137,10 @@ FRAME-LETTER</description>
 <instance part="R1" gate="G$1" x="-27.94" y="5.08"/>
 <instance part="R3" gate="G$1" x="-33.02" y="38.1"/>
 <instance part="R4" gate="G$1" x="78.74" y="96.52"/>
-<instance part="PIEZO" gate="G$1" x="73.66" y="7.62" rot="R90"/>
+<instance part="PIEZO" gate="G$1" x="73.66" y="7.62" smashed="yes" rot="R90">
+<attribute name="NAME" x="68.561059375" y="5.08" size="1.68265" layer="95" rot="R180"/>
+<attribute name="VALUE" x="78.729109375" y="2.545440625" size="1.679990625" layer="96" rot="R180"/>
+</instance>
 <instance part="S5" gate="1" x="58.42" y="15.24" rot="R180"/>
 <instance part="R5" gate="G$1" x="78.74" y="63.5" rot="R90"/>
 <instance part="R6" gate="G$1" x="99.06" y="63.5" rot="R90"/>
@@ -9161,12 +9165,13 @@ FRAME-LETTER</description>
 <instance part="R7" gate="G$1" x="55.88" y="7.62"/>
 <instance part="S1" gate="G$1" x="-10.16" y="104.14"/>
 <instance part="GND6" gate="1" x="-33.02" y="101.6" rot="R270"/>
-<instance part="+3V6" gate="G$1" x="63.5" y="20.32"/>
+<instance part="+3V6" gate="G$1" x="78.74" y="33.02"/>
 <instance part="PARTIFRAME" gate="G$1" x="-60.96" y="-40.64" smashed="yes">
 <attribute name="DESIGNER" x="-60.96" y="-40.64" size="1.778" layer="96" display="off"/>
 <attribute name="VERSION" x="-60.96" y="-40.64" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="PARTIFRAME" gate="V" x="86.36" y="-40.64"/>
+<instance part="R8" gate="G$1" x="78.74" y="20.32" rot="R90"/>
 </instances>
 <busses>
 </busses>
@@ -9298,10 +9303,14 @@ FRAME-LETTER</description>
 <wire x1="127" y1="12.7" x2="127" y2="17.78" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="S5" gate="1" pin="P"/>
-<wire x1="60.96" y1="15.24" x2="63.5" y2="15.24" width="0.1524" layer="91"/>
+<pinref part="R8" gate="G$1" pin="2"/>
 <pinref part="+3V6" gate="G$1" pin="+3V3"/>
-<wire x1="63.5" y1="15.24" x2="63.5" y2="17.78" width="0.1524" layer="91"/>
+<wire x1="78.74" y1="25.4" x2="78.74" y2="30.48" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="S5" gate="1" pin="P"/>
+<pinref part="R8" gate="G$1" pin="1"/>
+<wire x1="60.96" y1="15.24" x2="78.74" y2="15.24" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$4" class="0">
