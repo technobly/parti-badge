@@ -3088,7 +3088,7 @@ design rules under a new name.</description>
 <attribute name="SF_SKU" value="COM-10442" x="78.74" y="24.13" size="1.778" layer="27" display="off"/>
 <attribute name="VALUE" x="78.74" y="15.875" size="0.6096" layer="27" font="vector" ratio="20" align="top-center"/>
 </element>
-<element name="U$2" library="particle-spark" package="SPARK#PNG" value="" x="16.51" y="72.39"/>
+<element name="U$2" library="particle-spark" package="SPARK#PNG" value="" x="17.272" y="71.501"/>
 <element name="J1" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X02" package3d_urn="urn:adsk.eagle:package:38039/1" value="I2C" x="92.075" y="46.99" smashed="yes" rot="R315"/>
 <element name="J2" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X02" package3d_urn="urn:adsk.eagle:package:38039/1" value="Supply" x="92.075" y="43.434" smashed="yes" rot="R135"/>
 <element name="R7" library="rcl" library_urn="urn:adsk.eagle:library:334" package="M0805" package3d_urn="urn:adsk.eagle:package:23556/1" value="100" x="87.63" y="86.36" smashed="yes" rot="MR180">
