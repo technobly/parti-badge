@@ -2881,7 +2881,7 @@ design rules under a new name.</description>
 <param name="mlMaxStopFrame" value="4mil"/>
 <param name="mlMinCreamFrame" value="0mil"/>
 <param name="mlMaxCreamFrame" value="0mil"/>
-<param name="mlViaStopLimit" value="20mil"/>
+<param name="mlViaStopLimit" value="17mil"/>
 <param name="srRoundness" value="0"/>
 <param name="srMinRoundness" value="0mil"/>
 <param name="srMaxRoundness" value="0mil"/>
@@ -3588,7 +3588,7 @@ design rules under a new name.</description>
 <signal name="UP">
 <contactref element="JOYSTICK" pad="A"/>
 <contactref element="ELECTRON" pad="30"/>
-<via x="15.24" y="71.12" extent="1-16" drill="0.5"/>
+<via x="15.24" y="71.12" extent="1-16" drill="0.55"/>
 <wire x1="15.24" y1="71.12" x2="15.875" y2="70.485" width="0.3048" layer="16"/>
 <wire x1="15.875" y1="70.485" x2="58.293" y2="70.485" width="0.3048" layer="16"/>
 <wire x1="58.293" y1="70.485" x2="59.69" y2="71.882" width="0.3048" layer="16"/>
@@ -3684,6 +3684,7 @@ design rules under a new name.</description>
 <approved hash="4,16,8d7ca90495c03ccf"/>
 <approved hash="4,1,94b3f7f9fa30a6ff"/>
 <approved hash="4,1,c042e898d032d162"/>
+<approved hash="4,16,e5ab3aef4d391f0a"/>
 </errors>
 </board>
 </drawing>
