@@ -35,6 +35,7 @@
 
 #include "parti-badge.h" // #define pin assignments
 #include "tones.h" // Peizo Sounds
+#include "Adafruit_ST7735.h" // TFT Display
 
 Debounce displayDebouncer = Debounce();
 Debounce gameDebouncer = Debounce();
@@ -46,6 +47,9 @@ String wearerHandle;
 
 // Default to display mode, but we'll determine this based on a switch
 int badgeMode = DISPLAY_MODE;
+
+// Initialize TFT With Software SPI
+Adafruit_ST7735 display = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
 
 void setup() {
   // Serial.begin(9600);
@@ -61,6 +65,10 @@ void setup() {
 
   // Play a startup sound on the Piezo
   playStartup(BUZZER_PIN);
+
+  // Init Display
+  initDisplay();
+  showStartupText();
 }
 
 void loop() {
@@ -76,6 +84,23 @@ void cloudInit() {
   Particle.subscribe("updateName", updateNameHandler);
   Particle.subscribe("updateEmail", updateEmailHandler);
   Particle.subscribe("updateHandle", updateHandleHandler);
+}
+
+void initDisplay() {
+  display.initR(INITR_BLACKTAB);
+	display.fillScreen(ST7735_WHITE);
+}
+
+void showStartupText() {
+  display.setCursor(0, 0);
+  display.setTextColor(ST7735_BLACK);
+  display.setTextWrap(true);
+  display.print("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur adipiscing ante sed nibh tincidunt feugiat. Maecenas enim massa, fringilla");
+
+  display.drawLine(0, 0, display.width()-1, display.height()-1, ST7735_YELLOW);
+  display.drawLine(display.width()-1, 0, 0, display.height()-1, ST7735_YELLOW);
+
+  display.drawPixel(0, display.height()/2, ST7735_GREEN);
 }
 
 void checkBadgeMode() {

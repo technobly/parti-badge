@@ -10,3 +10,8 @@
 /* Display Mode variables */
 #define DISPLAY_MODE 0
 #define GAME_MODE 1
+
+/* TFT SPI Pins */
+#define TFT_CS A2
+#define TFT_DC D2
+#define TFT_RST D1
