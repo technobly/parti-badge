@@ -1,10 +1,12 @@
 
 /* Piezo Pin */
-#define BUZZER_PIN C0
+/* Use C0 for SoftPWM, otherwise, can bodge to WKP/A7 by shorting C0 to A7 /*
+#define BUZZER_PIN A7
 
 /* Switch Pins for game modes */
 #define DISPLAY_MODE_PIN C1
 #define GAME_MODE_PIN C2
 
+/* Display Mode variables */
 #define DISPLAY_MODE 0
 #define GAME_MODE 1

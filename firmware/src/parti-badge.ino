@@ -39,13 +39,20 @@
 Debounce displayDebouncer = Debounce();
 Debounce gameDebouncer = Debounce();
 
+// Wearer details
+String wearerName;
+String wearerEmail;
+String wearerTwitter;
+
 // Default to display mode, but we'll determine this based on a switch
 int badgeMode = DISPLAY_MODE;
 
 void setup() {
   // Serial.begin(9600);
 
-  // pinMode(BUZZER_PIN, OUTPUT);
+  cloudInit();
+
+  pinMode(BUZZER_PIN, OUTPUT);
   displayDebouncer.attach(DISPLAY_MODE_PIN, INPUT_PULLDOWN);
   displayDebouncer.interval(20);
 
@@ -53,12 +60,18 @@ void setup() {
   gameDebouncer.interval(20);
 
   // Play a startup sound on the Piezo
-  playStartup(BUZZER_PIN, true);
+  playStartup(BUZZER_PIN);
 }
 
 void loop() {
   // Check the switch to see if the user has changed the badge mode
   checkBadgeMode();
+}
+
+void cloudInit() {
+  Particle.variable("wearerName", wearerName);
+  Particle.variable("wearerEmail", wearerEmail);
+  Particle.variable("wearerTwtr", wearerTwitter);
 }
 
 void checkBadgeMode() {

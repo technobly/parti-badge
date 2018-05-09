@@ -26,7 +26,7 @@
 //
 // CC0
 
-void playStartup(int tonePin, bool useSoftPWM) {
+void playStartup(int tonePin) {
   tone(tonePin, 110, 34.8837209302);
   delay(38.7596899225);
   delay(19.3798449612);
