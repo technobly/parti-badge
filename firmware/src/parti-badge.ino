@@ -34,6 +34,7 @@
 #include "Debounce.h"
 
 #include "parti-badge.h" // #define pin assignments
+#include "tones.h" // Peizo Sounds
 
 Debounce displayDebouncer = Debounce();
 Debounce gameDebouncer = Debounce();
@@ -44,12 +45,15 @@ int badgeMode = DISPLAY_MODE;
 void setup() {
   // Serial.begin(9600);
 
-  pinMode(BUZZER_PIN, OUTPUT);
+  // pinMode(BUZZER_PIN, OUTPUT);
   displayDebouncer.attach(DISPLAY_MODE_PIN, INPUT_PULLDOWN);
   displayDebouncer.interval(20);
 
   gameDebouncer.attach(GAME_MODE_PIN, INPUT_PULLDOWN);
   gameDebouncer.interval(20);
+
+  // Play a startup sound on the Piezo
+  playStartup(BUZZER_PIN, true);
 }
 
 void loop() {
