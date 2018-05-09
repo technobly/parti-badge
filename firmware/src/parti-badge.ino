@@ -42,7 +42,7 @@ Debounce gameDebouncer = Debounce();
 // Wearer details
 String wearerName;
 String wearerEmail;
-String wearerTwitter;
+String wearerHandle;
 
 // Default to display mode, but we'll determine this based on a switch
 int badgeMode = DISPLAY_MODE;
@@ -71,7 +71,11 @@ void loop() {
 void cloudInit() {
   Particle.variable("wearerName", wearerName);
   Particle.variable("wearerEmail", wearerEmail);
-  Particle.variable("wearerTwtr", wearerTwitter);
+  Particle.variable("wearerHandle", wearerHandle);
+
+  Particle.subscribe("updateName", updateNameHandler);
+  Particle.subscribe("updateEmail", updateEmailHandler);
+  Particle.subscribe("updateHandle", updateHandleHandler);
 }
 
 void checkBadgeMode() {
@@ -82,5 +86,22 @@ void checkBadgeMode() {
     badgeMode = DISPLAY_MODE;
   } else if (gameDebouncer.read() == HIGH) {
     badgeMode = GAME_MODE;
+  }
+}
+
+void updateNameHandler(const char *event, const char *data) {
+  if (String(event) == "updateName") {
+    wearerName = String(data);
+  }
+}
+
+void updateEmailHandler(const char *event, const char *data) {
+  if (String(event) == "updateEmail") {
+    wearerEmail = String(data);
+  }
+}
+void updateHandleHandler(const char *event, const char *data) {
+  if (String(event) == "updateHandle") {
+    wearerHandle = String(data);
   }
 }
