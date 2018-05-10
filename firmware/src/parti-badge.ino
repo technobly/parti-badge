@@ -56,7 +56,9 @@ String wearerHandle;
 int badgeMode = DISPLAY_MODE;
 
 void setup() {
-  Serial.begin(115200);
+  //Serial.begin(115200);
+
+  //Initialize Temp and Humidity sensor
   envSensor.begin();
 
   cloudInit();
@@ -87,6 +89,8 @@ void cloudInit() {
   Particle.variable("wearerName", wearerName);
   Particle.variable("wearerEmail", wearerEmail);
   Particle.variable("wearerHandle", wearerHandle);
+  Particle.variable("currentTemp", currentTemp);
+  Particle.variable("currentHu", currentHumidity);
 
   Particle.subscribe("updateName", updateNameHandler);
   Particle.subscribe("updateEmail", updateEmailHandler);
@@ -107,11 +111,6 @@ void checkBadgeMode() {
 void getTempAndHumidity() {
   currentTemp = envSensor.readTempF();
   currentHumidity = envSensor.getRH();
-
-  Serial.print("Humidity:    ");
-  Serial.print(envSensor.getRH(), 2);
-  Serial.print("\tTemperature: ");
-  Serial.println(envSensor.readTempF(), 2);
 }
 
 void updateNameHandler(const char *event, const char *data) {
