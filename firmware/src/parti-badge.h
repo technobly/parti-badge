@@ -16,6 +16,10 @@
 #define TFT_DC D2
 #define TFT_RST D1
 
+/* Battery Critical Level */
+#define BATTERY_CRITICAL 25
+#define BATTERY_SHUTOFF 20
+
 /* General Macros */
 #define TEMP_CHECK_INTERVAL 120000
 #define BATT_CHECK_INTERVAL 300000

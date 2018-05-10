@@ -34,7 +34,7 @@
 #include "Debounce.h"
 
 #include "parti-badge.h" // #define pin assignments
-#include "tones.h" // Peizo Sounds
+#include "music/tones.h" // Peizo Sounds
 
 // Custom code for Si7021 Temp/Hu Sensor using Wire1 on Electron C4, C5
 #include "Si7021_MultiWire/Si7021_MultiWire.h"
@@ -140,6 +140,17 @@ void getTempAndHumidity() {
 
 void checkBattery() {
   currentBatteryCharge = (int)fuel.getSoC();
+
+  if (currentBatteryCharge < BATTERY_CRITICAL) {
+    // TODO: Show warning on TFT
+  }
+  
+  if (currentBatteryCharge < BATTERY_SHUTOFF) {
+    playGameOver(BUZZER_PIN);
+
+    //Sleep the device to prevent the battery from fully discharging
+    System.sleep(SLEEP_MODE_SOFTPOWEROFF);
+  }
 }
 
 void updateNameHandler(const char *event, const char *data) {
