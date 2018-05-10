@@ -47,6 +47,12 @@ Si7021_MultiWire envSensor = Si7021_MultiWire();
 double currentTemp;
 double currentHumidity;
 
+// Timing variables
+unsigned long elapsedTime;
+unsigned long startTime = 0;
+unsigned long previousEnvReading = 0;
+
+
 // Wearer details
 String wearerName;
 String wearerEmail;
@@ -56,7 +62,7 @@ String wearerHandle;
 int badgeMode = DISPLAY_MODE;
 
 void setup() {
-  //Serial.begin(115200);
+  Serial.begin(115200);
 
   //Initialize Temp and Humidity sensor
   envSensor.begin();
@@ -78,11 +84,15 @@ void setup() {
 }
 
 void loop() {
+  unsigned long currentMillis = millis();
+
   // Check the switch to see if the user has changed the badge mode
   checkBadgeMode();
 
-  getTempAndHumidity();
-  delay(2000);
+  if (currentMillis - previousEnvReading > TEMP_CHECK_INTERVAL) {
+    previousEnvReading = currentMillis;
+    getTempAndHumidity();
+  }
 }
 
 void cloudInit() {
