@@ -36,12 +36,16 @@
 #include "parti-badge.h" // #define pin assignments
 #include "tones.h" // Peizo Sounds
 
-// External Libraries
-#include "Adafruit-ST7735/Adafruit_ST7735.h" // TFT Display
-#include "Adafruit_Si7021.h"
+// Custom code for Si7021 Temp/Hu Sensor using Wire1 on Electron C4, C5
+#include "Si7021_MultiWire/Si7021_MultiWire.h"
 
 Debounce displayDebouncer = Debounce();
 Debounce gameDebouncer = Debounce();
+
+// Initialize objects from the lib
+Si7021_MultiWire envSensor = Si7021_MultiWire();
+double currentTemp;
+double currentHumidity;
 
 // Wearer details
 String wearerName;
@@ -51,18 +55,8 @@ String wearerHandle;
 // Default to display mode, but we'll determine this based on a switch
 int badgeMode = DISPLAY_MODE;
 
-// Initialize TFT With Software SPI
-Adafruit_ST7735 display = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
-
-// Temp/Hu sensor init
-Adafruit_Si7021 envSensor = Adafruit_Si7021();
-double currentTemp;
-double currentHumidity;
-
 void setup() {
-  Serial.begin(9600);
-
-  // Initialize temp and humidity sensor
+  Serial.begin(115200);
   envSensor.begin();
 
   cloudInit();
@@ -76,10 +70,6 @@ void setup() {
 
   // Play a startup sound on the Piezo
   playStartup(BUZZER_PIN);
-
-  // Init Display
-  initDisplay();
-  showStartupText();
 
   // Get an initial temp and humidity reading
   getTempAndHumidity();
@@ -97,29 +87,10 @@ void cloudInit() {
   Particle.variable("wearerName", wearerName);
   Particle.variable("wearerEmail", wearerEmail);
   Particle.variable("wearerHandle", wearerHandle);
-  Particle.variable("currTemp", currentTemp);
-  Particle.variable("currHumidity", currentHumidity);
 
   Particle.subscribe("updateName", updateNameHandler);
   Particle.subscribe("updateEmail", updateEmailHandler);
   Particle.subscribe("updateHandle", updateHandleHandler);
-}
-
-void initDisplay() {
-  display.initR(INITR_GREENTAB);
-	display.fillScreen(ST7735_WHITE);
-}
-
-void showStartupText() {
-  display.setCursor(0, 0);
-  display.setTextColor(ST7735_BLACK);
-  display.setTextWrap(true);
-  display.print("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur adipiscing ante sed nibh tincidunt feugiat. Maecenas enim massa, fringilla");
-
-  display.drawLine(0, 0, display.width()-1, display.height()-1, ST7735_YELLOW);
-  display.drawLine(display.width()-1, 0, 0, display.height()-1, ST7735_YELLOW);
-
-  display.drawPixel(0, display.height()/2, ST7735_GREEN);
 }
 
 void checkBadgeMode() {
@@ -134,11 +105,13 @@ void checkBadgeMode() {
 }
 
 void getTempAndHumidity() {
-  currentTemp = envSensor.readTemperature();
-  currentHumidity = envSensor.readHumidity();
+  currentTemp = envSensor.readTempF();
+  currentHumidity = envSensor.getRH();
 
-  Serial.printf("Temp: %f\n", envSensor.readTemperature());
-  Serial.printf("HU: %f\n", envSensor.readHumidity());
+  Serial.print("Humidity:    ");
+  Serial.print(envSensor.getRH(), 2);
+  Serial.print("\tTemperature: ");
+  Serial.println(envSensor.readTempF(), 2);
 }
 
 void updateNameHandler(const char *event, const char *data) {

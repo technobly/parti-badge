@@ -15,3 +15,6 @@
 #define TFT_CS A2
 #define TFT_DC D2
 #define TFT_RST D1
+
+/* General Macros */
+#define TEMP_CHECK_INTERVAL 120000
