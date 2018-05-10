@@ -47,11 +47,15 @@ Si7021_MultiWire envSensor = Si7021_MultiWire();
 double currentTemp;
 double currentHumidity;
 
+// Battery reading variables
+FuelGauge fuel;
+int currentBatteryCharge;
+
 // Timing variables
 unsigned long elapsedTime;
 unsigned long startTime = 0;
 unsigned long previousEnvReading = 0;
-
+unsigned long previousBattReading = 0;
 
 // Wearer details
 String wearerName;
@@ -81,6 +85,9 @@ void setup() {
 
   // Get an initial temp and humidity reading
   getTempAndHumidity();
+
+  // Perform an initial battery check
+  checkBattery();
 }
 
 void loop() {
@@ -93,14 +100,22 @@ void loop() {
     previousEnvReading = currentMillis;
     getTempAndHumidity();
   }
+
+  if (currentMillis - previousBattReading > BATT_CHECK_INTERVAL) {
+    previousBattReading = currentMillis;
+    checkBattery();
+  }
 }
 
 void cloudInit() {
   Particle.variable("wearerName", wearerName);
   Particle.variable("wearerEmail", wearerEmail);
   Particle.variable("wearerHandle", wearerHandle);
+
   Particle.variable("currentTemp", currentTemp);
   Particle.variable("currentHu", currentHumidity);
+
+  Particle.variable("battCharge", currentBatteryCharge);
 
   Particle.subscribe("updateName", updateNameHandler);
   Particle.subscribe("updateEmail", updateEmailHandler);
@@ -121,6 +136,10 @@ void checkBadgeMode() {
 void getTempAndHumidity() {
   currentTemp = envSensor.readTempF();
   currentHumidity = envSensor.getRH();
+}
+
+void checkBattery() {
+  currentBatteryCharge = (int)fuel.getSoC();
 }
 
 void updateNameHandler(const char *event, const char *data) {

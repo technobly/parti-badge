@@ -18,3 +18,4 @@
 
 /* General Macros */
 #define TEMP_CHECK_INTERVAL 120000
+#define BATT_CHECK_INTERVAL 300000
