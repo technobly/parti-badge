@@ -35,7 +35,10 @@
 
 #include "parti-badge.h" // #define pin assignments
 #include "tones.h" // Peizo Sounds
-#include "Adafruit_ST7735.h" // TFT Display
+
+// External Libraries
+#include "Adafruit-ST7735/Adafruit_ST7735.h" // TFT Display
+#include "Adafruit_Si7021.h"
 
 Debounce displayDebouncer = Debounce();
 Debounce gameDebouncer = Debounce();
@@ -51,8 +54,16 @@ int badgeMode = DISPLAY_MODE;
 // Initialize TFT With Software SPI
 Adafruit_ST7735 display = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
 
+// Temp/Hu sensor init
+Adafruit_Si7021 envSensor = Adafruit_Si7021();
+double currentTemp;
+double currentHumidity;
+
 void setup() {
-  // Serial.begin(9600);
+  Serial.begin(9600);
+
+  // Initialize temp and humidity sensor
+  envSensor.begin();
 
   cloudInit();
 
@@ -69,17 +80,25 @@ void setup() {
   // Init Display
   initDisplay();
   showStartupText();
+
+  // Get an initial temp and humidity reading
+  getTempAndHumidity();
 }
 
 void loop() {
   // Check the switch to see if the user has changed the badge mode
   checkBadgeMode();
+
+  getTempAndHumidity();
+  delay(2000);
 }
 
 void cloudInit() {
   Particle.variable("wearerName", wearerName);
   Particle.variable("wearerEmail", wearerEmail);
   Particle.variable("wearerHandle", wearerHandle);
+  Particle.variable("currTemp", currentTemp);
+  Particle.variable("currHumidity", currentHumidity);
 
   Particle.subscribe("updateName", updateNameHandler);
   Particle.subscribe("updateEmail", updateEmailHandler);
@@ -87,7 +106,7 @@ void cloudInit() {
 }
 
 void initDisplay() {
-  display.initR(INITR_BLACKTAB);
+  display.initR(INITR_GREENTAB);
 	display.fillScreen(ST7735_WHITE);
 }
 
@@ -112,6 +131,14 @@ void checkBadgeMode() {
   } else if (gameDebouncer.read() == HIGH) {
     badgeMode = GAME_MODE;
   }
+}
+
+void getTempAndHumidity() {
+  currentTemp = envSensor.readTemperature();
+  currentHumidity = envSensor.readHumidity();
+
+  Serial.printf("Temp: %f\n", envSensor.readTemperature());
+  Serial.printf("HU: %f\n", envSensor.readHumidity());
 }
 
 void updateNameHandler(const char *event, const char *data) {
