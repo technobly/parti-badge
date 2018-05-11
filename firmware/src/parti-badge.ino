@@ -78,6 +78,7 @@ int badgeMode = DISPLAY_MODE;
 
 // Display variables
 bool displayingTemp = false;
+bool displayingBatteryLevel = false;
 
 void setup() {
   Serial.begin(115200);
@@ -117,6 +118,7 @@ void loop() {
   checkBadgeMode();
 
   if (! digitalRead(RED_BUTTON_A) && ! displayingTemp) {
+    resetDisplayBools();
     displayingTemp = true;
     toggleAllButtons(LOW);
     digitalWrite(RED_LED, HIGH);
@@ -125,19 +127,28 @@ void loop() {
     showTempAndHumidity();
   }
 
-  if (! digitalRead(BLUE_BUTTON_B)) {
+  if (! digitalRead(BLUE_BUTTON_B) && ! displayingBatteryLevel) {
+    resetDisplayBools();
+    displayingBatteryLevel = true;
     toggleAllButtons(LOW);
     digitalWrite(BLUE_LED, HIGH);
+
+    // Show Battery Level
+    showBatteryLevel();
   }
 
   if (! digitalRead(GREEN_BUTTON_C)) {
     toggleAllButtons(LOW);
     digitalWrite(GREEN_LED, HIGH);
+
+    clearScreen();
   }
 
   if (! digitalRead(YELLOW_BUTTON_D)) {
     toggleAllButtons(LOW);
     digitalWrite(YELLOW_LED, HIGH);
+
+    clearScreen();
   }
 
   if (currentMillis - previousEnvReading > TEMP_CHECK_INTERVAL) {
@@ -228,11 +239,7 @@ void initLEDButtons() {
 }
 
 void showTempAndHumidity() {
-  display.fillScreen(ST7735_BLACK);
-  display.setCursor(0, 0);
-  display.setTextColor(ST7735_WHITE);
-  display.setTextWrap(true);
-  display.setTextSize(2);
+  clearScreen();
 
   display.println();
   display.println("Curr Temp");
@@ -244,11 +251,26 @@ void showTempAndHumidity() {
   display.println("%");
 }
 
+void showBatteryLevel() {
+  clearScreen();
+
+  display.setTextSize(4);
+  display.println();
+  display.println("BATT");
+  display.print((int)currentBatteryCharge);
+  display.println("%");
+}
+
 void toggleAllButtons(int state) {
   digitalWrite(RED_LED, state);
   digitalWrite(BLUE_LED, state);
   digitalWrite(GREEN_LED, state);
   digitalWrite(YELLOW_LED, state);
+}
+
+void resetDisplayBools() {
+  displayingTemp = false;
+  displayingBatteryLevel = false;
 }
 
 void checkBadgeMode() {
@@ -280,6 +302,14 @@ void checkBattery() {
     //Sleep the device to prevent the battery from fully discharging
     System.sleep(SLEEP_MODE_SOFTPOWEROFF);
   }
+}
+
+void clearScreen() {
+  display.fillScreen(ST7735_BLACK);
+  display.setCursor(0, 0);
+  display.setTextColor(ST7735_WHITE);
+  display.setTextWrap(true);
+  display.setTextSize(2);
 }
 
 void updateNameHandler(const char *event, const char *data) {
