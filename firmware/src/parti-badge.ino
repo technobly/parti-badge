@@ -39,6 +39,9 @@
 // Custom code for Si7021 Temp/Hu Sensor using Wire1 on Electron C4, C5
 #include "Si7021_MultiWire/Si7021_MultiWire.h"
 
+// TFT include
+#include "Adafruit_ST7735.h"
+
 Debounce displayDebouncer = Debounce();
 Debounce gameDebouncer = Debounce();
 
@@ -46,6 +49,9 @@ Debounce gameDebouncer = Debounce();
 Si7021_MultiWire envSensor = Si7021_MultiWire();
 double currentTemp;
 double currentHumidity;
+
+// Initialize TFT Display
+Adafruit_ST7735 display = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
 
 // Battery reading variables
 FuelGauge fuel;
@@ -67,6 +73,12 @@ int badgeMode = DISPLAY_MODE;
 
 void setup() {
   Serial.begin(115200);
+
+  pinMode(RED_BUTTON, OUTPUT);
+  digitalWrite(RED_BUTTON, HIGH);
+
+  //Init TFT
+  initDisplay();
 
   //Initialize Temp and Humidity sensor
   envSensor.begin();
@@ -107,6 +119,27 @@ void loop() {
   }
 }
 
+void initDisplay() {
+  display.initG();
+  display.setRotation(3);
+
+  pinMode(TFT_LIGHT, OUTPUT);
+  digitalWrite(TFT_LIGHT, HIGH);
+
+  display.fillScreen(ST7735_WHITE);
+  display.setCursor(0, 0);
+  display.setTextColor(ST7735_RED);
+  display.setTextWrap(true);
+  display.setTextSize(2);
+
+  display.println();
+  display.println();
+  display.println(" #PartiBadge");
+  display.println(" v1.0");
+  display.println();
+  display.println(" BAMF Edition");
+}
+
 void cloudInit() {
   Particle.variable("wearerName", wearerName);
   Particle.variable("wearerEmail", wearerEmail);
@@ -144,7 +177,7 @@ void checkBattery() {
   if (currentBatteryCharge < BATTERY_CRITICAL) {
     // TODO: Show warning on TFT
   }
-  
+
   if (currentBatteryCharge < BATTERY_SHUTOFF) {
     playGameOver(BUZZER_PIN);
 

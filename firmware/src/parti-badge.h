@@ -15,6 +15,19 @@
 #define TFT_CS A2
 #define TFT_DC D2
 #define TFT_RST D1
+#define TFT_LIGHT D0
+
+/* Tactile LED Button Pins */
+/* LEDS */
+#define RED_LED B0
+#define GREEN_LED B2
+#define BLUE_LED B4
+#define YELLOW_LED D3
+/* Buttons */
+#define RED_BUTTON B1
+#define GREEN_BUTTON B3
+#define BLUE_BUTTON B5
+#define YELLOW_BUTTON D4
 
 /* Battery Critical Level */
 #define BATTERY_CRITICAL 25
