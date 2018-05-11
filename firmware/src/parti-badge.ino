@@ -76,8 +76,14 @@ String wearerHandle;
 // Default to display mode, but we'll determine this based on a switch
 int badgeMode = DISPLAY_MODE;
 
+// Display variables
+bool displayingTemp = false;
+
 void setup() {
   Serial.begin(115200);
+
+  // Play a startup sound on the Piezo
+  playStartup(BUZZER_PIN);
 
   //Init TFT
   initDisplay();
@@ -97,9 +103,6 @@ void setup() {
   //Init Tactile LED Buttons
   initLEDButtons();
 
-  // Play a startup sound on the Piezo
-  playStartup(BUZZER_PIN);
-
   // Get an initial temp and humidity reading
   getTempAndHumidity();
 
@@ -113,9 +116,13 @@ void loop() {
   // Check the switch to see if the user has changed the badge mode
   checkBadgeMode();
 
-  if (! digitalRead(RED_BUTTON_A)) {
+  if (! digitalRead(RED_BUTTON_A) && ! displayingTemp) {
+    displayingTemp = true;
     toggleAllButtons(LOW);
     digitalWrite(RED_LED, HIGH);
+
+    // Show Temp and Humidity on Display
+    showTempAndHumidity();
   }
 
   if (! digitalRead(BLUE_BUTTON_B)) {
@@ -218,6 +225,23 @@ void initLEDButtons() {
   delay(500);
 
   toggleAllButtons(HIGH);
+}
+
+void showTempAndHumidity() {
+  display.fillScreen(ST7735_BLACK);
+  display.setCursor(0, 0);
+  display.setTextColor(ST7735_WHITE);
+  display.setTextWrap(true);
+  display.setTextSize(2);
+
+  display.println();
+  display.println("Curr Temp");
+  display.print((int)currentTemp);
+  display.println("f");
+  display.println();
+  display.println("Humidity");
+  display.print((int)currentHumidity);
+  display.println("%");
 }
 
 void toggleAllButtons(int state) {
