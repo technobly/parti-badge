@@ -42,8 +42,13 @@
 // TFT include
 #include "Adafruit_ST7735.h"
 
+// Button Debounce Support
 Debounce displayDebouncer = Debounce();
 Debounce gameDebouncer = Debounce();
+Debounce redButtonADebouncer = Debounce();
+Debounce blueButtonBDebouncer = Debounce();
+Debounce greenButtonCDebouncer = Debounce();
+Debounce yellowButtonDDebouncer = Debounce();
 
 // Initialize objects from the lib
 Si7021_MultiWire envSensor = Si7021_MultiWire();
@@ -74,9 +79,6 @@ int badgeMode = DISPLAY_MODE;
 void setup() {
   Serial.begin(115200);
 
-  pinMode(RED_BUTTON, OUTPUT);
-  digitalWrite(RED_BUTTON, HIGH);
-
   //Init TFT
   initDisplay();
 
@@ -91,6 +93,9 @@ void setup() {
 
   gameDebouncer.attach(GAME_MODE_PIN, INPUT_PULLDOWN);
   gameDebouncer.interval(20);
+
+  //Init Tactile LED Buttons
+  initLEDButtons();
 
   // Play a startup sound on the Piezo
   playStartup(BUZZER_PIN);
@@ -107,6 +112,26 @@ void loop() {
 
   // Check the switch to see if the user has changed the badge mode
   checkBadgeMode();
+
+  if (! digitalRead(RED_BUTTON_A)) {
+    toggleAllButtons(LOW);
+    digitalWrite(RED_LED, HIGH);
+  }
+
+  if (! digitalRead(BLUE_BUTTON_B)) {
+    toggleAllButtons(LOW);
+    digitalWrite(BLUE_LED, HIGH);
+  }
+
+  if (! digitalRead(GREEN_BUTTON_C)) {
+    toggleAllButtons(LOW);
+    digitalWrite(GREEN_LED, HIGH);
+  }
+
+  if (! digitalRead(YELLOW_BUTTON_D)) {
+    toggleAllButtons(LOW);
+    digitalWrite(YELLOW_LED, HIGH);
+  }
 
   if (currentMillis - previousEnvReading > TEMP_CHECK_INTERVAL) {
     previousEnvReading = currentMillis;
@@ -153,6 +178,53 @@ void cloudInit() {
   Particle.subscribe("updateName", updateNameHandler);
   Particle.subscribe("updateEmail", updateEmailHandler);
   Particle.subscribe("updateHandle", updateHandleHandler);
+}
+
+void initLEDButtons() {
+  int del = 300;
+
+  // Init LEDs and Outputs
+  pinMode(RED_LED, OUTPUT);
+  pinMode(BLUE_LED, OUTPUT);
+  pinMode(GREEN_LED, OUTPUT);
+  pinMode(YELLOW_LED, OUTPUT);
+
+  // Init Buttons as Inputs
+  redButtonADebouncer.attach(RED_BUTTON_A, INPUT_PULLUP);
+  redButtonADebouncer.interval(20);
+  blueButtonBDebouncer.attach(BLUE_BUTTON_B, INPUT_PULLUP);
+  blueButtonBDebouncer.interval(20);
+  greenButtonCDebouncer.attach(GREEN_BUTTON_C, INPUT_PULLUP);
+  greenButtonCDebouncer.interval(20);
+  yellowButtonDDebouncer.attach(YELLOW_BUTTON_D, INPUT_PULLUP);
+  yellowButtonDDebouncer.interval(20);
+
+  digitalWrite(RED_LED, HIGH);
+  delay(del);
+  digitalWrite(BLUE_LED, HIGH);
+  delay(del);
+  digitalWrite(GREEN_LED, HIGH);
+  delay(del);
+  digitalWrite(YELLOW_LED, HIGH);
+  delay(del);
+
+  toggleAllButtons(LOW);
+  delay(500);
+
+  toggleAllButtons(HIGH);
+  delay(500);
+
+  toggleAllButtons(LOW);
+  delay(500);
+
+  toggleAllButtons(HIGH);
+}
+
+void toggleAllButtons(int state) {
+  digitalWrite(RED_LED, state);
+  digitalWrite(BLUE_LED, state);
+  digitalWrite(GREEN_LED, state);
+  digitalWrite(YELLOW_LED, state);
 }
 
 void checkBadgeMode() {

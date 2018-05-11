@@ -24,10 +24,10 @@
 #define BLUE_LED B4
 #define YELLOW_LED D3
 /* Buttons */
-#define RED_BUTTON B1
-#define GREEN_BUTTON B3
-#define BLUE_BUTTON B5
-#define YELLOW_BUTTON D4
+#define RED_BUTTON_A B1
+#define BLUE_BUTTON_B B5
+#define GREEN_BUTTON_C B3
+#define YELLOW_BUTTON_D D4
 
 /* Battery Critical Level */
 #define BATTERY_CRITICAL 25
