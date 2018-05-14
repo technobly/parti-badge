@@ -159,6 +159,13 @@ void loop() {
       digitalWrite(GREEN_LED, HIGH);
 
       clearScreen();
+
+      if((wearerName.length() > 0 || wearerEmail.length() > 0
+        || wearerHandle.length() > 0) && !displayingWearerDetails) {
+        resetDisplayBools();
+        displayingWearerDetails = true;
+        displayWearerDetails();
+      }
     }
 
     if (! digitalRead(YELLOW_BUTTON_D)) {
@@ -166,15 +173,6 @@ void loop() {
       digitalWrite(YELLOW_LED, HIGH);
 
       clearScreen();
-    }
-
-    // TODO: Display Wearer Details
-    // How do I account for button presses as well? State management, etc
-    if((wearerName.length() > 0 || wearerEmail.length() > 0
-      || wearerHandle.length() > 0) && !displayingWearerDetails) {
-      resetDisplayBools();
-      displayingWearerDetails = true;
-      displayWearerDetails();
     }
 
     if (currentMillis - previousEnvReading > TEMP_CHECK_INTERVAL) {
