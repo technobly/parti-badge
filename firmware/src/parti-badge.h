@@ -15,6 +15,7 @@
 /* Startup mode macros */
 #define LOGO_DURATION 3000
 #define TITLE_SCREEN_DURATION 2000
+#define SETUP_DURATION 5000
 
 /* TFT SPI Pins */
 #define TFT_CS A2

@@ -17,6 +17,8 @@
 
 #include "notes.h"
 
+bool startupSoundPlayed = false;
+
 void playTones(int tonePin, const int tones[]) {
   for (int thisNote = 1; thisNote < (tones[0] * 2 + 1); thisNote = thisNote + 2) {
     tone(tonePin, tones[thisNote], (1000 / tones[thisNote + 1]));
@@ -60,6 +62,8 @@ const int notes_MarioGameOver[] = {
 };
 
 void playStartup(int tonePin) {
+  startupSoundPlayed = true;
+  
   playTones(tonePin, notes_MarioStartup);
 }
 

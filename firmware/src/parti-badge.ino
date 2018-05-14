@@ -75,6 +75,7 @@ String wearerHandle;
 
 // Default to display mode, but we'll determine this based on a switch
 int badgeMode = STARTUP_MODE;
+unsigned long startupModeTriggerTime = 0;
 
 // Display variables
 bool displayingTemp = false;
@@ -83,16 +84,18 @@ bool displayingLogo = false;
 bool displayingTitle = false;
 bool displayingWearerDetails = false;
 
+// Display state management
+bool titleShown = false;
+bool buttonsInitialized = false;
+
 void setup() {
-  // Play a startup sound on the Piezo
-  playStartup(BUZZER_PIN);
+  //Initialize Temp and Humidity sensor
+  envSensor.begin();
 
   //Init TFT
   initDisplay();
 
-  //Initialize Temp and Humidity sensor
-  envSensor.begin();
-
+  // Set up cloud variables and functions
   cloudInit();
 
   pinMode(BUZZER_PIN, OUTPUT);
@@ -101,9 +104,6 @@ void setup() {
 
   gameDebouncer.attach(GAME_MODE_PIN, INPUT_PULLDOWN);
   gameDebouncer.interval(DEBOUNCE_DELAY);
-
-  //Init Tactile LED Buttons
-  initLEDButtons();
 
   // Get an initial temp and humidity reading
   getTempAndHumidity();
@@ -115,25 +115,25 @@ void setup() {
 void loop() {
   unsigned long currentMillis = millis();
 
-  // Check the switch to see if the user has changed the badge mode
-  checkBadgeMode();
+  if (!(currentMillis - startupModeTriggerTime < SETUP_DURATION)) {
+    badgeMode == STARTUP_MODE;
+  } else {
+    // Check the switch to see if the user has changed the badge mode
+    checkBadgeMode();
+  }
 
   if (badgeMode == STARTUP_MODE) {
-    if (currentMillis < LOGO_DURATION && !displayingLogo) {
-      showLogo();
-      displayingLogo = true;
-    }
-    if (currentMillis > LOGO_DURATION && !displayingTitle) {
-      showTitle();
-      displayingTitle = false;
-    }
-    if (currentMillis > TITLE_SCREEN_DURATION) {
-      clearScreen();
-      badgeMode = DISPLAY_MODE;
-    }
-  } else if (badgeMode == DISPLAY_MODE) {
-    // TODO: Display Wearer Details
+    startupModeTriggerTime = currentMillis;
 
+    // Show the title screen
+    if (!titleShown) showTitle();
+
+    //Init Tactile LED Buttons
+    if (!buttonsInitialized) initLEDButtons();
+
+    // Play a startup sound on the Piezo
+    if (!startupSoundPlayed) playStartup(BUZZER_PIN);
+  } else if (badgeMode == DISPLAY_MODE) {
     if (! digitalRead(RED_BUTTON_A) && ! displayingTemp) {
       resetDisplayBools();
       displayingTemp = true;
@@ -166,6 +166,15 @@ void loop() {
       digitalWrite(YELLOW_LED, HIGH);
 
       clearScreen();
+    }
+
+    // TODO: Display Wearer Details
+    // How do I account for button presses as well? State management, etc
+    if((wearerName.length() > 0 || wearerEmail.length() > 0
+      || wearerHandle.length() > 0) && !displayingWearerDetails) {
+      resetDisplayBools();
+      displayingWearerDetails = true;
+      displayWearerDetails();
     }
 
     if (currentMillis - previousEnvReading > TEMP_CHECK_INTERVAL) {
@@ -210,6 +219,8 @@ void showLogo() {
 }
 
 void showTitle() {
+  titleShown = true;
+
   display.fillScreen(ST7735_WHITE);
   display.setCursor(0, 0);
   display.setTextColor(ST7735_RED);
@@ -224,7 +235,22 @@ void showTitle() {
   display.println(" BAMF Edition");
 }
 
+void displayWearerDetails() {
+  display.fillScreen(ST7735_WHITE);
+  display.setCursor(0, 0);
+  display.setTextColor(ST7735_RED);
+  display.setTextWrap(true);
+  display.setTextSize(2);
+
+  display.println();
+  display.println(wearerName);
+  display.println(wearerEmail);
+  display.println(wearerHandle);
+}
+
 void initLEDButtons() {
+  buttonsInitialized = true;
+
   int del = 300;
   int medDel = 500;
 
@@ -298,6 +324,7 @@ void toggleAllButtons(int state) {
 void resetDisplayBools() {
   displayingTemp = false;
   displayingBatteryLevel = false;
+  displayingWearerDetails = false;
 }
 
 void checkBadgeMode() {
