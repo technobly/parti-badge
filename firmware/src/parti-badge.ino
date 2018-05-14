@@ -320,7 +320,12 @@ void checkBattery() {
   currentBatteryCharge = (int)fuel.getSoC();
 
   if (currentBatteryCharge < BATTERY_CRITICAL) {
-    // TODO: Show warning on TFT
+    clearScreen();
+
+    display.setTextSize(4);
+    display.setTextColor(ST7735_BLUE);
+    display.println();
+    display.println("LOW BATT");
   }
 
   if (currentBatteryCharge < BATTERY_SHUTOFF) {
