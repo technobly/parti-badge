@@ -5,14 +5,13 @@
  *      you may not use this file except in compliance with the License.
  *      You may obtain a copy of the License at
  *
- *          http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  *      Unless required by applicable law or agreed to in writing, software
  *      distributed under the License is distributed on an "AS IS" BASIS,
  *      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
- *
  */
 /*
  *      Project: #PartiBadge, 2018 Maker Faire Edition
@@ -33,7 +32,7 @@
 #include "Particle.h"
 #include "Debounce.h"
 
-#include "parti-badge.h" // #define pin assignments
+#include "parti-badge.h" // #define pin assignments and other general macros
 #include "music/tones.h" // Peizo Sounds
 
 // Custom code for Si7021 Temp/Hu Sensor using Wire1 on Electron C4, C5
@@ -49,8 +48,9 @@ Debounce redButtonADebouncer = Debounce();
 Debounce blueButtonBDebouncer = Debounce();
 Debounce greenButtonCDebouncer = Debounce();
 Debounce yellowButtonDDebouncer = Debounce();
+#define DEBOUNCE_DELAY 20
 
-// Initialize objects from the lib
+// Initialize Si7021 sensor
 Si7021_MultiWire envSensor = Si7021_MultiWire();
 double currentTemp;
 double currentHumidity;
@@ -58,7 +58,7 @@ double currentHumidity;
 // Initialize TFT Display
 Adafruit_ST7735 display = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
 
-// Battery reading variables
+// Battery charge variables
 FuelGauge fuel;
 int currentBatteryCharge;
 
@@ -74,15 +74,16 @@ String wearerEmail;
 String wearerHandle;
 
 // Default to display mode, but we'll determine this based on a switch
-int badgeMode = DISPLAY_MODE;
+int badgeMode = STARTUP_MODE;
 
 // Display variables
 bool displayingTemp = false;
 bool displayingBatteryLevel = false;
+bool displayingLogo = false;
+bool displayingTitle = false;
+bool displayingWearerDetails = false;
 
 void setup() {
-  Serial.begin(115200);
-
   // Play a startup sound on the Piezo
   playStartup(BUZZER_PIN);
 
@@ -96,10 +97,10 @@ void setup() {
 
   pinMode(BUZZER_PIN, OUTPUT);
   displayDebouncer.attach(DISPLAY_MODE_PIN, INPUT_PULLDOWN);
-  displayDebouncer.interval(20);
+  displayDebouncer.interval(DEBOUNCE_DELAY);
 
   gameDebouncer.attach(GAME_MODE_PIN, INPUT_PULLDOWN);
-  gameDebouncer.interval(20);
+  gameDebouncer.interval(DEBOUNCE_DELAY);
 
   //Init Tactile LED Buttons
   initLEDButtons();
@@ -117,70 +118,68 @@ void loop() {
   // Check the switch to see if the user has changed the badge mode
   checkBadgeMode();
 
-  if (! digitalRead(RED_BUTTON_A) && ! displayingTemp) {
-    resetDisplayBools();
-    displayingTemp = true;
-    toggleAllButtons(LOW);
-    digitalWrite(RED_LED, HIGH);
+  if (badgeMode == STARTUP_MODE) {
+    if (currentMillis < LOGO_DURATION && !displayingLogo) {
+      showLogo();
+      displayingLogo = true;
+    }
+    if (currentMillis > LOGO_DURATION && !displayingTitle) {
+      showTitle();
+      displayingTitle = false;
+    }
+    if (currentMillis > TITLE_SCREEN_DURATION) {
+      clearScreen();
+      badgeMode = DISPLAY_MODE;
+    }
+  } else if (badgeMode == DISPLAY_MODE) {
+    // TODO: Display Wearer Details
 
-    // Show Temp and Humidity on Display
-    showTempAndHumidity();
+    if (! digitalRead(RED_BUTTON_A) && ! displayingTemp) {
+      resetDisplayBools();
+      displayingTemp = true;
+      toggleAllButtons(LOW);
+      digitalWrite(RED_LED, HIGH);
+
+      // Show Temp and Humidity on Display
+      showTempAndHumidity();
+    }
+
+    if (! digitalRead(BLUE_BUTTON_B) && ! displayingBatteryLevel) {
+      resetDisplayBools();
+      displayingBatteryLevel = true;
+      toggleAllButtons(LOW);
+      digitalWrite(BLUE_LED, HIGH);
+
+      // Show Battery Level
+      showBatteryLevel();
+    }
+
+    if (! digitalRead(GREEN_BUTTON_C)) {
+      toggleAllButtons(LOW);
+      digitalWrite(GREEN_LED, HIGH);
+
+      clearScreen();
+    }
+
+    if (! digitalRead(YELLOW_BUTTON_D)) {
+      toggleAllButtons(LOW);
+      digitalWrite(YELLOW_LED, HIGH);
+
+      clearScreen();
+    }
+
+    if (currentMillis - previousEnvReading > TEMP_CHECK_INTERVAL) {
+      previousEnvReading = currentMillis;
+      getTempAndHumidity();
+    }
+
+    if (currentMillis - previousBattReading > BATT_CHECK_INTERVAL) {
+      previousBattReading = currentMillis;
+      checkBattery();
+    }
+  } else if (badgeMode == GAME_MODE) {
+    // TODO: Intialize Game mode
   }
-
-  if (! digitalRead(BLUE_BUTTON_B) && ! displayingBatteryLevel) {
-    resetDisplayBools();
-    displayingBatteryLevel = true;
-    toggleAllButtons(LOW);
-    digitalWrite(BLUE_LED, HIGH);
-
-    // Show Battery Level
-    showBatteryLevel();
-  }
-
-  if (! digitalRead(GREEN_BUTTON_C)) {
-    toggleAllButtons(LOW);
-    digitalWrite(GREEN_LED, HIGH);
-
-    clearScreen();
-  }
-
-  if (! digitalRead(YELLOW_BUTTON_D)) {
-    toggleAllButtons(LOW);
-    digitalWrite(YELLOW_LED, HIGH);
-
-    clearScreen();
-  }
-
-  if (currentMillis - previousEnvReading > TEMP_CHECK_INTERVAL) {
-    previousEnvReading = currentMillis;
-    getTempAndHumidity();
-  }
-
-  if (currentMillis - previousBattReading > BATT_CHECK_INTERVAL) {
-    previousBattReading = currentMillis;
-    checkBattery();
-  }
-}
-
-void initDisplay() {
-  display.initG();
-  display.setRotation(3);
-
-  pinMode(TFT_LIGHT, OUTPUT);
-  digitalWrite(TFT_LIGHT, HIGH);
-
-  display.fillScreen(ST7735_WHITE);
-  display.setCursor(0, 0);
-  display.setTextColor(ST7735_RED);
-  display.setTextWrap(true);
-  display.setTextSize(2);
-
-  display.println();
-  display.println();
-  display.println(" #PartiBadge");
-  display.println(" v1.0");
-  display.println();
-  display.println(" BAMF Edition");
 }
 
 void cloudInit() {
@@ -198,8 +197,36 @@ void cloudInit() {
   Particle.subscribe("updateHandle", updateHandleHandler);
 }
 
+void initDisplay() {
+  display.initG();
+  display.setRotation(3);
+
+  pinMode(TFT_LIGHT, OUTPUT);
+  digitalWrite(TFT_LIGHT, HIGH);
+}
+
+void showLogo() {
+  // TODO: Show the Spark Logo for a few sec
+}
+
+void showTitle() {
+  display.fillScreen(ST7735_WHITE);
+  display.setCursor(0, 0);
+  display.setTextColor(ST7735_RED);
+  display.setTextWrap(true);
+  display.setTextSize(2);
+
+  display.println();
+  display.println();
+  display.println(" #PartiBadge");
+  display.println(" v1.0");
+  display.println();
+  display.println(" BAMF Edition");
+}
+
 void initLEDButtons() {
   int del = 300;
+  int medDel = 500;
 
   // Init LEDs and Outputs
   pinMode(RED_LED, OUTPUT);
@@ -209,13 +236,13 @@ void initLEDButtons() {
 
   // Init Buttons as Inputs
   redButtonADebouncer.attach(RED_BUTTON_A, INPUT_PULLUP);
-  redButtonADebouncer.interval(20);
+  redButtonADebouncer.interval(DEBOUNCE_DELAY);
   blueButtonBDebouncer.attach(BLUE_BUTTON_B, INPUT_PULLUP);
-  blueButtonBDebouncer.interval(20);
+  blueButtonBDebouncer.interval(DEBOUNCE_DELAY);
   greenButtonCDebouncer.attach(GREEN_BUTTON_C, INPUT_PULLUP);
-  greenButtonCDebouncer.interval(20);
+  greenButtonCDebouncer.interval(DEBOUNCE_DELAY);
   yellowButtonDDebouncer.attach(YELLOW_BUTTON_D, INPUT_PULLUP);
-  yellowButtonDDebouncer.interval(20);
+  yellowButtonDDebouncer.interval(DEBOUNCE_DELAY);
 
   digitalWrite(RED_LED, HIGH);
   delay(del);
@@ -227,13 +254,13 @@ void initLEDButtons() {
   delay(del);
 
   toggleAllButtons(LOW);
-  delay(500);
+  delay(medDel);
 
   toggleAllButtons(HIGH);
-  delay(500);
+  delay(medDel);
 
   toggleAllButtons(LOW);
-  delay(500);
+  delay(medDel);
 
   toggleAllButtons(HIGH);
 }

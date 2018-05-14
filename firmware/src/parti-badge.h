@@ -7,9 +7,14 @@
 #define DISPLAY_MODE_PIN C1
 #define GAME_MODE_PIN C2
 
-/* Display Mode variables */
-#define DISPLAY_MODE 0
-#define GAME_MODE 1
+/* Display Mode macros */
+#define STARTUP_MODE 0
+#define DISPLAY_MODE 1
+#define GAME_MODE 2
+
+/* Startup mode macros */
+#define LOGO_DURATION 3000
+#define TITLE_SCREEN_DURATION 2000
 
 /* TFT SPI Pins */
 #define TFT_CS A2
@@ -28,6 +33,13 @@
 #define BLUE_BUTTON_B B5
 #define GREEN_BUTTON_C B3
 #define YELLOW_BUTTON_D D4
+
+/* Joystick Buttons */
+#define JOYSTICK_UP D5
+#define JOYSTICK_DOWN D6
+#define JOYSTICK_LEFT RX
+#define JOYSTICK_RIGHT TX
+#define JOYSTICK_CENTER D7
 
 /* Battery Critical Level */
 #define BATTERY_CRITICAL 25
