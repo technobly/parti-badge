@@ -31,6 +31,7 @@
 
 #include "Particle.h"
 #include "Debounce.h"
+#include "SdFat.h"
 
 #include "parti-badge.h" // #define pin assignments and other general macros
 #include "music/tones.h" // Peizo Sounds
@@ -57,6 +58,9 @@ double currentHumidity;
 
 // Initialize TFT Display
 Adafruit_ST7735 display = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
+
+//SD Card
+SdFat sd;
 
 // Battery charge variables
 FuelGauge fuel;
@@ -94,6 +98,9 @@ void setup() {
 
   //Init TFT
   initDisplay();
+
+  //Init SD
+  sd.begin(TFT_SD_CS, SPI_HALF_SPEED);
 
   // Set up cloud variables and functions
   cloudInit();

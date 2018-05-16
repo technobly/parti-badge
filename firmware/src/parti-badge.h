@@ -18,10 +18,11 @@
 #define SETUP_DURATION 5000
 
 /* TFT SPI Pins */
-#define TFT_CS A2
+#define TFT_CS A1
 #define TFT_DC D2
 #define TFT_RST D1
 #define TFT_LIGHT D0
+#define TFT_SD_CS A2
 
 /* Tactile LED Button Pins */
 /* LEDS */
