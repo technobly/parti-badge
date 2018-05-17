@@ -43,6 +43,8 @@
 // TFT include
 #include "Adafruit_ST7735.h"
 
+SYSTEM_MODE(SEMI_AUTOMATIC);
+
 // Button Debounce Support
 Debounce displayDebouncer = Debounce();
 Debounce gameDebouncer = Debounce();
@@ -96,8 +98,6 @@ bool buttonsInitialized = false;
 void bmpDraw(char *filename, uint8_t x, uint16_t y);
 
 void setup() {
-  Serial.begin(115200);
-
   //Initialize Temp and Humidity sensor
   envSensor.begin();
 
@@ -105,12 +105,13 @@ void setup() {
   initDisplay();
 
   //Init SD
-  sd.begin(TFT_SD_CS, SPI_HALF_SPEED);
-
-  showLogo();
+  sd.begin(TFT_SD_CS, SPI_FULL_SPEED);
 
   // Set up cloud variables and functions
   cloudInit();
+
+  // Show the Particle Logo on the screen
+  showLogo();
 
   pinMode(BUZZER_PIN, OUTPUT);
   displayDebouncer.attach(DISPLAY_MODE_PIN, INPUT_PULLDOWN);
@@ -124,6 +125,8 @@ void setup() {
 
   // Perform an initial battery check
   checkBattery();
+
+  Particle.connect();
 }
 
 void loop() {
@@ -221,24 +224,28 @@ void cloudInit() {
 }
 
 void initDisplay() {
-  display.initG();
-  display.setRotation(3);
+  display.initR(INITR_BLACKTAB);
+  display.setCursor(0, 0);
+  display.fillScreen(ST7735_BLACK);
 
   pinMode(TFT_LIGHT, OUTPUT);
   digitalWrite(TFT_LIGHT, HIGH);
 }
 
 void showLogo() {
+  display.setCursor(0, 0);
+  display.setRotation(3);
+
   bmpDraw("spark.bmp", 0, 0);
-  //delay(3000);
 }
 
 void showTitle() {
   titleShown = true;
 
+  display.setRotation(3);
   display.fillScreen(ST7735_WHITE);
   display.setCursor(0, 0);
-  display.setTextColor(ST7735_RED);
+  display.setTextColor(ST7735_BLUE);
   display.setTextWrap(true);
   display.setTextSize(2);
 

@@ -24,21 +24,8 @@ as well as Adafruit raw 1.8" TFT display
 // BMP data is stored little-endian, Arduino is little-endian too.
 // May need to reverse subscript order if porting elsewhere.
 
-uint16_t read16(File f) {
-  uint16_t result;
-  ((uint8_t *)&result)[0] = f.read(); // LSB
-  ((uint8_t *)&result)[1] = f.read(); // MSB
-  return result;
-}
-
-uint32_t read32(File f) {
-  uint32_t result;
-  ((uint8_t *)&result)[0] = f.read(); // LSB
-  ((uint8_t *)&result)[1] = f.read();
-  ((uint8_t *)&result)[2] = f.read();
-  ((uint8_t *)&result)[3] = f.read(); // MSB
-  return result;
-}
+uint16_t read16(File& f);
+uint32_t read32(File& f);
 
 void bmpDraw(char *filename, uint8_t x, uint16_t y) {
   File     bmpFile;
@@ -72,7 +59,7 @@ void bmpDraw(char *filename, uint8_t x, uint16_t y) {
     Serial.print(F("File size: ")); Serial.println(read32(bmpFile));
     (void)read32(bmpFile); // Read & ignore creator bytes
     bmpImageoffset = read32(bmpFile); // Start of image data
-    Serial.print(F("Image Offset: ")); Serial.println(bmpImageoffset, DEC);
+    Serial.print(F("Image Offset: ")); Serial.println(bmpImageoffset, HEX);
     // Read DIB header
     Serial.print(F("Header size: ")); Serial.println(read32(bmpFile));
     bmpWidth  = read32(bmpFile);
@@ -80,7 +67,6 @@ void bmpDraw(char *filename, uint8_t x, uint16_t y) {
     if(read16(bmpFile) == 1) { // # planes -- must be '1'
       bmpDepth = read16(bmpFile); // bits per pixel
       Serial.print(F("Bit Depth: ")); Serial.println(bmpDepth);
-      Serial.print(F("Compression: ")); Serial.println(read32(bmpFile));
       if((bmpDepth == 24) && (read32(bmpFile) == 0)) { // 0 = uncompressed
 
         goodBmp = true; // Supported BMP format -- proceed!
@@ -148,4 +134,20 @@ void bmpDraw(char *filename, uint8_t x, uint16_t y) {
 
   bmpFile.close();
   if(!goodBmp) Serial.println(F("BMP format not recognized."));
+}
+
+uint16_t read16(File& f) {
+  uint16_t result;
+  ((uint8_t *)&result)[0] = f.read(); // LSB
+  ((uint8_t *)&result)[1] = f.read(); // MSB
+  return result;
+}
+
+uint32_t read32(File& f) {
+  uint32_t result;
+  ((uint8_t *)&result)[0] = f.read(); // LSB
+  ((uint8_t *)&result)[1] = f.read();
+  ((uint8_t *)&result)[2] = f.read();
+  ((uint8_t *)&result)[3] = f.read(); // MSB
+  return result;
 }
