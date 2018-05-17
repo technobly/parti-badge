@@ -35,6 +35,7 @@
 
 #include "parti-badge.h" // #define pin assignments and other general macros
 #include "music/tones.h" // Peizo Sounds
+#include "simonsays/simon.h" // Simon Says Code
 
 // Custom code for Si7021 Temp/Hu Sensor using Wire1 on Electron C4, C5
 #include "Si7021_MultiWire/Si7021_MultiWire.h"
@@ -92,7 +93,11 @@ bool displayingWearerDetails = false;
 bool titleShown = false;
 bool buttonsInitialized = false;
 
+void bmpDraw(char *filename, uint8_t x, uint16_t y);
+
 void setup() {
+  Serial.begin(115200);
+
   //Initialize Temp and Humidity sensor
   envSensor.begin();
 
@@ -101,6 +106,8 @@ void setup() {
 
   //Init SD
   sd.begin(TFT_SD_CS, SPI_HALF_SPEED);
+
+  showLogo();
 
   // Set up cloud variables and functions
   cloudInit();
@@ -192,7 +199,9 @@ void loop() {
       checkBattery();
     }
   } else if (badgeMode == GAME_MODE) {
-    // TODO: Intialize Game mode
+    configureGame();
+
+    playGame();
   }
 }
 
@@ -220,7 +229,8 @@ void initDisplay() {
 }
 
 void showLogo() {
-  // TODO: Show the Spark Logo for a few sec
+  bmpDraw("spark.bmp", 0, 0);
+  //delay(3000);
 }
 
 void showTitle() {
@@ -392,3 +402,5 @@ void updateHandleHandler(const char *event, const char *data) {
     wearerHandle = String(data);
   }
 }
+
+#include "bmpDraw.h" // Function for drawing Bitmaps on the screen
