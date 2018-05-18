@@ -1,4 +1,9 @@
+sound-source/
+
 # Ignore list for Eagle, a PCB layout tool
+
+*.der
+*.pem
 
 # Backup files
 *.s#?

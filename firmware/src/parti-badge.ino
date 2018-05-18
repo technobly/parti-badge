@@ -35,6 +35,7 @@
 
 #include "parti-badge.h" // #define pin assignments and other general macros
 #include "music/tones.h" // Peizo Sounds
+#include "music/roll.h"
 #include "simonsays/simon.h" // Simon Says Code
 
 // Custom code for Si7021 Temp/Hu Sensor using Wire1 on Electron C4, C5
@@ -44,6 +45,10 @@
 #include "Adafruit_ST7735.h"
 
 SYSTEM_MODE(SEMI_AUTOMATIC);
+
+PRODUCT_ID(7461);
+PRODUCT_VERSION(1);
+
 String deviceId;
 
 // Button Debounce Support
@@ -77,21 +82,30 @@ unsigned long previousEnvReading = 0;
 unsigned long previousBattReading = 0;
 
 // Wearer details
-String wearerName;
-String wearerEmail;
-String wearerHandle;
+String wearerFirstName;
+String wearerLastName;
 
 // Default to display mode, but we'll determine this based on a switch
 int badgeMode = DISPLAY_MODE;
 unsigned long meshImagesTriggerTime = 0;
-int imageArrayLength = 5;
-int currentImage = 0;
-char* images[] = {
+unsigned long wearerDetailsTriggerTime = 0;
+int meshImageArrayLength = 5;
+int rollImageArrayLength = 5;
+int currentMeshImage = 0;
+int currentRollImage = 0;
+char* meshImages[] = {
   "argon.bmp",
   "boron.bmp",
   "xenon.bmp",
   "xenonandboron.bmp",
   "xenongas.bmp"
+};
+char* rollImages[] = {
+  "rick1.bmp",
+  "rick2.bmp",
+  "rick3.bmp",
+  "rick4.bmp",
+  "rick5.bmp"
 };
 
 // Display variables
@@ -125,6 +139,8 @@ void setup() {
 
   // Set up cloud variables and functions
   cloudInit();
+
+  rollSetup();
 
   // Show the Particle Logo on the screen
   showLogo();
@@ -164,64 +180,79 @@ void loop() {
 
   if (badgeMode == DISPLAY_MODE) {
     redButtonADebouncer.update();
-    if (redButtonADebouncer.read() == LOW && ! displayingTemp) {
-      resetDisplayBools();
-      displayingTemp = true;
-      toggleAllButtons(LOW);
-      digitalWrite(RED_LED, HIGH);
-
-      // Show Temp and Humidity on Display
-      showTempAndHumidity();
-    }
-
-    blueButtonBDebouncer.update();
-    if (blueButtonBDebouncer.read() == LOW && ! displayingBatteryLevel) {
-      resetDisplayBools();
-      displayingBatteryLevel = true;
-      toggleAllButtons(LOW);
-      digitalWrite(BLUE_LED, HIGH);
-
-      // Show Battery Level
-      showBatteryLevel();
-    }
-
-    greenButtonCDebouncer.update();
-    if (greenButtonCDebouncer.read() == LOW) {
-      toggleAllButtons(LOW);
-      digitalWrite(GREEN_LED, HIGH);
-
-      clearScreen();
-
-      if((wearerName.length() > 0 || wearerEmail.length() > 0
-        || wearerHandle.length() > 0) && !displayingWearerDetails) {
-        resetDisplayBools();
-        displayingWearerDetails = true;
-        displayWearerDetails();
-      }
-    }
-
-    yellowButtonDDebouncer.update();
-    if (yellowButtonDDebouncer.read() == LOW && ! displayingMeshImages) {
+    if (redButtonADebouncer.read() == LOW && ! displayingMeshImages) {
       meshImagesTriggerTime = millis();
 
       resetDisplayBools();
       displayingMeshImages = true;
 
       toggleAllButtons(LOW);
+      digitalWrite(RED_LED, HIGH);
+
+      clearScreen();
+      bmpDraw(meshImages[currentMeshImage], 0, 0);
+      currentMeshImage++;
+    }
+
+    blueButtonBDebouncer.update();
+    if (blueButtonBDebouncer.read() == LOW && ! displayingTemp) {
+      resetDisplayBools();
+      displayingTemp = true;
+      toggleAllButtons(LOW);
+      digitalWrite(BLUE_LED, HIGH);
+
+      // Show Temp and Humidity on Display
+      showTempAndHumidity();
+    }
+
+    greenButtonCDebouncer.update();
+    if (greenButtonCDebouncer.read() == LOW && ! displayingBatteryLevel) {
+      resetDisplayBools();
+      displayingBatteryLevel = true;
+      toggleAllButtons(LOW);
+      digitalWrite(GREEN_LED, HIGH);
+
+      // Show Battery Level
+      showBatteryLevel();
+    }
+
+    yellowButtonDDebouncer.update();
+    if (yellowButtonDDebouncer.read() == LOW && !displayingWearerDetails) {
+      wearerDetailsTriggerTime = millis();
+      resetDisplayBools();
+      displayingWearerDetails = true;
+
+      toggleAllButtons(LOW);
       digitalWrite(YELLOW_LED, HIGH);
 
       clearScreen();
-      bmpDraw(images[currentImage], 0, 0);
-      currentImage++;
+      bmpDraw(rollImages[currentRollImage], 0, 0);
+      currentRollImage++;
+
+      playRoll();
+    }
+
+    if (displayingWearerDetails) {
+      playRoll();
+
+      if (millis() - wearerDetailsTriggerTime > IMAGE_DURATION) {
+        bmpDraw(rollImages[currentRollImage], 0, 0);
+        if (currentRollImage == rollImageArrayLength) {
+          currentRollImage = 0;
+        } else {
+          currentRollImage++;
+        }
+        wearerDetailsTriggerTime = millis();
+      }
     }
 
     if (displayingMeshImages) {
       if (millis() - meshImagesTriggerTime > IMAGE_DURATION) {
-        bmpDraw(images[currentImage], 0, 0);
-        if (currentImage == imageArrayLength) {
-          currentImage = 0;
+        bmpDraw(meshImages[currentMeshImage], 0, 0);
+        if (currentMeshImage == meshImageArrayLength) {
+          currentMeshImage = 0;
         } else {
-          currentImage++;
+          currentMeshImage++;
         }
         meshImagesTriggerTime = millis();
       }
@@ -244,18 +275,16 @@ void loop() {
 }
 
 void cloudInit() {
-  Particle.variable("wearerName", wearerName);
-  Particle.variable("wearerEmail", wearerEmail);
-  Particle.variable("wearerHandle", wearerHandle);
+  Particle.variable("wearerFName", wearerFirstName);
+  Particle.variable("wearerLName", wearerLastName);
 
   Particle.variable("currentTemp", currentTemp);
   Particle.variable("currentHu", currentHumidity);
 
   Particle.variable("battCharge", currentBatteryCharge);
 
-  Particle.subscribe("updateName", updateNameHandler);
-  Particle.subscribe("updateEmail", updateEmailHandler);
-  Particle.subscribe("updateHandle", updateHandleHandler);
+  Particle.function("updateFName", updateFirstNameHandler);
+  Particle.function("updateLName", updateLastNameHandler);
 }
 
 void initDisplay() {
@@ -296,14 +325,13 @@ void showTitle() {
 void displayWearerDetails() {
   display.fillScreen(ST7735_WHITE);
   display.setCursor(0, 0);
-  display.setTextColor(ST7735_RED);
+  display.setTextColor(ST7735_BLUE);
   display.setTextWrap(true);
-  display.setTextSize(2);
+  display.setTextSize(3);
 
   display.println();
-  display.println(wearerName);
-  display.println(wearerEmail);
-  display.println(wearerHandle);
+  display.println(wearerFirstName);
+  display.println(wearerLastName);
 }
 
 void initButtons() {
@@ -434,21 +462,16 @@ void clearScreen() {
   display.setTextSize(2);
 }
 
-void updateNameHandler(const char *event, const char *data) {
-  if (String(event) == "updateName") {
-    wearerName = String(data);
-  }
+int updateFirstNameHandler(String data) {
+  wearerFirstName = data;
+
+  return 1;
 }
 
-void updateEmailHandler(const char *event, const char *data) {
-  if (String(event) == "updateEmail") {
-    wearerEmail = String(data);
-  }
-}
-void updateHandleHandler(const char *event, const char *data) {
-  if (String(event) == "updateHandle") {
-    wearerHandle = String(data);
-  }
+int updateLastNameHandler(String data) {
+  wearerLastName = data;
+
+  return 1;
 }
 
 #include "bmpDraw.h" // Function for drawing Bitmaps on the screen
