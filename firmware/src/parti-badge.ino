@@ -44,6 +44,7 @@
 #include "Adafruit_ST7735.h"
 
 SYSTEM_MODE(SEMI_AUTOMATIC);
+String deviceId;
 
 // Button Debounce Support
 Debounce displayDebouncer = Debounce();
@@ -81,7 +82,7 @@ String wearerEmail;
 String wearerHandle;
 
 // Default to display mode, but we'll determine this based on a switch
-int badgeMode = STARTUP_MODE;
+int badgeMode = DISPLAY_MODE;
 unsigned long startupModeTriggerTime = 0;
 
 // Display variables
@@ -90,6 +91,7 @@ bool displayingBatteryLevel = false;
 bool displayingLogo = false;
 bool displayingTitle = false;
 bool displayingWearerDetails = false;
+bool displayingMeshImages = false;
 
 // Display state management
 bool titleShown = false;
@@ -98,6 +100,11 @@ bool buttonsInitialized = false;
 void bmpDraw(char *filename, uint8_t x, uint16_t y);
 
 void setup() {
+  resetDisplayBools();
+
+  // Get the current deviceId
+  deviceId = System.deviceID();
+
   //Initialize Temp and Humidity sensor
   envSensor.begin();
 
@@ -120,11 +127,23 @@ void setup() {
   gameDebouncer.attach(GAME_MODE_PIN, INPUT_PULLDOWN);
   gameDebouncer.interval(DEBOUNCE_DELAY);
 
+  // Init the LED Buttons
+  initButtons();
+
   // Get an initial temp and humidity reading
   getTempAndHumidity();
 
   // Perform an initial battery check
   checkBattery();
+
+  // Show the title screen
+  showTitle();
+
+  //Init Tactile LED Buttons
+  initLEDButtons();
+
+  // Play a startup sound on the Piezo
+  if (!startupSoundPlayed) playStartup(BUZZER_PIN);
 
   Particle.connect();
 }
@@ -132,26 +151,11 @@ void setup() {
 void loop() {
   unsigned long currentMillis = millis();
 
-  if (!(currentMillis - startupModeTriggerTime < SETUP_DURATION)) {
-    badgeMode == STARTUP_MODE;
-  } else {
-    // Check the switch to see if the user has changed the badge mode
-    checkBadgeMode();
-  }
+  checkBadgeMode();
 
-  if (badgeMode == STARTUP_MODE) {
-    startupModeTriggerTime = currentMillis;
-
-    // Show the title screen
-    if (!titleShown) showTitle();
-
-    //Init Tactile LED Buttons
-    if (!buttonsInitialized) initLEDButtons();
-
-    // Play a startup sound on the Piezo
-    if (!startupSoundPlayed) playStartup(BUZZER_PIN);
-  } else if (badgeMode == DISPLAY_MODE) {
-    if (! digitalRead(RED_BUTTON_A) && ! displayingTemp) {
+  if (badgeMode == DISPLAY_MODE) {
+    redButtonADebouncer.update();
+    if (redButtonADebouncer.read() == LOW && ! displayingTemp) {
       resetDisplayBools();
       displayingTemp = true;
       toggleAllButtons(LOW);
@@ -161,7 +165,8 @@ void loop() {
       showTempAndHumidity();
     }
 
-    if (! digitalRead(BLUE_BUTTON_B) && ! displayingBatteryLevel) {
+    blueButtonBDebouncer.update();
+    if (blueButtonBDebouncer.read() == LOW && ! displayingBatteryLevel) {
       resetDisplayBools();
       displayingBatteryLevel = true;
       toggleAllButtons(LOW);
@@ -171,7 +176,8 @@ void loop() {
       showBatteryLevel();
     }
 
-    if (! digitalRead(GREEN_BUTTON_C)) {
+    greenButtonCDebouncer.update();
+    if (greenButtonCDebouncer.read() == LOW) {
       toggleAllButtons(LOW);
       digitalWrite(GREEN_LED, HIGH);
 
@@ -185,11 +191,20 @@ void loop() {
       }
     }
 
-    if (! digitalRead(YELLOW_BUTTON_D)) {
+    yellowButtonDDebouncer.update();
+    if (yellowButtonDDebouncer.read() == LOW && ! displayingMeshImages) {
+      resetDisplayBools();
+      displayingMeshImages = true;
+
       toggleAllButtons(LOW);
       digitalWrite(YELLOW_LED, HIGH);
 
       clearScreen();
+      bmpDraw("boron.bmp", 0, 0);
+      delay(2000);
+      bmpDraw("argon.bmp", 0, 0);
+      delay(2000);
+      bmpDraw("xenon.bmp", 0, 0);
     }
 
     if (currentMillis - previousEnvReading > TEMP_CHECK_INTERVAL) {
@@ -237,6 +252,7 @@ void showLogo() {
   display.setRotation(3);
 
   bmpDraw("spark.bmp", 0, 0);
+  delay(2000);
 }
 
 void showTitle() {
@@ -270,6 +286,18 @@ void displayWearerDetails() {
   display.println(wearerHandle);
 }
 
+void initButtons() {
+  // Init Buttons as Inputs
+  redButtonADebouncer.attach(RED_BUTTON_A, INPUT_PULLUP);
+  redButtonADebouncer.interval(DEBOUNCE_DELAY);
+  blueButtonBDebouncer.attach(BLUE_BUTTON_B, INPUT_PULLUP);
+  blueButtonBDebouncer.interval(DEBOUNCE_DELAY);
+  greenButtonCDebouncer.attach(GREEN_BUTTON_C, INPUT_PULLUP);
+  greenButtonCDebouncer.interval(DEBOUNCE_DELAY);
+  yellowButtonDDebouncer.attach(YELLOW_BUTTON_D, INPUT_PULLUP);
+  yellowButtonDDebouncer.interval(DEBOUNCE_DELAY);
+}
+
 void initLEDButtons() {
   buttonsInitialized = true;
 
@@ -281,16 +309,6 @@ void initLEDButtons() {
   pinMode(BLUE_LED, OUTPUT);
   pinMode(GREEN_LED, OUTPUT);
   pinMode(YELLOW_LED, OUTPUT);
-
-  // Init Buttons as Inputs
-  redButtonADebouncer.attach(RED_BUTTON_A, INPUT_PULLUP);
-  redButtonADebouncer.interval(DEBOUNCE_DELAY);
-  blueButtonBDebouncer.attach(BLUE_BUTTON_B, INPUT_PULLUP);
-  blueButtonBDebouncer.interval(DEBOUNCE_DELAY);
-  greenButtonCDebouncer.attach(GREEN_BUTTON_C, INPUT_PULLUP);
-  greenButtonCDebouncer.interval(DEBOUNCE_DELAY);
-  yellowButtonDDebouncer.attach(YELLOW_BUTTON_D, INPUT_PULLUP);
-  yellowButtonDDebouncer.interval(DEBOUNCE_DELAY);
 
   digitalWrite(RED_LED, HIGH);
   delay(del);
@@ -347,6 +365,9 @@ void resetDisplayBools() {
   displayingTemp = false;
   displayingBatteryLevel = false;
   displayingWearerDetails = false;
+  displayingMeshImages = false;
+  displayingLogo = false;
+  displayingTitle = false;
 }
 
 void checkBadgeMode() {
