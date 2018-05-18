@@ -83,7 +83,14 @@ String wearerHandle;
 
 // Default to display mode, but we'll determine this based on a switch
 int badgeMode = DISPLAY_MODE;
-unsigned long startupModeTriggerTime = 0;
+unsigned long meshImagesTriggerTime = 0;
+int imageArrayLength = 3;
+int currentImage = 0;
+char* images[] = {
+  "argon.bmp",
+  "boron.bmp",
+  "xenon.bmp"
+};
 
 // Display variables
 bool displayingTemp = false;
@@ -193,6 +200,8 @@ void loop() {
 
     yellowButtonDDebouncer.update();
     if (yellowButtonDDebouncer.read() == LOW && ! displayingMeshImages) {
+      meshImagesTriggerTime = millis();
+
       resetDisplayBools();
       displayingMeshImages = true;
 
@@ -200,11 +209,20 @@ void loop() {
       digitalWrite(YELLOW_LED, HIGH);
 
       clearScreen();
-      bmpDraw("boron.bmp", 0, 0);
-      delay(2000);
-      bmpDraw("argon.bmp", 0, 0);
-      delay(2000);
-      bmpDraw("xenon.bmp", 0, 0);
+      bmpDraw(images[currentImage], 0, 0);
+      currentImage++;
+    }
+
+    if (displayingMeshImages) {
+      if (millis() - meshImagesTriggerTime > IMAGE_DURATION) {
+        bmpDraw(images[currentImage], 0, 0);
+        if (currentImage == 3) {
+          currentImage = 0;
+        } else {
+          currentImage++;
+        }
+        meshImagesTriggerTime = millis();
+      }
     }
 
     if (currentMillis - previousEnvReading > TEMP_CHECK_INTERVAL) {
