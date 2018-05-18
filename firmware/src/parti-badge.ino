@@ -84,12 +84,14 @@ String wearerHandle;
 // Default to display mode, but we'll determine this based on a switch
 int badgeMode = DISPLAY_MODE;
 unsigned long meshImagesTriggerTime = 0;
-int imageArrayLength = 3;
+int imageArrayLength = 5;
 int currentImage = 0;
 char* images[] = {
   "argon.bmp",
   "boron.bmp",
-  "xenon.bmp"
+  "xenon.bmp",
+  "xenonandboron.bmp",
+  "xenongas.bmp"
 };
 
 // Display variables
@@ -216,7 +218,7 @@ void loop() {
     if (displayingMeshImages) {
       if (millis() - meshImagesTriggerTime > IMAGE_DURATION) {
         bmpDraw(images[currentImage], 0, 0);
-        if (currentImage == 3) {
+        if (currentImage == imageArrayLength) {
           currentImage = 0;
         } else {
           currentImage++;
