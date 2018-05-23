@@ -36,7 +36,6 @@
 #include "parti-badge.h" // #define pin assignments and other general macros
 #include "music/tones.h" // Peizo Sounds
 #include "music/roll.h"
-#include "simonsays/simon.h" // Simon Says Code
 
 // Custom code for Si7021 Temp/Hu Sensor using Wire1 on Electron C4, C5
 #include "Si7021_MultiWire/Si7021_MultiWire.h"
@@ -47,7 +46,7 @@
 SYSTEM_MODE(SEMI_AUTOMATIC);
 
 PRODUCT_ID(7461);
-PRODUCT_VERSION(1);
+PRODUCT_VERSION(2);
 
 String deviceId;
 
@@ -67,6 +66,8 @@ double currentHumidity;
 
 // Initialize TFT Display
 Adafruit_ST7735 display = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
+
+#include "simonsays/simon.h" // Simon Says Code
 
 //SD Card
 SdFat sd;
@@ -120,6 +121,8 @@ bool displayingMeshImages = false;
 bool titleShown = false;
 bool buttonsInitialized = false;
 
+LEDStatus breatheCyan(RGB_COLOR_CYAN, LED_PATTERN_FADE, LED_PRIORITY_IMPORTANT);
+
 void bmpDraw(char *filename, uint8_t x, uint16_t y);
 
 void setup() {
@@ -171,6 +174,13 @@ void setup() {
   if (!startupSoundPlayed) playStartup(BUZZER_PIN);
 
   Particle.connect();
+  //breatheCyan.setActive(true);
+
+  checkBadgeMode();
+  if (badgeMode == DISPLAY_MODE) {
+    displayingMeshImages = true;
+    meshImagesTriggerTime = millis();
+  }
 }
 
 void loop() {
@@ -249,7 +259,7 @@ void loop() {
     if (displayingMeshImages) {
       if (millis() - meshImagesTriggerTime > IMAGE_DURATION) {
         bmpDraw(meshImages[currentMeshImage], 0, 0);
-        if (currentMeshImage == meshImageArrayLength) {
+        if (currentMeshImage >= meshImageArrayLength) {
           currentMeshImage = 0;
         } else {
           currentMeshImage++;
@@ -383,11 +393,16 @@ void showTempAndHumidity() {
   clearScreen();
 
   display.println();
-  display.println("Curr Temp");
+  display.println("  Curr Temp");
+  display.setTextSize(3);
+  display.print("  ");
   display.print((int)currentTemp);
   display.println("f");
+  display.setTextSize(2);
   display.println();
-  display.println("Humidity");
+  display.println("  Humidity");
+  display.setTextSize(3);
+  display.print("  ");
   display.print((int)currentHumidity);
   display.println("%");
 }
@@ -397,7 +412,8 @@ void showBatteryLevel() {
 
   display.setTextSize(4);
   display.println();
-  display.println("BATT");
+  display.println(" BATT");
+  display.print("  ");
   display.print((int)currentBatteryCharge);
   display.println("%");
 }
