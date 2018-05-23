@@ -9479,16 +9479,11 @@ FRAME-LETTER</description>
 <wire x1="99.06" y1="73.66" x2="99.06" y2="68.58" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="SPI_SS" class="0">
+<net name="SD_CS" class="0">
 <segment>
 <pinref part="ELECTRON" gate="G$1" pin="A2"/>
 <wire x1="12.7" y1="48.26" x2="2.54" y2="48.26" width="0.1524" layer="91"/>
 <label x="2.54" y="48.26" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="TFT" gate="G$1" pin="5"/>
-<wire x1="-35.56" y1="81.28" x2="-45.72" y2="81.28" width="0.1524" layer="91"/>
-<label x="-45.72" y="81.28" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="TFT" gate="G$1" pin="6"/>
@@ -9647,6 +9642,18 @@ FRAME-LETTER</description>
 <pinref part="R7" gate="G$1" pin="1"/>
 <pinref part="PIEZO" gate="G$1" pin="1"/>
 <wire x1="0" y1="73.66" x2="-2.54" y2="73.66" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="TFT_CS" class="0">
+<segment>
+<pinref part="TFT" gate="G$1" pin="5"/>
+<wire x1="-35.56" y1="81.28" x2="-45.72" y2="81.28" width="0.1524" layer="91"/>
+<label x="-45.72" y="81.28" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="ELECTRON" gate="G$1" pin="A1"/>
+<wire x1="12.7" y1="43.18" x2="2.54" y2="43.18" width="0.1524" layer="91"/>
+<label x="2.54" y="43.18" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>

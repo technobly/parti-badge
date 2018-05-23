@@ -4207,11 +4207,9 @@ FRAME-LETTER</description>
 <wire x1="13.843" y1="32.131" x2="13.843" y2="35.394" width="0.3048" layer="16"/>
 <wire x1="13.843" y1="35.394" x2="13.55" y2="35.687" width="0.3048" layer="16"/>
 </signal>
-<signal name="SPI_SS">
+<signal name="SD_CS">
 <contactref element="ELECTRON" pad="10"/>
-<contactref element="TFT" pad="5"/>
 <contactref element="TFT" pad="6"/>
-<wire x1="27.94" y1="50.165" x2="27.94" y2="52.705" width="0.3048" layer="1"/>
 <wire x1="27.94" y1="52.705" x2="27.305" y2="52.705" width="0.3048" layer="1"/>
 <wire x1="27.305" y1="52.705" x2="25.4" y2="54.61" width="0.3048" layer="1"/>
 <wire x1="25.4" y1="54.61" x2="25.4" y2="72.39" width="0.3048" layer="1"/>
@@ -4388,6 +4386,11 @@ FRAME-LETTER</description>
 <contactref element="R7" pad="1"/>
 <contactref element="PIEZO" pad="1"/>
 <wire x1="88.9" y1="80.55" x2="86.68" y2="86.36" width="0" layer="19" extent="16-16"/>
+</signal>
+<signal name="TFT_CS">
+<contactref element="TFT" pad="5"/>
+<contactref element="ELECTRON" pad="11"/>
+<wire x1="27.94" y1="50.165" x2="49.53" y2="90.17" width="0" layer="19" extent="1-1"/>
 </signal>
 </signals>
 </board>
