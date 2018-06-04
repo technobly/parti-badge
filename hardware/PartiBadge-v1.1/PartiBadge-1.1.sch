@@ -10762,28 +10762,28 @@ FRAME-LETTER</description>
 <label x="2.54" y="43.18" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="RX" class="0">
-<segment>
-<pinref part="ETHANOL" gate="G$1" pin="2"/>
-<wire x1="48.26" y1="-7.62" x2="43.18" y2="-7.62" width="0.1524" layer="91"/>
-<label x="43.18" y="-7.62" size="1.778" layer="95"/>
-</segment>
+<net name="ELECTRON_RX" class="0">
 <segment>
 <pinref part="ELECTRON" gate="G$1" pin="RX"/>
-<wire x1="12.7" y1="78.74" x2="7.62" y2="78.74" width="0.1524" layer="91"/>
-<label x="7.62" y="78.74" size="1.778" layer="95"/>
+<wire x1="12.7" y1="78.74" x2="-5.08" y2="78.74" width="0.1524" layer="91"/>
+<label x="-5.08" y="78.74" size="1.778" layer="95"/>
 </segment>
-</net>
-<net name="TX" class="0">
 <segment>
 <pinref part="ETHANOL" gate="G$1" pin="3"/>
-<wire x1="48.26" y1="-10.16" x2="43.18" y2="-10.16" width="0.1524" layer="91"/>
-<label x="43.18" y="-10.16" size="1.778" layer="95"/>
+<wire x1="48.26" y1="-10.16" x2="30.48" y2="-10.16" width="0.1524" layer="91"/>
+<label x="30.48" y="-10.16" size="1.778" layer="95"/>
 </segment>
+</net>
+<net name="ELECTRON_TX" class="0">
 <segment>
 <pinref part="ELECTRON" gate="G$1" pin="TX"/>
-<wire x1="12.7" y1="83.82" x2="7.62" y2="83.82" width="0.1524" layer="91"/>
-<label x="7.62" y="83.82" size="1.778" layer="95"/>
+<wire x1="12.7" y1="83.82" x2="-5.08" y2="83.82" width="0.1524" layer="91"/>
+<label x="-5.08" y="83.82" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="ETHANOL" gate="G$1" pin="2"/>
+<wire x1="48.26" y1="-7.62" x2="30.48" y2="-7.62" width="0.1524" layer="91"/>
+<label x="30.48" y="-7.62" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
