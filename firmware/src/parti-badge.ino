@@ -173,8 +173,8 @@ void setup() {
   // Play a startup sound on the Piezo
   if (!startupSoundPlayed) playStartup(BUZZER_PIN);
 
-  Particle.connect();
-  //breatheCyan.setActive(true);
+  //Particle.connect();
+  breatheCyan.setActive(true);
 
   checkBadgeMode();
   if (badgeMode == DISPLAY_MODE) {
@@ -222,8 +222,11 @@ void loop() {
       toggleAllButtons(LOW);
       digitalWrite(GREEN_LED, HIGH);
 
-      // Show Battery Level
-      showBatteryLevel();
+      // Show Name
+      showName();
+      delay(1000);
+      initButtons();
+      attractMode();
     }
 
     yellowButtonDDebouncer.update();
@@ -327,9 +330,9 @@ void showTitle() {
   display.println();
   display.println();
   display.println(" #PartiBadge");
-  display.println(" v1.0");
+  display.println(" v1.1");
   display.println();
-  display.println(" BAMF Edition");
+  display.println(" NDC {Oslo}");
 }
 
 void displayWearerDetails() {
@@ -342,6 +345,19 @@ void displayWearerDetails() {
   display.println();
   display.println(wearerFirstName);
   display.println(wearerLastName);
+}
+
+void showName() {
+  display.fillScreen(ST7735_BLACK);
+  display.setCursor(0, 0);
+  display.setTextColor(ST7735_WHITE);
+  display.setTextWrap(true);
+  display.setTextSize(3);
+
+  display.println();
+  display.println(" Brandon");
+  display.println("");
+  display.println(" Particle");
 }
 
 void initButtons() {
