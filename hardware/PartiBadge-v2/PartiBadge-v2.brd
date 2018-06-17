@@ -177,6 +177,19 @@
 <text x="27.94" y="73.66" size="3.048" layer="21" font="vector" ratio="18">#PartiBadge</text>
 <text x="21.082" y="68.707" size="2.54" layer="21" font="vector" ratio="18">THAT Conference 2018</text>
 <circle x="38.1" y="114.3" radius="4.57905" width="0.4064" layer="20"/>
+<text x="65.024" y="68.58" size="2.4384" layer="21" font="vector" ratio="18">A</text>
+<text x="84.455" y="86.233" size="2.4384" layer="21" font="vector" ratio="18">B</text>
+<text x="102.997" y="68.58" size="2.4384" layer="21" font="vector" ratio="18">C</text>
+<text x="84.836" y="52.07" size="2.4384" layer="21" font="vector" ratio="18">D</text>
+<text x="28.575" y="8.001" size="2.4384" layer="21" font="vector" ratio="18">#BadgeLife</text>
+<text x="48.514" y="11.684" size="0.8128" layer="21" font="vector" ratio="18">3V3</text>
+<text x="51.054" y="11.684" size="0.8128" layer="21" font="vector" ratio="18">SDA</text>
+<text x="48.514" y="5.334" size="0.8128" layer="21" font="vector" ratio="18">GND</text>
+<text x="51.054" y="5.334" size="0.8128" layer="21" font="vector" ratio="18">SCL</text>
+<text x="89.662" y="44.577" size="3.6576" layer="22" font="vector" ratio="18" rot="MR0" align="bottom-center">particle.io</text>
+<text x="56.896" y="98.171" size="1.8288" layer="21" font="vector" ratio="18">Display</text>
+<text x="57.912" y="83.185" size="1.8288" layer="21" font="vector" ratio="18">Game</text>
+<text x="88.646" y="60.833" size="3.048" layer="21" font="vector" ratio="18" align="bottom-center">Particle.io</text>
 </plain>
 <libraries>
 <library name="SparkFun-Switches" urn="urn:adsk.eagle:library:535">
@@ -3766,6 +3779,47 @@ RECOMMENDED ON ALL LAYERS</text>
 </package>
 </packages>
 </library>
+<library name="v-reg" urn="urn:adsk.eagle:library:409">
+<description>&lt;b&gt;Voltage Regulators&lt;/b&gt;&lt;p&gt;
+&lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
+<packages>
+<package name="78XXS" urn="urn:adsk.eagle:footprint:30278/1" library_version="1">
+<description>&lt;b&gt;VOLTAGE REGULATOR&lt;/b&gt;</description>
+<wire x1="4.826" y1="-4.318" x2="5.08" y2="-4.064" width="0.1524" layer="21"/>
+<wire x1="4.826" y1="-4.318" x2="-4.826" y2="-4.318" width="0.1524" layer="21"/>
+<wire x1="-5.08" y1="-4.064" x2="-4.826" y2="-4.318" width="0.1524" layer="21"/>
+<wire x1="5.08" y1="-1.143" x2="5.08" y2="-4.064" width="0.1524" layer="21"/>
+<wire x1="-5.08" y1="-4.064" x2="-5.08" y2="-1.143" width="0.1524" layer="21"/>
+<circle x="-4.6228" y="-3.7084" radius="0.254" width="0" layer="21"/>
+<pad name="IN" x="-2.54" y="-2.54" drill="1.016" shape="long" rot="R90"/>
+<pad name="GND" x="0" y="-2.54" drill="1.016" shape="long" rot="R90"/>
+<pad name="OUT" x="2.54" y="-2.54" drill="1.016" shape="long" rot="R90"/>
+<text x="-5.08" y="-6.0452" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<text x="-5.08" y="-7.62" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
+<text x="-0.635" y="-3.81" size="1.27" layer="51" ratio="10">-</text>
+<text x="-3.175" y="-3.81" size="1.27" layer="51" ratio="10">I</text>
+<text x="1.905" y="-3.81" size="1.27" layer="51" ratio="10">O</text>
+<rectangle x1="-5.334" y1="-1.27" x2="-3.429" y2="0" layer="21"/>
+<rectangle x1="-3.429" y1="-0.762" x2="-1.651" y2="0" layer="21"/>
+<rectangle x1="-1.651" y1="-1.27" x2="-0.889" y2="0" layer="21"/>
+<rectangle x1="-0.889" y1="-0.762" x2="0.889" y2="0" layer="21"/>
+<rectangle x1="0.889" y1="-1.27" x2="1.651" y2="0" layer="21"/>
+<rectangle x1="1.651" y1="-0.762" x2="3.429" y2="0" layer="21"/>
+<rectangle x1="3.429" y1="-1.27" x2="5.334" y2="0" layer="21"/>
+<rectangle x1="-3.429" y1="-1.27" x2="-1.651" y2="-0.762" layer="51"/>
+<rectangle x1="-0.889" y1="-1.27" x2="0.889" y2="-0.762" layer="51"/>
+<rectangle x1="1.651" y1="-1.27" x2="3.429" y2="-0.762" layer="51"/>
+</package>
+</packages>
+<packages3d>
+<package3d name="78XXS" urn="urn:adsk.eagle:package:30342/1" type="box" library_version="1">
+<description>VOLTAGE REGULATOR</description>
+<packageinstances>
+<packageinstance name="78XXS"/>
+</packageinstances>
+</package3d>
+</packages3d>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -3945,9 +3999,11 @@ RECOMMENDED ON ALL LAYERS</text>
 </pass>
 </autorouter>
 <elements>
-<element name="BLUE" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" package="TACTILE_SWITCH_LED_PTH_12MM_KIT" package3d_urn="urn:adsk.eagle:package:40174/1" value="MOMENTARY-SWITCH-SPST-LED" x="89.408" y="79.883">
+<element name="BLUE" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" package="TACTILE_SWITCH_LED_PTH_12MM_KIT" package3d_urn="urn:adsk.eagle:package:40174/1" value="MOMENTARY-SWITCH-SPST-LED" x="89.408" y="79.883" smashed="yes">
+<attribute name="NAME" x="89.408" y="88.265" size="1.2192" layer="25" font="vector" ratio="20" align="bottom-center"/>
 <attribute name="PROD_ID" value="SWCH-11758" x="89.408" y="79.883" size="1.778" layer="27" display="off"/>
 <attribute name="SF_SKU" value="COM-10442" x="89.408" y="79.883" size="1.778" layer="27" display="off"/>
+<attribute name="VALUE" x="89.408" y="71.628" size="0.6096" layer="27" font="vector" ratio="20" align="top-center"/>
 </element>
 <element name="C1" library="SparkFun-Capacitors" library_urn="urn:adsk.eagle:library:510" package="0603" package3d_urn="urn:adsk.eagle:package:37414/1" value="0.1uF" x="48.26" y="113.03" rot="MR0">
 <attribute name="PROD_ID" value="CAP-00810" x="48.26" y="113.03" size="1.778" layer="28" rot="MR0" display="off"/>
@@ -3955,12 +4011,14 @@ RECOMMENDED ON ALL LAYERS</text>
 <element name="C2" library="SparkFun-Capacitors" library_urn="urn:adsk.eagle:library:510" package="0603" package3d_urn="urn:adsk.eagle:package:37414/1" value="4.7uF" x="15.24" y="43.18" rot="MR270">
 <attribute name="PROD_ID" value="CAP-00810" x="15.24" y="43.18" size="1.778" layer="28" rot="MR270" display="off"/>
 </element>
-<element name="GREEN" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" package="TACTILE_SWITCH_LED_PTH_12MM_KIT" package3d_urn="urn:adsk.eagle:package:40174/1" value="MOMENTARY-SWITCH-SPST-LED" x="107.95" y="62.23">
+<element name="GREEN" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" package="TACTILE_SWITCH_LED_PTH_12MM_KIT" package3d_urn="urn:adsk.eagle:package:40174/1" value="MOMENTARY-SWITCH-SPST-LED" x="107.95" y="62.23" smashed="yes">
+<attribute name="NAME" x="107.95" y="70.612" size="1.2192" layer="25" font="vector" ratio="20" align="bottom-center"/>
 <attribute name="PROD_ID" value="SWCH-11758" x="107.95" y="62.23" size="1.778" layer="27" display="off"/>
 <attribute name="SF_SKU" value="COM-10442" x="107.95" y="62.23" size="1.778" layer="27" display="off"/>
+<attribute name="VALUE" x="107.95" y="53.975" size="0.6096" layer="27" font="vector" ratio="20" align="top-center"/>
 </element>
-<element name="J1" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X02" package3d_urn="urn:adsk.eagle:package:38039/1" value="I2C" x="52.07" y="10.16" rot="R270"/>
-<element name="J2" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X02" package3d_urn="urn:adsk.eagle:package:38039/1" value="Supply" x="49.53" y="7.62" rot="R90"/>
+<element name="J1" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X02" package3d_urn="urn:adsk.eagle:package:38039/1" value="I2C" x="52.07" y="10.16" smashed="yes" rot="R270"/>
+<element name="J2" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X02" package3d_urn="urn:adsk.eagle:package:38039/1" value="Supply" x="49.53" y="7.62" smashed="yes" rot="R90"/>
 <element name="JOYSTICK" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" package="JOYSTICK_MINI" package3d_urn="urn:adsk.eagle:package:40157/1" value="" x="13.97" y="91.44" rot="R315">
 <attribute name="PROD_ID" value="SWCH-09905" x="13.97" y="91.44" size="1.778" layer="27" rot="R315" display="off"/>
 <attribute name="SF_SKU" value="COM-10063" x="13.97" y="91.44" size="1.778" layer="27" rot="R315" display="off"/>
@@ -4007,9 +4065,11 @@ RECOMMENDED ON ALL LAYERS</text>
 <element name="R9" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" package="1206" package3d_urn="urn:adsk.eagle:package:39654/1" value="100" x="19.05" y="39.37" rot="MR180">
 <attribute name="PROD_ID" value=" " x="19.05" y="39.37" size="1.778" layer="28" rot="MR180" display="off"/>
 </element>
-<element name="RED" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" package="TACTILE_SWITCH_LED_PTH_12MM_KIT" package3d_urn="urn:adsk.eagle:package:40174/1" value="MOMENTARY-SWITCH-SPST-LED" x="69.85" y="62.23">
+<element name="RED" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" package="TACTILE_SWITCH_LED_PTH_12MM_KIT" package3d_urn="urn:adsk.eagle:package:40174/1" value="MOMENTARY-SWITCH-SPST-LED" x="69.85" y="62.23" smashed="yes">
+<attribute name="NAME" x="69.85" y="70.612" size="1.2192" layer="25" font="vector" ratio="20" align="bottom-center"/>
 <attribute name="PROD_ID" value="SWCH-11758" x="69.85" y="62.23" size="1.778" layer="27" display="off"/>
 <attribute name="SF_SKU" value="COM-10442" x="69.85" y="62.23" size="1.778" layer="27" display="off"/>
+<attribute name="VALUE" x="69.85" y="53.975" size="0.6096" layer="27" font="vector" ratio="20" align="top-center"/>
 </element>
 <element name="S5" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" package="SWITCH_SPDT_PTH_11.6X4.0MM" package3d_urn="urn:adsk.eagle:package:40177/1" value="" x="60.96" y="91.44">
 <attribute name="PROD_ID" value="SWCH-08261" x="60.96" y="91.44" size="1.778" layer="27" display="off"/>
@@ -4027,25 +4087,28 @@ RECOMMENDED ON ALL LAYERS</text>
 <element name="TSMP58000" library="transistor-npn" library_urn="urn:adsk.eagle:library:398" package="TO92" package3d_urn="urn:adsk.eagle:package:28974/2" value="IR Sensor" x="20.32" y="43.18" smashed="yes">
 <attribute name="VALUE" x="23.495" y="41.91" size="1.27" layer="27" ratio="10"/>
 </element>
-<element name="U$4" library="Particle-Devices" package="PHOTON" value="PHOTON_WITH_HEADERS" x="19.431" y="36.957" rot="R270"/>
+<element name="PHOTON" library="Particle-Devices" package="PHOTON" value="PHOTON_WITH_HEADERS" x="19.431" y="36.957" smashed="yes" rot="R270">
+<attribute name="NAME" x="17.145" y="32.893" size="2.54" layer="25" font="vector" ratio="18" rot="R270"/>
+</element>
 <element name="U$5" library="tft_1.8_1.44_oled_0.96" package="OLED_0.96_I2C" value="OLED_0.96_I2C" x="38.354" y="92.583"/>
-<element name="YELLOW" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" package="TACTILE_SWITCH_LED_PTH_12MM_KIT" package3d_urn="urn:adsk.eagle:package:40174/1" value="MOMENTARY-SWITCH-SPST-LED" x="89.789" y="45.72">
+<element name="YELLOW" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" package="TACTILE_SWITCH_LED_PTH_12MM_KIT" package3d_urn="urn:adsk.eagle:package:40174/1" value="MOMENTARY-SWITCH-SPST-LED" x="89.789" y="45.72" smashed="yes">
+<attribute name="NAME" x="89.789" y="54.102" size="1.2192" layer="25" font="vector" ratio="20" align="bottom-center"/>
 <attribute name="PROD_ID" value="SWCH-11758" x="89.789" y="45.72" size="1.778" layer="27" display="off"/>
 <attribute name="SF_SKU" value="COM-10442" x="89.789" y="45.72" size="1.778" layer="27" display="off"/>
+<attribute name="VALUE" x="89.789" y="37.465" size="0.6096" layer="27" font="vector" ratio="20" align="top-center"/>
 </element>
-<element name="U$2" library="SMT18650" package="18650SMT" value="SMT18650" x="26.67" y="15.24" rot="MR90"/>
+<element name="U$2" library="SMT18650" package="18650SMT" value="SMT18650" x="26.67" y="15.24" smashed="yes" rot="MR90"/>
 <element name="U$3" library="ParticleMeshMed" package="MESH#1PX#SVG" value="" x="63.5" y="62.23"/>
 <element name="U$1" library="particle-spark" package="SPARK-LOGO" value="" x="38.1" y="49.53"/>
+<element name="IC1" library="v-reg" library_urn="urn:adsk.eagle:library:409" package="78XXS" package3d_urn="urn:adsk.eagle:package:30342/1" value="" x="53.34" y="26.67" rot="MR0"/>
+<element name="U$4" library="particle-spark" package="SPARK-LOGO" value="" x="88.9" y="63.5" rot="MR0"/>
 </elements>
 <signals>
-<signal name="VIN">
-<contactref element="U$4" pad="1"/>
-</signal>
 <signal name="VBAT">
-<contactref element="U$4" pad="22"/>
+<contactref element="PHOTON" pad="22"/>
 </signal>
 <signal name="GND">
-<contactref element="U$4" pad="21"/>
+<contactref element="PHOTON" pad="21"/>
 <contactref element="RED" pad="C"/>
 <contactref element="RED" pad="4"/>
 <contactref element="GREEN" pad="C"/>
@@ -4060,20 +4123,20 @@ RECOMMENDED ON ALL LAYERS</text>
 <contactref element="J2" pad="1"/>
 <contactref element="JOYSTICK" pad="GND"/>
 <contactref element="U$5" pad="GND"/>
-<contactref element="U$4" pad="2"/>
+<contactref element="PHOTON" pad="2"/>
 <contactref element="TSMP58000" pad="3"/>
 <contactref element="C2" pad="2"/>
 <contactref element="S5" pad="1"/>
 <contactref element="U$2" pad="BATTERY_NEGATIVE"/>
 <polygon width="0.3048" layer="16" isolate="0.3048">
-<vertex x="-1.27" y="121.92"/>
-<vertex x="78.74" y="121.92"/>
-<vertex x="128.27" y="72.39"/>
-<vertex x="128.27" y="52.07"/>
+<vertex x="19.05" y="123.19"/>
+<vertex x="55.88" y="123.19"/>
+<vertex x="110.49" y="91.44"/>
+<vertex x="132.08" y="54.61"/>
 <vertex x="74.93" y="-1.27"/>
 <vertex x="22.86" y="-1.27"/>
-<vertex x="-11.43" y="33.02"/>
-<vertex x="-11.43" y="111.76"/>
+<vertex x="0" y="33.02"/>
+<vertex x="0" y="91.44"/>
 </polygon>
 <polygon width="0.3048" layer="1" isolate="0.3048">
 <vertex x="-5.08" y="123.19"/>
@@ -4092,8 +4155,16 @@ RECOMMENDED ON ALL LAYERS</text>
 <wire x1="22.13" y1="87.63" x2="23.4" y2="86.36" width="0.3048" layer="16"/>
 <wire x1="56.06" y1="106.68" x2="57.15" y2="106.68" width="0.3048" layer="1"/>
 <via x="57.15" y="106.68" extent="1-16" drill="0.5"/>
+<contactref element="IC1" pad="GND"/>
+<wire x1="49.911" y1="35.687" x2="49.911" y2="33.401" width="0.3048" layer="1"/>
+<wire x1="49.911" y1="33.401" x2="53.34" y2="29.972" width="0.3048" layer="1"/>
+<wire x1="53.34" y1="29.972" x2="53.34" y2="24.13" width="0.3048" layer="1"/>
+<wire x1="44.831" y1="17.907" x2="49.1236" y2="22.1996" width="0.3048" layer="1"/>
+<wire x1="53.19333125" y1="24.13" x2="53.34" y2="24.13" width="0.3048" layer="1"/>
+<wire x1="49.1236" y1="22.1996" x2="51.26293125" y2="22.1996" width="0.3048" layer="1"/>
+<wire x1="51.26293125" y1="22.1996" x2="53.19333125" y2="24.13" width="0.3048" layer="1"/>
 </signal>
-<signal name="3V3">
+<signal name="+3V3">
 <contactref element="SJ1" pad="2"/>
 <contactref element="SI7021" pad="5"/>
 <contactref element="C1" pad="1"/>
@@ -4102,8 +4173,6 @@ RECOMMENDED ON ALL LAYERS</text>
 <contactref element="U$5" pad="VCC"/>
 <contactref element="R9" pad="2"/>
 <contactref element="R10" pad="2"/>
-<contactref element="U$4" pad="24"/>
-<contactref element="U$2" pad="BATTERY_POSITIVE"/>
 <wire x1="20.45" y1="37.97" x2="20.45" y2="39.37" width="0.4064" layer="16"/>
 <wire x1="49.11" y1="113.03" x2="49.11" y2="115.15" width="0.4064" layer="16"/>
 <wire x1="49.11" y1="115.15" x2="50.8" y2="116.84" width="0.4064" layer="16"/>
@@ -4131,19 +4200,17 @@ RECOMMENDED ON ALL LAYERS</text>
 <wire x1="66.36270625" y1="87.5744" x2="66.4156" y2="87.5744" width="0.4064" layer="16"/>
 <wire x1="66.4156" y1="87.5744" x2="67.31" y2="86.68" width="0.4064" layer="16"/>
 <wire x1="49.53" y1="10.16" x2="48.4" y2="11.29" width="0.4064" layer="16"/>
-<wire x1="48.4" y1="11.29" x2="36.99" y2="11.29" width="0.4064" layer="16"/>
-<wire x1="48.4" y1="11.29" x2="52.451" y2="15.341" width="0.4064" layer="16"/>
-<wire x1="52.451" y1="15.341" x2="52.451" y2="17.907" width="0.4064" layer="16"/>
+<wire x1="48.4" y1="11.29" x2="54.61" y2="17.5" width="0.4064" layer="16"/>
 <wire x1="16.4338" y1="35.51716875" x2="16.4338" y2="18.07683125" width="0.4064" layer="16"/>
 <wire x1="17.89903125" y1="36.9824" x2="16.4338" y2="35.51716875" width="0.4064" layer="16"/>
-<wire x1="23.22063125" y1="11.29" x2="36.99" y2="11.29" width="0.4064" layer="16"/>
 <wire x1="16.4338" y1="18.07683125" x2="23.22063125" y2="11.29" width="0.4064" layer="16"/>
 <wire x1="26.8" y1="39.5" x2="41.91" y2="54.61" width="0.4064" layer="16"/>
 <via x="41.91" y="54.61" extent="1-16" drill="0.5"/>
 <wire x1="63.5" y1="76.2" x2="63.5" y2="87.63" width="0.4064" layer="1"/>
 <wire x1="42.3712" y1="56.21501875" x2="42.84498125" y2="56.6888" width="0.4064" layer="1"/>
 <wire x1="41.91" y1="54.61" x2="42.3712" y2="55.0712" width="0.4064" layer="1"/>
-<wire x1="43.9888" y1="56.6888" x2="63.5" y2="76.2" width="0.4064" layer="1"/>
+<wire x1="43.9888" y1="56.6888" x2="44.45" y2="57.15" width="0.4064" layer="1"/>
+<wire x1="44.45" y1="57.15" x2="63.5" y2="76.2" width="0.4064" layer="1"/>
 <wire x1="42.3712" y1="55.0712" x2="42.3712" y2="56.21501875" width="0.4064" layer="1"/>
 <wire x1="42.84498125" y1="56.6888" x2="43.9888" y2="56.6888" width="0.4064" layer="1"/>
 <wire x1="17.89903125" y1="36.9824" x2="19.4624" y2="36.9824" width="0.4064" layer="16"/>
@@ -4157,6 +4224,21 @@ RECOMMENDED ON ALL LAYERS</text>
 <wire x1="23.0338" y1="38.1438" x2="23.0338" y2="37.63798125" width="0.4064" layer="16"/>
 <wire x1="21.4162" y1="37.63798125" x2="21.4162" y2="38.4038" width="0.4064" layer="16"/>
 <wire x1="21.4162" y1="38.4038" x2="20.45" y2="39.37" width="0.4064" layer="16"/>
+<contactref element="PHOTON" pad="24"/>
+<contactref element="PHOTON" pad="1"/>
+<wire x1="54.61" y1="17.5" x2="54.61" y2="20.32" width="0.4064" layer="16"/>
+<via x="54.61" y="29.21" extent="1-16" drill="0.5"/>
+<wire x1="54.61" y1="20.32" x2="54.61" y2="29.21" width="0.4064" layer="16"/>
+<wire x1="54.61" y1="29.21" x2="54.61" y2="33.528" width="0.4064" layer="1"/>
+<wire x1="54.61" y1="33.528" x2="52.451" y2="35.687" width="0.4064" layer="1"/>
+<contactref element="IC1" pad="OUT"/>
+<wire x1="52.451" y1="35.687" x2="44.45" y2="43.688" width="0.4064" layer="1"/>
+<wire x1="44.45" y1="43.688" x2="44.45" y2="57.15" width="0.4064" layer="1"/>
+<wire x1="52.451" y1="17.907" x2="52.451" y2="19.431" width="0.4064" layer="16"/>
+<wire x1="52.451" y1="19.431" x2="53.34" y2="20.32" width="0.4064" layer="16"/>
+<wire x1="53.34" y1="20.32" x2="54.61" y2="20.32" width="0.4064" layer="16"/>
+<wire x1="50.8" y1="24.13" x2="53.34" y2="21.59" width="0.4064" layer="16"/>
+<wire x1="53.34" y1="21.59" x2="53.34" y2="20.32" width="0.4064" layer="16"/>
 </signal>
 <signal name="N$4">
 <contactref element="R1" pad="2"/>
@@ -4166,7 +4248,7 @@ RECOMMENDED ON ALL LAYERS</text>
 </signal>
 <signal name="BUTTON_R">
 <contactref element="RED" pad="2"/>
-<contactref element="U$4" pad="4"/>
+<contactref element="PHOTON" pad="4"/>
 <wire x1="76.1" y1="64.73" x2="70.2048" y2="58.8348" width="0.3048" layer="16"/>
 <wire x1="45.61086875" y1="35.687" x2="44.831" y2="35.687" width="0.3048" layer="16"/>
 <wire x1="70.2048" y1="58.8348" x2="68.75866875" y2="58.8348" width="0.3048" layer="16"/>
@@ -4174,13 +4256,13 @@ RECOMMENDED ON ALL LAYERS</text>
 </signal>
 <signal name="LED_R">
 <contactref element="R1" pad="1"/>
-<contactref element="U$4" pad="8"/>
+<contactref element="PHOTON" pad="8"/>
 <wire x1="67.18" y1="74.93" x2="34.671" y2="42.421" width="0.3048" layer="16"/>
 <wire x1="34.671" y1="42.421" x2="34.671" y2="35.687" width="0.3048" layer="16"/>
 </signal>
 <signal name="LED_G">
 <contactref element="R2" pad="1"/>
-<contactref element="U$4" pad="9"/>
+<contactref element="PHOTON" pad="9"/>
 <wire x1="105.28" y1="76.2" x2="87.3348" y2="58.2548" width="0.3048" layer="16"/>
 <wire x1="87.3348" y1="58.2548" x2="87.3348" y2="56.12375" width="0.3048" layer="16"/>
 <wire x1="87.3348" y1="56.12375" x2="64.23105" y2="33.02" width="0.3048" layer="16"/>
@@ -4197,7 +4279,7 @@ RECOMMENDED ON ALL LAYERS</text>
 </signal>
 <signal name="LED_B">
 <contactref element="R3" pad="1"/>
-<contactref element="U$4" pad="10"/>
+<contactref element="PHOTON" pad="10"/>
 <wire x1="30.737" y1="35.687" x2="29.591" y2="35.687" width="0.3048" layer="16"/>
 <wire x1="30.8864" y1="35.8364" x2="30.737" y2="35.687" width="0.3048" layer="16"/>
 <wire x1="78.74" y1="83.69" x2="71.1848" y2="76.1348" width="0.3048" layer="16"/>
@@ -4221,7 +4303,7 @@ RECOMMENDED ON ALL LAYERS</text>
 </signal>
 <signal name="LED_Y">
 <contactref element="R4" pad="1"/>
-<contactref element="U$4" pad="11"/>
+<contactref element="PHOTON" pad="11"/>
 <wire x1="27.83086875" y1="35.687" x2="27.051" y2="35.687" width="0.3048" layer="16"/>
 <wire x1="29.07546875" y1="34.4424" x2="27.83086875" y2="35.687" width="0.3048" layer="16"/>
 <wire x1="63.5224" y1="34.4424" x2="29.07546875" y2="34.4424" width="0.3048" layer="16"/>
@@ -4229,7 +4311,7 @@ RECOMMENDED ON ALL LAYERS</text>
 </signal>
 <signal name="BUTTON_Y">
 <contactref element="YELLOW" pad="2"/>
-<contactref element="U$4" pad="7"/>
+<contactref element="PHOTON" pad="7"/>
 <wire x1="96.039" y1="48.22" x2="90.1438" y2="42.3248" width="0.3048" layer="16"/>
 <wire x1="90.1438" y1="42.3248" x2="89.331375" y2="42.3248" width="0.3048" layer="16"/>
 <wire x1="89.331375" y1="42.3248" x2="88.6842" y2="41.677625" width="0.3048" layer="16"/>
@@ -4247,7 +4329,7 @@ RECOMMENDED ON ALL LAYERS</text>
 <contactref element="SI7021" pad="1"/>
 <contactref element="R5" pad="1"/>
 <contactref element="J1" pad="1"/>
-<contactref element="U$4" pad="13"/>
+<contactref element="PHOTON" pad="13"/>
 <contactref element="U$5" pad="SDA"/>
 <wire x1="49.95" y1="110.49" x2="49.95" y2="110.07" width="0.3048" layer="16"/>
 <wire x1="49.95" y1="110.07" x2="50.8" y2="109.22" width="0.3048" layer="16"/>
@@ -4283,7 +4365,7 @@ RECOMMENDED ON ALL LAYERS</text>
 <contactref element="SI7021" pad="6"/>
 <contactref element="R6" pad="1"/>
 <contactref element="J1" pad="2"/>
-<contactref element="U$4" pad="14"/>
+<contactref element="PHOTON" pad="14"/>
 <contactref element="U$5" pad="SCL"/>
 <wire x1="56.73" y1="110.49" x2="55.46" y2="109.22" width="0.3048" layer="16"/>
 <wire x1="55.46" y1="109.22" x2="52.07" y2="109.22" width="0.3048" layer="16"/>
@@ -4339,7 +4421,7 @@ RECOMMENDED ON ALL LAYERS</text>
 </signal>
 <signal name="UP">
 <contactref element="JOYSTICK" pad="A"/>
-<contactref element="U$4" pad="20"/>
+<contactref element="PHOTON" pad="20"/>
 <wire x1="12.60881875" y1="94.781078125" x2="14.6337" y2="92.756196875" width="0.3048" layer="1"/>
 <wire x1="14.6337" y1="92.756196875" x2="14.6337" y2="92.5019125" width="0.3048" layer="1"/>
 <wire x1="42.291" y1="33.92686875" x2="42.291" y2="17.907" width="0.3048" layer="1"/>
@@ -4353,7 +4435,7 @@ RECOMMENDED ON ALL LAYERS</text>
 </signal>
 <signal name="DOWN">
 <contactref element="JOYSTICK" pad="D"/>
-<contactref element="U$4" pad="19"/>
+<contactref element="PHOTON" pad="19"/>
 <wire x1="15.331178125" y1="88.09891875" x2="39.751" y2="63.679096875" width="0.3048" layer="1"/>
 <wire x1="38.5064" y1="36.20253125" x2="38.5064" y2="35.17146875" width="0.3048" layer="1"/>
 <wire x1="39.751" y1="63.679096875" x2="39.751" y2="37.44713125" width="0.3048" layer="1"/>
@@ -4363,7 +4445,7 @@ RECOMMENDED ON ALL LAYERS</text>
 </signal>
 <signal name="LEFT">
 <contactref element="JOYSTICK" pad="C"/>
-<contactref element="U$4" pad="18"/>
+<contactref element="PHOTON" pad="18"/>
 <wire x1="10.62891875" y1="92.801178125" x2="12.503790625" y2="90.92630625" width="0.3048" layer="1"/>
 <wire x1="12.503790625" y1="90.92630625" x2="12.97021875" y2="90.92630625" width="0.3048" layer="1"/>
 <wire x1="30.48" y1="33.03786875" x2="30.48" y2="29.21" width="0.3048" layer="1"/>
@@ -4382,7 +4464,7 @@ RECOMMENDED ON ALL LAYERS</text>
 </signal>
 <signal name="RIGHT">
 <contactref element="JOYSTICK" pad="B"/>
-<contactref element="U$4" pad="17"/>
+<contactref element="PHOTON" pad="17"/>
 <wire x1="34.671" y1="66.929" x2="33.02" y2="68.58" width="0.3048" layer="1"/>
 <wire x1="33.4264" y1="35.17146875" x2="33.4264" y2="36.20253125" width="0.3048" layer="1"/>
 <wire x1="34.671" y1="17.907" x2="34.671" y2="33.92686875" width="0.3048" layer="1"/>
@@ -4399,7 +4481,7 @@ RECOMMENDED ON ALL LAYERS</text>
 </signal>
 <signal name="CENT">
 <contactref element="JOYSTICK" pad="CTR"/>
-<contactref element="U$4" pad="16"/>
+<contactref element="PHOTON" pad="16"/>
 <wire x1="32.131" y1="17.907" x2="32.131" y2="33.92686875" width="0.3048" layer="1"/>
 <wire x1="32.131" y1="33.92686875" x2="30.8864" y2="35.17146875" width="0.3048" layer="1"/>
 <wire x1="13.9834" y1="91.426596875" x2="11.61886875" y2="93.791128125" width="0.3048" layer="1"/>
@@ -4416,7 +4498,7 @@ RECOMMENDED ON ALL LAYERS</text>
 </signal>
 <signal name="N$1">
 <contactref element="R7" pad="2"/>
-<contactref element="U$4" pad="3"/>
+<contactref element="PHOTON" pad="3"/>
 <wire x1="29.53" y1="55.88" x2="43.18" y2="55.88" width="0.3048" layer="16"/>
 <via x="43.18" y="55.88" extent="1-16" drill="0.5"/>
 <wire x1="43.18" y1="55.88" x2="43.18" y2="39.878" width="0.3048" layer="1"/>
@@ -4430,7 +4512,7 @@ RECOMMENDED ON ALL LAYERS</text>
 <signal name="IR_RECEIVER">
 <contactref element="TSMP58000" pad="1"/>
 <contactref element="R10" pad="1"/>
-<contactref element="U$4" pad="12"/>
+<contactref element="PHOTON" pad="12"/>
 <wire x1="21.59" y1="41.78" x2="21.59" y2="43.18" width="0.3048" layer="16"/>
 <wire x1="24.511" y1="35.687" x2="22.225" y2="37.973" width="0.3048" layer="1"/>
 <via x="22.225" y="37.973" extent="1-16" drill="0.5"/>
@@ -4452,7 +4534,7 @@ RECOMMENDED ON ALL LAYERS</text>
 </signal>
 <signal name="BUTTON_G">
 <contactref element="GREEN" pad="2"/>
-<contactref element="U$4" pad="5"/>
+<contactref element="PHOTON" pad="5"/>
 <wire x1="114.2" y1="64.73" x2="108.3048" y2="58.8348" width="0.3048" layer="16"/>
 <wire x1="108.3048" y1="58.8348" x2="107.492375" y2="58.8348" width="0.3048" layer="16"/>
 <wire x1="89.31555" y1="40.113" x2="88.646" y2="39.44345" width="0.3048" layer="16"/>
@@ -4471,7 +4553,7 @@ RECOMMENDED ON ALL LAYERS</text>
 </signal>
 <signal name="BUTTON_B">
 <contactref element="BLUE" pad="2"/>
-<contactref element="U$4" pad="6"/>
+<contactref element="PHOTON" pad="6"/>
 <wire x1="39.751" y1="35.687" x2="62.4097" y2="58.3457" width="0.3048" layer="16"/>
 <wire x1="62.4097" y1="58.3457" x2="64.1734" y2="58.3457" width="0.3048" layer="16"/>
 <wire x1="81.7737" y1="77.9564" x2="86.2003" y2="82.383" width="0.3048" layer="16"/>
@@ -4480,7 +4562,7 @@ RECOMMENDED ON ALL LAYERS</text>
 <wire x1="86.2003" y1="82.383" x2="95.658" y2="82.383" width="0.3048" layer="16"/>
 </signal>
 <signal name="N$2">
-<contactref element="U$4" pad="15"/>
+<contactref element="PHOTON" pad="15"/>
 <contactref element="S5" pad="2"/>
 <wire x1="60.96" y1="91.44" x2="52.07" y2="82.55" width="0.4064" layer="16"/>
 <wire x1="52.07" y1="82.55" x2="52.07" y2="62.59763125" width="0.3048" layer="16"/>
@@ -4499,6 +4581,21 @@ RECOMMENDED ON ALL LAYERS</text>
 <contactref element="R8" pad="1"/>
 <wire x1="60.96" y1="88.9" x2="66.99" y2="88.9" width="0.3048" layer="16"/>
 <wire x1="66.99" y1="88.9" x2="67.31" y2="88.58" width="0.3048" layer="16"/>
+</signal>
+<signal name="N$5">
+<contactref element="U$2" pad="BATTERY_POSITIVE"/>
+<contactref element="IC1" pad="IN"/>
+<wire x1="36.99" y1="11.29" x2="42.21" y2="16.51" width="0.3048" layer="16"/>
+<wire x1="42.21" y1="16.51" x2="43.18" y2="16.51" width="0.3048" layer="16"/>
+<wire x1="43.18" y1="16.51" x2="43.5864" y2="16.9164" width="0.3048" layer="16"/>
+<wire x1="43.5864" y1="16.9164" x2="43.5864" y2="18.42253125" width="0.3048" layer="16"/>
+<wire x1="43.5864" y1="18.42253125" x2="45.48386875" y2="20.32" width="0.3048" layer="16"/>
+<wire x1="45.48386875" y1="20.32" x2="49.53" y2="20.32" width="0.3048" layer="16"/>
+<via x="49.53" y="20.32" extent="1-16" drill="0.5"/>
+<wire x1="49.53" y1="20.32" x2="50.9524" y2="21.7424" width="0.3048" layer="1"/>
+<wire x1="55.73333125" y1="24.13" x2="55.88" y2="24.13" width="0.3048" layer="1"/>
+<wire x1="50.9524" y1="21.7424" x2="53.34573125" y2="21.7424" width="0.3048" layer="1"/>
+<wire x1="53.34573125" y1="21.7424" x2="55.73333125" y2="24.13" width="0.3048" layer="1"/>
 </signal>
 </signals>
 </board>
