@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.0.1">
+<eagle version="9.0.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="yes"/>
@@ -174,8 +174,8 @@
 <wire x1="3.81" y1="32.512" x2="3.81" y2="33.401" width="0.3048" layer="20"/>
 <wire x1="3.81" y1="33.401" x2="20.32" y2="61.595" width="0.3048" layer="20"/>
 <wire x1="20.32" y1="61.595" x2="20.32" y2="62.23" width="0.3048" layer="20"/>
-<text x="27.94" y="73.66" size="3.048" layer="21" font="vector" ratio="18">#PartiBadge</text>
-<text x="21.082" y="68.707" size="2.54" layer="21" font="vector" ratio="18">THAT Conference 2018</text>
+<text x="27.178" y="73.533" size="3.048" layer="21" font="vector" ratio="18">#PartiBadge</text>
+<text x="20.574" y="68.707" size="2.54" layer="21" font="vector" ratio="18">THAT Conference 2018</text>
 <circle x="38.1" y="114.3" radius="4.57905" width="0.4064" layer="20"/>
 <text x="65.024" y="68.58" size="2.4384" layer="21" font="vector" ratio="18">A</text>
 <text x="84.455" y="86.233" size="2.4384" layer="21" font="vector" ratio="18">B</text>
@@ -189,7 +189,7 @@
 <text x="89.662" y="44.577" size="3.6576" layer="22" font="vector" ratio="18" rot="MR0" align="bottom-center">particle.io</text>
 <text x="56.896" y="98.171" size="1.8288" layer="21" font="vector" ratio="18">Display</text>
 <text x="57.912" y="83.185" size="1.8288" layer="21" font="vector" ratio="18">Game</text>
-<text x="88.646" y="60.833" size="3.048" layer="21" font="vector" ratio="18" align="bottom-center">Particle.io</text>
+<text x="89.154" y="60.706" size="3.048" layer="21" font="vector" ratio="18" align="bottom-center">Particle.io</text>
 </plain>
 <libraries>
 <library name="SparkFun-Switches" urn="urn:adsk.eagle:library:535">
@@ -4139,14 +4139,13 @@ RECOMMENDED ON ALL LAYERS</text>
 <vertex x="0" y="91.44"/>
 </polygon>
 <polygon width="0.3048" layer="1" isolate="0.3048">
-<vertex x="-5.08" y="123.19"/>
+<vertex x="5.08" y="123.19"/>
 <vertex x="82.55" y="123.19"/>
-<vertex x="119.38" y="86.36"/>
 <vertex x="125.73" y="80.01"/>
-<vertex x="125.73" y="26.67"/>
-<vertex x="100.33" y="1.27"/>
-<vertex x="10.16" y="1.27"/>
-<vertex x="-5.08" y="16.51"/>
+<vertex x="123.19" y="27.94"/>
+<vertex x="55.88" y="1.27"/>
+<vertex x="20.32" y="1.27"/>
+<vertex x="0" y="33.02"/>
 </polygon>
 <wire x1="16.321128125" y1="89.08886875" x2="17.779996875" y2="87.63" width="0.3048" layer="1"/>
 <wire x1="17.779996875" y1="87.63" x2="17.78" y2="87.63" width="0.3048" layer="1"/>
