@@ -3147,6 +3147,14 @@ Warning: This is the KIT version of this package. This package has a smaller dia
 <text x="-2.54" y="-5.08" size="1.778" layer="96" rot="R90">&gt;VALUE</text>
 <pin name="+3V3" x="0" y="-2.54" visible="off" length="short" direction="sup" rot="R90"/>
 </symbol>
+<symbol name="VDD" urn="urn:adsk.eagle:symbol:26943/1" library_version="1">
+<wire x1="1.27" y1="-1.905" x2="0" y2="0" width="0.254" layer="94"/>
+<wire x1="0" y1="0" x2="-1.27" y2="-1.905" width="0.254" layer="94"/>
+<wire x1="0" y1="1.27" x2="-1.27" y2="-1.905" width="0.254" layer="94"/>
+<wire x1="1.27" y1="-1.905" x2="0" y2="1.27" width="0.254" layer="94"/>
+<text x="-2.54" y="-2.54" size="1.778" layer="96" rot="R90">&gt;VALUE</text>
+<pin name="VDD" x="0" y="-2.54" visible="off" length="short" direction="sup" rot="R90"/>
+</symbol>
 </symbols>
 <devicesets>
 <deviceset name="GND" urn="urn:adsk.eagle:component:26954/1" prefix="GND" library_version="1">
@@ -3166,6 +3174,19 @@ Warning: This is the KIT version of this package. This package has a smaller dia
 <description>&lt;b&gt;SUPPLY SYMBOL&lt;/b&gt;</description>
 <gates>
 <gate name="G$1" symbol="+3V3" x="0" y="0"/>
+</gates>
+<devices>
+<device name="">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="VDD" urn="urn:adsk.eagle:component:26970/1" prefix="VDD" library_version="1">
+<description>&lt;b&gt;SUPPLY SYMBOL&lt;/b&gt;</description>
+<gates>
+<gate name="G$1" symbol="VDD" x="0" y="0"/>
 </gates>
 <devices>
 <device name="">
@@ -8429,19 +8450,20 @@ RECOMMENDED ON ALL LAYERS</text>
 <part name="3V3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="GND5" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND7" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="+3V3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="TSMP58000" library="transistor-npn" library_urn="urn:adsk.eagle:library:398" deviceset="2N3704" device="" package3d_urn="urn:adsk.eagle:package:28974/2" value="IR Sensor"/>
 <part name="GND8" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="R9" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" deviceset="RESISTOR" device="1206" package3d_urn="urn:adsk.eagle:package:39654/1" value="100"/>
 <part name="R10" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" deviceset="RESISTOR" device="1206" package3d_urn="urn:adsk.eagle:package:39654/1" value="4.7k"/>
 <part name="C2" library="SparkFun-Capacitors" library_urn="urn:adsk.eagle:library:510" deviceset="0.1UF" device="-0603-25V-(+80/-20%)" package3d_urn="urn:adsk.eagle:package:37414/1" value="4.7uF"/>
 <part name="+3V5" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
-<part name="+3V8" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="GND10" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND11" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="U$2" library="SMT18650" deviceset="SMT18650" device=""/>
 <part name="IC1" library="v-reg" library_urn="urn:adsk.eagle:library:409" deviceset="78XXS" device="" package3d_urn="urn:adsk.eagle:package:30342/1"/>
 <part name="GND9" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="+3V7" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
+<part name="VDD1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="VDD" device=""/>
+<part name="VDD2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="VDD" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -8492,7 +8514,6 @@ RECOMMENDED ON ALL LAYERS</text>
 <instance part="3V3" gate="G$1" x="-38.1" y="124.46"/>
 <instance part="GND5" gate="1" x="-38.1" y="106.68"/>
 <instance part="GND7" gate="1" x="10.16" y="81.28" rot="R270"/>
-<instance part="+3V3" gate="G$1" x="10.16" y="93.98"/>
 <instance part="TSMP58000" gate="G$1" x="40.64" y="-20.32" smashed="yes">
 <attribute name="NAME" x="27.94" y="-15.24" size="1.778" layer="95"/>
 <attribute name="VALUE" x="27.94" y="-17.78" size="1.778" layer="96"/>
@@ -8502,12 +8523,14 @@ RECOMMENDED ON ALL LAYERS</text>
 <instance part="R10" gate="G$1" x="20.32" y="-7.62" rot="R90"/>
 <instance part="C2" gate="G$1" x="50.8" y="-20.32"/>
 <instance part="+3V5" gate="G$1" x="78.74" y="-5.08"/>
-<instance part="+3V8" gate="G$1" x="7.62" y="129.54"/>
 <instance part="GND10" gate="1" x="48.26" y="104.14"/>
 <instance part="GND11" gate="1" x="78.74" y="43.18" rot="R90"/>
 <instance part="U$2" gate="G$1" x="30.48" y="119.38" smashed="yes" rot="R180"/>
 <instance part="IC1" gate="1" x="20.32" y="124.46" rot="R180"/>
 <instance part="GND9" gate="1" x="35.56" y="127"/>
+<instance part="+3V7" gate="G$1" x="58.42" y="93.98"/>
+<instance part="VDD1" gate="G$1" x="7.62" y="93.98"/>
+<instance part="VDD2" gate="G$1" x="7.62" y="129.54"/>
 </instances>
 <busses>
 </busses>
@@ -8662,16 +8685,10 @@ RECOMMENDED ON ALL LAYERS</text>
 <junction x="68.58" y="-10.16"/>
 </segment>
 <segment>
-<pinref part="PHOTON" gate="G$1" pin="VIN"/>
-<pinref part="+3V3" gate="G$1" pin="+3V3"/>
-<wire x1="17.78" y1="86.36" x2="10.16" y2="86.36" width="0.1524" layer="91"/>
-<wire x1="10.16" y1="86.36" x2="10.16" y2="91.44" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="+3V8" gate="G$1" pin="+3V3"/>
-<wire x1="7.62" y1="127" x2="7.62" y2="124.46" width="0.1524" layer="91"/>
-<pinref part="IC1" gate="1" pin="OUT"/>
-<wire x1="7.62" y1="124.46" x2="12.7" y2="124.46" width="0.1524" layer="91"/>
+<pinref part="PHOTON" gate="G$1" pin="3V3"/>
+<wire x1="53.34" y1="86.36" x2="58.42" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="58.42" y1="86.36" x2="58.42" y2="91.44" width="0.1524" layer="91"/>
+<pinref part="+3V7" gate="G$1" pin="+3V3"/>
 </segment>
 </net>
 <net name="N$4" class="0">
@@ -8994,6 +9011,22 @@ RECOMMENDED ON ALL LAYERS</text>
 <pinref part="IC1" gate="1" pin="IN"/>
 <wire x1="30.48" y1="114.3" x2="27.94" y2="114.3" width="0.1524" layer="91"/>
 <wire x1="27.94" y1="114.3" x2="27.94" y2="124.46" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="5V" class="0">
+<segment>
+<pinref part="IC1" gate="1" pin="OUT"/>
+<pinref part="VDD2" gate="G$1" pin="VDD"/>
+<wire x1="12.7" y1="124.46" x2="7.62" y2="124.46" width="0.1524" layer="91"/>
+<wire x1="7.62" y1="124.46" x2="7.62" y2="127" width="0.1524" layer="91"/>
+<label x="7.62" y="124.46" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="PHOTON" gate="G$1" pin="VIN"/>
+<wire x1="17.78" y1="86.36" x2="7.62" y2="86.36" width="0.1524" layer="91"/>
+<label x="12.7" y="86.36" size="1.778" layer="95"/>
+<pinref part="VDD1" gate="G$1" pin="VDD"/>
+<wire x1="7.62" y1="86.36" x2="7.62" y2="91.44" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
