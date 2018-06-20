@@ -9005,14 +9005,6 @@ RECOMMENDED ON ALL LAYERS</text>
 <wire x1="86.36" y1="38.1" x2="86.36" y2="43.18" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$5" class="0">
-<segment>
-<pinref part="U$2" gate="G$1" pin="PLUS"/>
-<pinref part="IC1" gate="1" pin="IN"/>
-<wire x1="30.48" y1="114.3" x2="27.94" y2="114.3" width="0.1524" layer="91"/>
-<wire x1="27.94" y1="114.3" x2="27.94" y2="124.46" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="5V" class="0">
 <segment>
 <pinref part="IC1" gate="1" pin="OUT"/>
@@ -9027,6 +9019,14 @@ RECOMMENDED ON ALL LAYERS</text>
 <label x="12.7" y="86.36" size="1.778" layer="95"/>
 <pinref part="VDD1" gate="G$1" pin="VDD"/>
 <wire x1="7.62" y1="86.36" x2="7.62" y2="91.44" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="VIN" class="0">
+<segment>
+<pinref part="U$2" gate="G$1" pin="PLUS"/>
+<pinref part="IC1" gate="1" pin="IN"/>
+<wire x1="30.48" y1="114.3" x2="27.94" y2="114.3" width="0.1524" layer="91"/>
+<wire x1="27.94" y1="114.3" x2="27.94" y2="124.46" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>

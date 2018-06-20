@@ -4580,26 +4580,23 @@ RECOMMENDED ON ALL LAYERS</text>
 <wire x1="60.96" y1="88.9" x2="66.99" y2="88.9" width="0.3048" layer="16"/>
 <wire x1="66.99" y1="88.9" x2="67.31" y2="88.58" width="0.3048" layer="16"/>
 </signal>
-<signal name="N$5">
-<contactref element="U$2" pad="BATTERY_POSITIVE"/>
-<contactref element="IC1" pad="IN"/>
-<wire x1="36.99" y1="11.29" x2="42.21" y2="16.51" width="0.3048" layer="16"/>
-<wire x1="42.21" y1="16.51" x2="43.18" y2="16.51" width="0.3048" layer="16"/>
-<wire x1="43.18" y1="16.51" x2="43.5864" y2="16.9164" width="0.3048" layer="16"/>
-<wire x1="43.5864" y1="16.9164" x2="43.5864" y2="18.42253125" width="0.3048" layer="16"/>
-<wire x1="43.5864" y1="18.42253125" x2="45.48386875" y2="20.32" width="0.3048" layer="16"/>
-<wire x1="45.48386875" y1="20.32" x2="49.53" y2="20.32" width="0.3048" layer="16"/>
-<via x="49.53" y="20.32" extent="1-16" drill="0.5"/>
-<wire x1="49.53" y1="20.32" x2="50.9524" y2="21.7424" width="0.3048" layer="1"/>
-<wire x1="55.73333125" y1="24.13" x2="55.88" y2="24.13" width="0.3048" layer="1"/>
-<wire x1="50.9524" y1="21.7424" x2="53.34573125" y2="21.7424" width="0.3048" layer="1"/>
-<wire x1="53.34573125" y1="21.7424" x2="55.73333125" y2="24.13" width="0.3048" layer="1"/>
-</signal>
 <signal name="5V">
 <contactref element="IC1" pad="OUT"/>
 <contactref element="PHOTON" pad="1"/>
 <wire x1="52.451" y1="35.687" x2="50.8" y2="34.036" width="1.016" layer="1"/>
 <wire x1="50.8" y1="34.036" x2="50.8" y2="24.13" width="1.016" layer="1"/>
+</signal>
+<signal name="VIN">
+<contactref element="U$2" pad="BATTERY_POSITIVE"/>
+<contactref element="IC1" pad="IN"/>
+<wire x1="55.73333125" y1="24.13" x2="55.88" y2="24.13" width="0.3048" layer="1"/>
+<wire x1="55.88" y1="24.13" x2="54.8132" y2="23.0632" width="1.016" layer="1"/>
+<wire x1="54.8132" y1="23.0632" x2="54.8132" y2="18.006175" width="1.016" layer="1"/>
+<wire x1="54.8132" y1="18.006175" x2="49.507025" y2="12.7" width="1.016" layer="1"/>
+<wire x1="49.507025" y1="12.7" x2="43.18" y2="12.7" width="1.016" layer="1"/>
+<via x="43.18" y="12.7" extent="1-16" drill="1"/>
+<wire x1="36.99" y1="11.29" x2="41.77" y2="11.29" width="1.016" layer="16"/>
+<wire x1="41.77" y1="11.29" x2="43.18" y2="12.7" width="1.016" layer="16"/>
 </signal>
 </signals>
 </board>
