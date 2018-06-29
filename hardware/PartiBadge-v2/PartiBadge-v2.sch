@@ -8201,128 +8201,6 @@ RECOMMENDED ON ALL LAYERS</text>
 </deviceset>
 </devicesets>
 </library>
-<library name="transistor-npn" urn="urn:adsk.eagle:library:398">
-<description>&lt;b&gt;NPN Transistors&lt;/b&gt;&lt;p&gt;
-&lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
-<packages>
-<package name="TO92" urn="urn:adsk.eagle:footprint:28919/1" library_version="2">
-<description>&lt;b&gt;TO 92&lt;/b&gt;</description>
-<wire x1="-2.0946" y1="-1.651" x2="-2.6549" y2="-0.254" width="0.127" layer="21" curve="-32.781"/>
-<wire x1="-2.6549" y1="-0.254" x2="-0.7863" y2="2.5485" width="0.127" layer="21" curve="-78.3185"/>
-<wire x1="0.7863" y1="2.5484" x2="2.0945" y2="-1.651" width="0.127" layer="21" curve="-111.1"/>
-<wire x1="-2.0945" y1="-1.651" x2="2.0945" y2="-1.651" width="0.127" layer="21"/>
-<wire x1="-2.2537" y1="-0.254" x2="-0.2863" y2="-0.254" width="0.127" layer="51"/>
-<wire x1="-2.6549" y1="-0.254" x2="-2.2537" y2="-0.254" width="0.127" layer="21"/>
-<wire x1="-0.2863" y1="-0.254" x2="0.2863" y2="-0.254" width="0.127" layer="21"/>
-<wire x1="2.2537" y1="-0.254" x2="2.6549" y2="-0.254" width="0.127" layer="21"/>
-<wire x1="0.2863" y1="-0.254" x2="2.2537" y2="-0.254" width="0.127" layer="51"/>
-<wire x1="-0.7863" y1="2.5485" x2="0.7863" y2="2.5485" width="0.127" layer="51" curve="-34.2936"/>
-<pad name="1" x="1.27" y="0" drill="0.8128" shape="octagon"/>
-<pad name="2" x="0" y="1.905" drill="0.8128" shape="octagon"/>
-<pad name="3" x="-1.27" y="0" drill="0.8128" shape="octagon"/>
-<text x="3.175" y="0.635" size="1.27" layer="25" ratio="10">&gt;NAME</text>
-<text x="3.175" y="-1.27" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
-<text x="-0.635" y="0.635" size="1.27" layer="51" ratio="10">2</text>
-<text x="-2.159" y="0" size="1.27" layer="51" ratio="10">3</text>
-<text x="1.143" y="0" size="1.27" layer="51" ratio="10">1</text>
-</package>
-</packages>
-<packages3d>
-<package3d name="TO92" urn="urn:adsk.eagle:package:28974/2" type="model" library_version="2">
-<description>TO 92</description>
-<packageinstances>
-<packageinstance name="TO92"/>
-</packageinstances>
-</package3d>
-</packages3d>
-<symbols>
-<symbol name="NPN" urn="urn:adsk.eagle:symbol:28915/1" library_version="2">
-<wire x1="2.54" y1="2.54" x2="0.508" y2="1.524" width="0.1524" layer="94"/>
-<wire x1="1.778" y1="-1.524" x2="2.54" y2="-2.54" width="0.1524" layer="94"/>
-<wire x1="2.54" y1="-2.54" x2="1.27" y2="-2.54" width="0.1524" layer="94"/>
-<wire x1="1.27" y1="-2.54" x2="1.778" y2="-1.524" width="0.1524" layer="94"/>
-<wire x1="1.54" y1="-2.04" x2="0.308" y2="-1.424" width="0.1524" layer="94"/>
-<wire x1="1.524" y1="-2.413" x2="2.286" y2="-2.413" width="0.254" layer="94"/>
-<wire x1="2.286" y1="-2.413" x2="1.778" y2="-1.778" width="0.254" layer="94"/>
-<wire x1="1.778" y1="-1.778" x2="1.524" y2="-2.286" width="0.254" layer="94"/>
-<wire x1="1.524" y1="-2.286" x2="1.905" y2="-2.286" width="0.254" layer="94"/>
-<wire x1="1.905" y1="-2.286" x2="1.778" y2="-2.032" width="0.254" layer="94"/>
-<text x="-10.16" y="7.62" size="1.778" layer="95">&gt;NAME</text>
-<text x="-10.16" y="5.08" size="1.778" layer="96">&gt;VALUE</text>
-<rectangle x1="-0.254" y1="-2.54" x2="0.508" y2="2.54" layer="94"/>
-<pin name="B" x="-2.54" y="0" visible="off" length="short" direction="pas" swaplevel="1"/>
-<pin name="E" x="2.54" y="-5.08" visible="off" length="short" direction="pas" swaplevel="3" rot="R90"/>
-<pin name="C" x="2.54" y="5.08" visible="off" length="short" direction="pas" swaplevel="2" rot="R270"/>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="2N3704" urn="urn:adsk.eagle:component:29028/2" prefix="Q" library_version="2">
-<description>&lt;b&gt;NPN Transistor&lt;/b&gt;</description>
-<gates>
-<gate name="G$1" symbol="NPN" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="TO92">
-<connects>
-<connect gate="G$1" pin="B" pad="1"/>
-<connect gate="G$1" pin="C" pad="2"/>
-<connect gate="G$1" pin="E" pad="3"/>
-</connects>
-<package3dinstances>
-<package3dinstance package3d_urn="urn:adsk.eagle:package:28974/2"/>
-</package3dinstances>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
-<library name="SMT18650">
-<packages>
-<package name="18650SMT">
-<wire x1="0" y1="0" x2="77.05" y2="0" width="0.127" layer="21"/>
-<wire x1="77.05" y1="0" x2="77.05" y2="20.65" width="0.127" layer="21"/>
-<wire x1="77.05" y1="20.65" x2="0" y2="20.65" width="0.127" layer="21"/>
-<wire x1="0" y1="20.65" x2="0" y2="0" width="0.127" layer="21"/>
-<smd name="BATTERY_POSITIVE" x="-3.95" y="10.32" dx="8" dy="8" layer="1"/>
-<smd name="BATTERY_NEGATIVE" x="80.98" y="10.32" dx="8" dy="8" layer="1"/>
-<text x="0.89" y="7.73" size="5.08" layer="21">+</text>
-<text x="72.25" y="8.3" size="5.08" layer="21">-</text>
-<hole x="66.925" y="18.325" drill="3.45"/>
-<hole x="10.925" y="2.325" drill="3.45"/>
-<hole x="74.455" y="2.325" drill="2.39"/>
-</package>
-</packages>
-<symbols>
-<symbol name="SMT18650">
-<pin name="PLUS" x="0" y="5.08" length="middle" rot="R180"/>
-<pin name="MINUS" x="-12.7" y="5.08" length="middle"/>
-<wire x1="-7.62" y1="7.62" x2="-7.62" y2="2.54" width="0.254" layer="94"/>
-<wire x1="-5.08" y1="10.16" x2="-5.08" y2="0" width="0.254" layer="94"/>
-<text x="-2.54" y="7.62" size="1.778" layer="94">+</text>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="SMT18650">
-<gates>
-<gate name="G$1" symbol="SMT18650" x="5.08" y="-15.24"/>
-</gates>
-<devices>
-<device name="" package="18650SMT">
-<connects>
-<connect gate="G$1" pin="MINUS" pad="BATTERY_NEGATIVE"/>
-<connect gate="G$1" pin="PLUS" pad="BATTERY_POSITIVE"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 <library name="v-reg" urn="urn:adsk.eagle:library:409">
 <description>&lt;b&gt;Voltage Regulators&lt;/b&gt;&lt;p&gt;
 &lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
@@ -8403,6 +8281,140 @@ RECOMMENDED ON ALL LAYERS</text>
 </deviceset>
 </devicesets>
 </library>
+<library name="TSMP58000">
+<description>&lt;Vishay TSMP58000, 40kHz IR Receiver 45 , 5m Range, 2.5V - 5V, Through Hole, 5 x 2.8 x 6.95mm&lt;/b&gt;&lt;p&gt;
+&lt;author&gt;Created by SamacSys&lt;/author&gt;</description>
+<packages>
+<package name="TSMP58000">
+<description>&lt;b&gt;TSMP58000&lt;/b&gt;&lt;br&gt;
+</description>
+<pad name="1" x="-2.54" y="-1.45" drill="1.06" diameter="1.6"/>
+<pad name="2" x="0" y="-1.45" drill="1.06" diameter="1.6"/>
+<pad name="3" x="2.54" y="-1.45" drill="1.06" diameter="1.6"/>
+<text x="-0.415" y="-1.386" size="1.27" layer="25" align="center">&gt;NAME</text>
+<text x="-0.415" y="-1.386" size="1.27" layer="27" align="center">&gt;VALUE</text>
+<wire x1="-2.5" y1="0" x2="2.5" y2="0" width="0.2" layer="51"/>
+<wire x1="2.5" y1="0" x2="2.5" y2="-2.8" width="0.2" layer="51"/>
+<wire x1="2.5" y1="-2.8" x2="-2.5" y2="-2.8" width="0.2" layer="51"/>
+<wire x1="-2.5" y1="-2.8" x2="-2.5" y2="0" width="0.2" layer="51"/>
+<wire x1="-2" y1="-2.8" x2="2" y2="-2.8" width="0.2" layer="51" curve="180"/>
+<wire x1="-2" y1="-2.8" x2="2" y2="-2.8" width="0.2" layer="21" curve="180"/>
+<wire x1="-2" y1="-2.8" x2="-2.5" y2="-2.8" width="0.2" layer="21"/>
+<wire x1="2" y1="-2.8" x2="2.5" y2="-2.8" width="0.2" layer="21"/>
+<wire x1="2.5" y1="0" x2="-2.5" y2="0" width="0.2" layer="21"/>
+<circle x="-3.893" y="-1.441" radius="0.0386" width="0.2" layer="25"/>
+</package>
+</packages>
+<symbols>
+<symbol name="TSMP58000">
+<wire x1="5.08" y1="2.54" x2="20.32" y2="2.54" width="0.254" layer="94"/>
+<wire x1="20.32" y1="-5.08" x2="20.32" y2="2.54" width="0.254" layer="94"/>
+<wire x1="20.32" y1="-5.08" x2="5.08" y2="-5.08" width="0.254" layer="94"/>
+<wire x1="5.08" y1="2.54" x2="5.08" y2="-5.08" width="0.254" layer="94"/>
+<text x="21.59" y="7.62" size="1.778" layer="95" align="center-left">&gt;NAME</text>
+<text x="21.59" y="5.08" size="1.778" layer="96" align="center-left">&gt;VALUE</text>
+<pin name="OUT" x="0" y="0" length="middle"/>
+<pin name="GND" x="0" y="-2.54" length="middle"/>
+<pin name="VS" x="25.4" y="0" length="middle" rot="R180"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="TSMP58000" prefix="IC">
+<description>&lt;b&gt;Vishay TSMP58000, 40kHz IR Receiver 45 , 5m Range, 2.5V - 5V, Through Hole, 5 x 2.8 x 6.95mm&lt;/b&gt;&lt;p&gt;
+Source: &lt;a href="https://www.vishay.com/docs/82485/tsmp58000.pdf"&gt; Datasheet &lt;/a&gt;</description>
+<gates>
+<gate name="G$1" symbol="TSMP58000" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="TSMP58000">
+<connects>
+<connect gate="G$1" pin="GND" pad="2"/>
+<connect gate="G$1" pin="OUT" pad="1"/>
+<connect gate="G$1" pin="VS" pad="3"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="ARROW_PART_NUMBER" value="TSMP58000" constant="no"/>
+<attribute name="ARROW_PRICE/STOCK" value="https://www.arrow.com/en/products/tsmp58000/vishay" constant="no"/>
+<attribute name="DESCRIPTION" value="Vishay TSMP58000, 40kHz IR Receiver 45 , 5m Range, 2.5V - 5V, Through Hole, 5 x 2.8 x 6.95mm" constant="no"/>
+<attribute name="HEIGHT" value="mm" constant="no"/>
+<attribute name="MANUFACTURER_NAME" value="Vishay" constant="no"/>
+<attribute name="MANUFACTURER_PART_NUMBER" value="TSMP58000" constant="no"/>
+<attribute name="RS_PART_NUMBER" value="7730297" constant="no"/>
+<attribute name="RS_PRICE/STOCK" value="http://uk.rs-online.com/web/p/products/7730297" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
+<library name="1042">
+<description>&lt;Cylindrical Battery Contacts, Clips, Holders &amp; Springs 18650 S/M PC BATTERY HOLDER&lt;/b&gt;&lt;p&gt;
+&lt;author&gt;Created by SamacSys&lt;/author&gt;</description>
+<packages>
+<package name="KEYSTONE-1042">
+<description>&lt;b&gt;keystone-1042&lt;/b&gt;&lt;br&gt;
+</description>
+<smd name="1" x="-43" y="0" dx="7.34" dy="6.35" layer="1"/>
+<smd name="2" x="43" y="0" dx="7.34" dy="6.35" layer="1"/>
+<hole x="-27.6" y="-8" drill="3.45"/>
+<hole x="27.6" y="8" drill="3.45"/>
+<hole x="35.93" y="-8" drill="1.57"/>
+<text x="0" y="0" size="1.27" layer="25" align="center">&gt;NAME</text>
+<text x="0" y="0" size="1.27" layer="27" align="center">&gt;VALUE</text>
+<wire x1="-38.525" y1="10.325" x2="38.525" y2="10.325" width="0.1" layer="21"/>
+<wire x1="38.525" y1="10.325" x2="38.525" y2="-10.325" width="0.1" layer="21"/>
+<wire x1="38.525" y1="-10.325" x2="-38.525" y2="-10.325" width="0.1" layer="21"/>
+<wire x1="-38.525" y1="-10.325" x2="-38.525" y2="10.325" width="0.1" layer="21"/>
+<wire x1="-38.525" y1="10.325" x2="38.525" y2="10.325" width="0.1" layer="51"/>
+<wire x1="38.525" y1="10.325" x2="38.525" y2="-10.325" width="0.1" layer="51"/>
+<wire x1="38.525" y1="-10.325" x2="-38.525" y2="-10.325" width="0.1" layer="51"/>
+<wire x1="-38.525" y1="-10.325" x2="-38.525" y2="10.325" width="0.1" layer="51"/>
+</package>
+</packages>
+<symbols>
+<symbol name="1042">
+<wire x1="5.08" y1="2.54" x2="20.32" y2="2.54" width="0.254" layer="94"/>
+<wire x1="20.32" y1="-2.54" x2="20.32" y2="2.54" width="0.254" layer="94"/>
+<wire x1="20.32" y1="-2.54" x2="5.08" y2="-2.54" width="0.254" layer="94"/>
+<wire x1="5.08" y1="2.54" x2="5.08" y2="-2.54" width="0.254" layer="94"/>
+<text x="21.59" y="7.62" size="1.778" layer="95" align="center-left">&gt;NAME</text>
+<text x="21.59" y="5.08" size="1.778" layer="96" align="center-left">&gt;VALUE</text>
+<pin name="NEG" x="0" y="0" length="middle"/>
+<pin name="POS" x="25.4" y="0" length="middle" rot="R180"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="1042" prefix="U">
+<description>&lt;b&gt;Cylindrical Battery Contacts, Clips, Holders &amp; Springs 18650 S/M PC BATTERY HOLDER&lt;/b&gt;&lt;p&gt;
+Source: &lt;a href="http://www.mouser.com/ds/2/215/042-744829.pdf"&gt; Datasheet &lt;/a&gt;</description>
+<gates>
+<gate name="G$1" symbol="1042" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="KEYSTONE-1042">
+<connects>
+<connect gate="G$1" pin="NEG" pad="1"/>
+<connect gate="G$1" pin="POS" pad="2"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="ARROW_PART_NUMBER" value="1042" constant="no"/>
+<attribute name="ARROW_PRICE/STOCK" value="" constant="no"/>
+<attribute name="DESCRIPTION" value="Cylindrical Battery Contacts, Clips, Holders &amp; Springs 18650 S/M PC BATTERY HOLDER" constant="no"/>
+<attribute name="HEIGHT" value="mm" constant="no"/>
+<attribute name="MANUFACTURER_NAME" value="Keystone Electronics" constant="no"/>
+<attribute name="MANUFACTURER_PART_NUMBER" value="1042" constant="no"/>
+<attribute name="RS_PART_NUMBER" value="" constant="no"/>
+<attribute name="RS_PRICE/STOCK" value="" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -8450,7 +8462,6 @@ RECOMMENDED ON ALL LAYERS</text>
 <part name="3V3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="GND5" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND7" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="TSMP58000" library="transistor-npn" library_urn="urn:adsk.eagle:library:398" deviceset="2N3704" device="" package3d_urn="urn:adsk.eagle:package:28974/2" value="IR Sensor"/>
 <part name="GND8" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="R9" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" deviceset="RESISTOR" device="1206" package3d_urn="urn:adsk.eagle:package:39654/1" value="100"/>
 <part name="R10" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" deviceset="RESISTOR" device="1206" package3d_urn="urn:adsk.eagle:package:39654/1" value="4.7k"/>
@@ -8458,12 +8469,13 @@ RECOMMENDED ON ALL LAYERS</text>
 <part name="+3V5" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="GND10" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND11" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="U$2" library="SMT18650" deviceset="SMT18650" device=""/>
 <part name="IC1" library="v-reg" library_urn="urn:adsk.eagle:library:409" deviceset="78XXS" device="" package3d_urn="urn:adsk.eagle:package:30342/1"/>
 <part name="GND9" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="+3V7" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="VDD1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="VDD" device=""/>
 <part name="VDD2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="VDD" device=""/>
+<part name="IC2" library="TSMP58000" deviceset="TSMP58000" device=""/>
+<part name="U1" library="1042" deviceset="1042" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -8514,23 +8526,20 @@ RECOMMENDED ON ALL LAYERS</text>
 <instance part="3V3" gate="G$1" x="-38.1" y="124.46"/>
 <instance part="GND5" gate="1" x="-38.1" y="106.68"/>
 <instance part="GND7" gate="1" x="10.16" y="81.28" rot="R270"/>
-<instance part="TSMP58000" gate="G$1" x="40.64" y="-20.32" smashed="yes">
-<attribute name="NAME" x="27.94" y="-15.24" size="1.778" layer="95"/>
-<attribute name="VALUE" x="27.94" y="-17.78" size="1.778" layer="96"/>
-</instance>
 <instance part="GND8" gate="1" x="43.18" y="-30.48"/>
-<instance part="R9" gate="G$1" x="60.96" y="-10.16"/>
-<instance part="R10" gate="G$1" x="20.32" y="-7.62" rot="R90"/>
-<instance part="C2" gate="G$1" x="50.8" y="-20.32"/>
-<instance part="+3V5" gate="G$1" x="78.74" y="-5.08"/>
-<instance part="GND10" gate="1" x="48.26" y="104.14"/>
+<instance part="R9" gate="G$1" x="71.12" y="-10.16"/>
+<instance part="R10" gate="G$1" x="12.7" y="-7.62" rot="R90"/>
+<instance part="C2" gate="G$1" x="63.5" y="-20.32"/>
+<instance part="+3V5" gate="G$1" x="81.28" y="-5.08"/>
+<instance part="GND10" gate="1" x="60.96" y="106.68"/>
 <instance part="GND11" gate="1" x="78.74" y="43.18" rot="R90"/>
-<instance part="U$2" gate="G$1" x="30.48" y="119.38" smashed="yes" rot="R180"/>
 <instance part="IC1" gate="1" x="20.32" y="124.46" rot="R180"/>
 <instance part="GND9" gate="1" x="35.56" y="127"/>
 <instance part="+3V7" gate="G$1" x="58.42" y="93.98"/>
 <instance part="VDD1" gate="G$1" x="7.62" y="93.98"/>
 <instance part="VDD2" gate="G$1" x="7.62" y="129.54"/>
+<instance part="IC2" gate="G$1" x="53.34" y="-10.16" rot="R180"/>
+<instance part="U1" gate="G$1" x="55.88" y="116.84" rot="R180"/>
 </instances>
 <busses>
 </busses>
@@ -8614,13 +8623,16 @@ RECOMMENDED ON ALL LAYERS</text>
 <pinref part="GND7" gate="1" pin="GND"/>
 </segment>
 <segment>
-<pinref part="TSMP58000" gate="G$1" pin="E"/>
 <wire x1="43.18" y1="-25.4" x2="43.18" y2="-27.94" width="0.1524" layer="91"/>
 <pinref part="GND8" gate="1" pin="GND"/>
 <pinref part="C2" gate="G$1" pin="2"/>
-<wire x1="43.18" y1="-25.4" x2="50.8" y2="-25.4" width="0.1524" layer="91"/>
-<wire x1="50.8" y1="-25.4" x2="50.8" y2="-22.86" width="0.1524" layer="91"/>
-<junction x="43.18" y="-25.4"/>
+<wire x1="43.18" y1="-25.4" x2="55.88" y2="-25.4" width="0.1524" layer="91"/>
+<wire x1="55.88" y1="-25.4" x2="63.5" y2="-25.4" width="0.1524" layer="91"/>
+<wire x1="63.5" y1="-25.4" x2="63.5" y2="-22.86" width="0.1524" layer="91"/>
+<pinref part="IC2" gate="G$1" pin="GND"/>
+<wire x1="53.34" y1="-7.62" x2="55.88" y2="-7.62" width="0.1524" layer="91"/>
+<wire x1="55.88" y1="-7.62" x2="55.88" y2="-25.4" width="0.1524" layer="91"/>
+<junction x="55.88" y="-25.4"/>
 </segment>
 <segment>
 <pinref part="S5" gate="1" pin="O"/>
@@ -8628,16 +8640,16 @@ RECOMMENDED ON ALL LAYERS</text>
 <wire x1="76.2" y1="43.18" x2="73.66" y2="43.18" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="U$2" gate="G$1" pin="MINUS"/>
-<wire x1="43.18" y1="114.3" x2="48.26" y2="114.3" width="0.1524" layer="91"/>
-<pinref part="GND10" gate="1" pin="GND"/>
-<wire x1="48.26" y1="114.3" x2="48.26" y2="106.68" width="0.1524" layer="91"/>
-</segment>
-<segment>
 <pinref part="IC1" gate="1" pin="GND"/>
 <pinref part="GND9" gate="1" pin="GND"/>
 <wire x1="20.32" y1="132.08" x2="35.56" y2="132.08" width="0.1524" layer="91"/>
 <wire x1="35.56" y1="132.08" x2="35.56" y2="129.54" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="U1" gate="G$1" pin="NEG"/>
+<pinref part="GND10" gate="1" pin="GND"/>
+<wire x1="55.88" y1="116.84" x2="60.96" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="60.96" y1="116.84" x2="60.96" y2="109.22" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="+3V3" class="0">
@@ -8675,14 +8687,13 @@ RECOMMENDED ON ALL LAYERS</text>
 <segment>
 <pinref part="R9" gate="G$1" pin="2"/>
 <pinref part="+3V5" gate="G$1" pin="+3V3"/>
-<wire x1="66.04" y1="-10.16" x2="68.58" y2="-10.16" width="0.1524" layer="91"/>
-<wire x1="68.58" y1="-10.16" x2="78.74" y2="-10.16" width="0.1524" layer="91"/>
-<wire x1="78.74" y1="-10.16" x2="78.74" y2="-7.62" width="0.1524" layer="91"/>
+<wire x1="76.2" y1="-10.16" x2="81.28" y2="-10.16" width="0.1524" layer="91"/>
+<wire x1="81.28" y1="-10.16" x2="81.28" y2="-7.62" width="0.1524" layer="91"/>
 <pinref part="R10" gate="G$1" pin="2"/>
-<wire x1="20.32" y1="-2.54" x2="20.32" y2="0" width="0.1524" layer="91"/>
-<wire x1="20.32" y1="0" x2="68.58" y2="0" width="0.1524" layer="91"/>
-<wire x1="68.58" y1="0" x2="68.58" y2="-10.16" width="0.1524" layer="91"/>
-<junction x="68.58" y="-10.16"/>
+<wire x1="12.7" y1="-2.54" x2="12.7" y2="0" width="0.1524" layer="91"/>
+<wire x1="12.7" y1="0" x2="76.2" y2="0" width="0.1524" layer="91"/>
+<wire x1="76.2" y1="0" x2="76.2" y2="-10.16" width="0.1524" layer="91"/>
+<junction x="76.2" y="-10.16"/>
 </segment>
 <segment>
 <pinref part="PHOTON" gate="G$1" pin="3V3"/>
@@ -8706,9 +8717,9 @@ RECOMMENDED ON ALL LAYERS</text>
 <label x="-17.78" y="15.24" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="PHOTON" gate="G$1" pin="RX"/>
-<wire x1="17.78" y1="71.12" x2="0" y2="71.12" width="0.1524" layer="91"/>
-<label x="0" y="71.12" size="1.778" layer="95"/>
+<pinref part="PHOTON" gate="G$1" pin="WKP"/>
+<wire x1="17.78" y1="66.04" x2="0" y2="66.04" width="0.1524" layer="91"/>
+<label x="0" y="66.04" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="LED_R" class="0">
@@ -8718,9 +8729,9 @@ RECOMMENDED ON ALL LAYERS</text>
 <label x="-58.42" y="12.7" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="PHOTON" gate="G$1" pin="A4"/>
-<wire x1="17.78" y1="50.8" x2="0" y2="50.8" width="0.1524" layer="91"/>
-<label x="0" y="50.8" size="1.778" layer="95"/>
+<pinref part="PHOTON" gate="G$1" pin="A3"/>
+<wire x1="17.78" y1="45.72" x2="0" y2="45.72" width="0.1524" layer="91"/>
+<label x="0" y="45.72" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="LED_G" class="0">
@@ -8730,9 +8741,9 @@ RECOMMENDED ON ALL LAYERS</text>
 <label x="-58.42" y="30.48" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="PHOTON" gate="G$1" pin="A3"/>
-<wire x1="17.78" y1="45.72" x2="0" y2="45.72" width="0.1524" layer="91"/>
-<label x="0" y="45.72" size="1.778" layer="95"/>
+<pinref part="PHOTON" gate="G$1" pin="A2"/>
+<wire x1="17.78" y1="40.64" x2="0" y2="40.64" width="0.1524" layer="91"/>
+<label x="0" y="40.64" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$7" class="0">
@@ -8750,9 +8761,9 @@ RECOMMENDED ON ALL LAYERS</text>
 <label x="-58.42" y="48.26" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="PHOTON" gate="G$1" pin="A2"/>
-<wire x1="17.78" y1="40.64" x2="0" y2="40.64" width="0.1524" layer="91"/>
-<label x="0" y="40.64" size="1.778" layer="95"/>
+<pinref part="PHOTON" gate="G$1" pin="A1"/>
+<wire x1="17.78" y1="35.56" x2="0" y2="35.56" width="0.1524" layer="91"/>
+<label x="0" y="35.56" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$8" class="0">
@@ -8778,9 +8789,9 @@ RECOMMENDED ON ALL LAYERS</text>
 <label x="-58.42" y="-5.08" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="PHOTON" gate="G$1" pin="A1"/>
-<wire x1="17.78" y1="35.56" x2="0" y2="35.56" width="0.1524" layer="91"/>
-<label x="0" y="35.56" size="1.778" layer="95"/>
+<pinref part="PHOTON" gate="G$1" pin="A0"/>
+<wire x1="17.78" y1="30.48" x2="0" y2="30.48" width="0.1524" layer="91"/>
+<label x="0" y="30.48" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="BUTTON_Y" class="0">
@@ -8790,9 +8801,9 @@ RECOMMENDED ON ALL LAYERS</text>
 <label x="-17.78" y="-2.54" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="PHOTON" gate="G$1" pin="A5"/>
-<wire x1="17.78" y1="55.88" x2="0" y2="55.88" width="0.1524" layer="91"/>
-<label x="0" y="55.88" size="1.778" layer="95"/>
+<pinref part="PHOTON" gate="G$1" pin="A4"/>
+<wire x1="17.78" y1="50.8" x2="0" y2="50.8" width="0.1524" layer="91"/>
+<label x="0" y="50.8" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="SDA" class="0">
@@ -8940,30 +8951,32 @@ RECOMMENDED ON ALL LAYERS</text>
 </net>
 <net name="IR_RECEIVER" class="0">
 <segment>
-<pinref part="TSMP58000" gate="G$1" pin="B"/>
-<wire x1="38.1" y1="-20.32" x2="20.32" y2="-20.32" width="0.1524" layer="91"/>
+<wire x1="53.34" y1="-20.32" x2="12.7" y2="-20.32" width="0.1524" layer="91"/>
 <label x="10.16" y="-22.86" size="1.778" layer="95"/>
 <pinref part="R10" gate="G$1" pin="1"/>
-<wire x1="20.32" y1="-20.32" x2="20.32" y2="-12.7" width="0.1524" layer="91"/>
-<wire x1="20.32" y1="-20.32" x2="10.16" y2="-20.32" width="0.1524" layer="91"/>
-<junction x="20.32" y="-20.32"/>
+<wire x1="12.7" y1="-20.32" x2="12.7" y2="-12.7" width="0.1524" layer="91"/>
+<wire x1="12.7" y1="-20.32" x2="10.16" y2="-20.32" width="0.1524" layer="91"/>
+<junction x="12.7" y="-20.32"/>
+<pinref part="IC2" gate="G$1" pin="OUT"/>
+<wire x1="53.34" y1="-10.16" x2="53.34" y2="-20.32" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="PHOTON" gate="G$1" pin="A0"/>
-<wire x1="17.78" y1="30.48" x2="0" y2="30.48" width="0.1524" layer="91"/>
-<label x="0" y="30.48" size="1.778" layer="95"/>
+<pinref part="PHOTON" gate="G$1" pin="RX"/>
+<wire x1="17.78" y1="71.12" x2="0" y2="71.12" width="0.1524" layer="91"/>
+<label x="0" y="71.12" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$9" class="0">
 <segment>
-<pinref part="TSMP58000" gate="G$1" pin="C"/>
 <pinref part="R9" gate="G$1" pin="1"/>
-<wire x1="43.18" y1="-15.24" x2="43.18" y2="-10.16" width="0.1524" layer="91"/>
-<wire x1="43.18" y1="-10.16" x2="50.8" y2="-10.16" width="0.1524" layer="91"/>
 <pinref part="C2" gate="G$1" pin="1"/>
-<wire x1="50.8" y1="-10.16" x2="55.88" y2="-10.16" width="0.1524" layer="91"/>
-<wire x1="50.8" y1="-15.24" x2="50.8" y2="-10.16" width="0.1524" layer="91"/>
-<junction x="50.8" y="-10.16"/>
+<wire x1="63.5" y1="-10.16" x2="66.04" y2="-10.16" width="0.1524" layer="91"/>
+<wire x1="63.5" y1="-15.24" x2="63.5" y2="-10.16" width="0.1524" layer="91"/>
+<pinref part="IC2" gate="G$1" pin="VS"/>
+<wire x1="27.94" y1="-10.16" x2="27.94" y2="-2.54" width="0.1524" layer="91"/>
+<wire x1="27.94" y1="-2.54" x2="63.5" y2="-2.54" width="0.1524" layer="91"/>
+<wire x1="63.5" y1="-2.54" x2="63.5" y2="-10.16" width="0.1524" layer="91"/>
+<junction x="63.5" y="-10.16"/>
 </segment>
 </net>
 <net name="BUTTON_G" class="0">
@@ -8973,9 +8986,9 @@ RECOMMENDED ON ALL LAYERS</text>
 <label x="-15.24" y="33.02" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="PHOTON" gate="G$1" pin="WKP"/>
-<wire x1="17.78" y1="66.04" x2="0" y2="66.04" width="0.1524" layer="91"/>
-<label x="0" y="66.04" size="1.778" layer="95"/>
+<pinref part="PHOTON" gate="G$1" pin="DAC"/>
+<wire x1="17.78" y1="60.96" x2="0" y2="60.96" width="0.1524" layer="91"/>
+<label x="0" y="60.96" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="BUTTON_B" class="0">
@@ -8985,9 +8998,9 @@ RECOMMENDED ON ALL LAYERS</text>
 <label x="-17.78" y="50.8" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="PHOTON" gate="G$1" pin="DAC"/>
-<wire x1="17.78" y1="60.96" x2="0" y2="60.96" width="0.1524" layer="91"/>
-<label x="0" y="60.96" size="1.778" layer="95"/>
+<pinref part="PHOTON" gate="G$1" pin="A5"/>
+<wire x1="17.78" y1="55.88" x2="0" y2="55.88" width="0.1524" layer="91"/>
+<label x="0" y="55.88" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$2" class="0">
@@ -9021,35 +9034,28 @@ RECOMMENDED ON ALL LAYERS</text>
 <wire x1="7.62" y1="86.36" x2="7.62" y2="91.44" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="VIN" class="0">
+<net name="BATT" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="PLUS"/>
 <pinref part="IC1" gate="1" pin="IN"/>
-<wire x1="30.48" y1="114.3" x2="27.94" y2="114.3" width="0.1524" layer="91"/>
-<wire x1="27.94" y1="114.3" x2="27.94" y2="124.46" width="0.1524" layer="91"/>
+<pinref part="U1" gate="G$1" pin="POS"/>
+<wire x1="27.94" y1="124.46" x2="30.48" y2="124.46" width="0.1524" layer="91"/>
+<wire x1="30.48" y1="124.46" x2="30.48" y2="116.84" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
 </sheet>
 </sheets>
 <errors>
-<approved hash="102,1,114.3,86.36,+3V3,3V3,,,,"/>
-<approved hash="102,1,147.32,55.88,+3V3,3V3,,,,"/>
-<approved hash="102,1,127,17.78,+3V3,3V3,,,,"/>
-<approved hash="102,1,86.36,55.88,+3V3,3V3,,,,"/>
-<approved hash="102,1,-38.1,121.92,+3V3,3V3,,,,"/>
-<approved hash="102,1,66.04,88.9,+3V3,3V3,,,,"/>
-<approved hash="102,1,78.74,-7.62,+3V3,3V3,,,,"/>
-<approved hash="102,1,27.94,119.38,+3V3,3V3,,,,"/>
-<approved hash="104,1,134.62,48.26,SI7021,VDD,3V3,,,"/>
-<approved hash="204,1,17.78,86.36,U$4,VIN,,,,"/>
-<approved hash="204,1,53.34,76.2,U$4,VBAT,,,,"/>
-<approved hash="104,1,43.18,114.3,BT1,-,GND,,,"/>
-<approved hash="104,1,33.02,114.3,BT1,+,3V3,,,"/>
+<approved hash="102,1,7.62,91.44,VDD,5V,,,,"/>
+<approved hash="102,1,7.62,127,VDD,5V,,,,"/>
+<approved hash="104,1,134.62,48.26,SI7021,VDD,+3V3,,,"/>
+<approved hash="104,1,17.78,86.36,PHOTON,VIN,5V,,,"/>
+<approved hash="104,1,53.34,86.36,PHOTON,3V3,+3V3,,,"/>
+<approved hash="204,1,53.34,76.2,PHOTON,VBAT,,,,"/>
 <approved hash="113,1,69.85,41.2344,S5,,,,,"/>
 <approved hash="113,1,114.3,77.1414,SJ1,,,,,"/>
 <approved hash="113,1,104.14,118.184,JOYSTICK,,,,,"/>
-<approved hash="113,1,38.1,115.733,BT1,,,,,"/>
+<approved hash="113,1,20.32,129.057,IC1,,,,,"/>
 </errors>
 </schematic>
 </drawing>
