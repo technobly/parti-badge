@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.0.1">
+<eagle version="9.1.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -8452,11 +8452,9 @@ Source: &lt;a href="http://www.mouser.com/ds/2/215/042-744829.pdf"&gt; Datasheet
 <part name="R7" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="M0805" package3d_urn="urn:adsk.eagle:package:23556/1" value="100"/>
 <part name="JOYSTICK" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" deviceset="JOYSTICK_MINI" device="" package3d_urn="urn:adsk.eagle:package:40157/1"/>
 <part name="GND6" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="+3V6" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="PARTIFRAME" library="SparkFun-Aesthetics" library_urn="urn:adsk.eagle:library:507" deviceset="FRAME-LETTER" device="NO_PACKAGE" package3d_urn="urn:adsk.eagle:package:37104/1">
 <attribute name="DESIGNER" value="Brandon Satrom"/>
 </part>
-<part name="R8" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="M0805" package3d_urn="urn:adsk.eagle:package:23556/1" value="100"/>
 <part name="PHOTON" library="Particle-Devices" deviceset="PHOTON" device="_WITH_HEADERS"/>
 <part name="U$5" library="tft_1.8_1.44_oled_0.96" deviceset="OLED_0.96_I2C" device=""/>
 <part name="3V3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
@@ -8468,7 +8466,6 @@ Source: &lt;a href="http://www.mouser.com/ds/2/215/042-744829.pdf"&gt; Datasheet
 <part name="C2" library="SparkFun-Capacitors" library_urn="urn:adsk.eagle:library:510" deviceset="0.1UF" device="-0603-25V-(+80/-20%)" package3d_urn="urn:adsk.eagle:package:37414/1" value="4.7uF"/>
 <part name="+3V5" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="GND10" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="GND11" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="IC1" library="v-reg" library_urn="urn:adsk.eagle:library:409" deviceset="78XXS" device="" package3d_urn="urn:adsk.eagle:package:30342/1"/>
 <part name="GND9" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="+3V7" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
@@ -8497,7 +8494,7 @@ Source: &lt;a href="http://www.mouser.com/ds/2/215/042-744829.pdf"&gt; Datasheet
 <attribute name="NAME" x="-20.301059375" y="78.74" size="1.68265" layer="95"/>
 <attribute name="VALUE" x="-35.549109375" y="71.114559375" size="1.679990625" layer="96"/>
 </instance>
-<instance part="S5" gate="1" x="68.58" y="40.64"/>
+<instance part="S5" gate="1" x="35.56" y="116.84" rot="MR0"/>
 <instance part="R5" gate="G$1" x="104.14" y="66.04" rot="R90"/>
 <instance part="R6" gate="G$1" x="124.46" y="66.04" rot="R90"/>
 <instance part="C1" gate="G$1" x="147.32" y="40.64"/>
@@ -8514,13 +8511,11 @@ Source: &lt;a href="http://www.mouser.com/ds/2/215/042-744829.pdf"&gt; Datasheet
 <instance part="R7" gate="G$1" x="-7.62" y="76.2"/>
 <instance part="JOYSTICK" gate="G$1" x="104.14" y="116.84"/>
 <instance part="GND6" gate="1" x="81.28" y="114.3" rot="R270"/>
-<instance part="+3V6" gate="G$1" x="86.36" y="58.42"/>
 <instance part="PARTIFRAME" gate="G$1" x="-60.96" y="-40.64" smashed="yes">
 <attribute name="DESIGNER" x="-60.96" y="-40.64" size="1.778" layer="96" display="off"/>
 <attribute name="VERSION" x="-60.96" y="-40.64" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="PARTIFRAME" gate="V" x="86.36" y="-40.64"/>
-<instance part="R8" gate="G$1" x="86.36" y="48.26" rot="R90"/>
 <instance part="PHOTON" gate="G$1" x="35.56" y="58.42"/>
 <instance part="U$5" gate="G$1" x="-15.24" y="111.76" rot="R270"/>
 <instance part="3V3" gate="G$1" x="-38.1" y="124.46"/>
@@ -8531,15 +8526,14 @@ Source: &lt;a href="http://www.mouser.com/ds/2/215/042-744829.pdf"&gt; Datasheet
 <instance part="R10" gate="G$1" x="12.7" y="-7.62" rot="R90"/>
 <instance part="C2" gate="G$1" x="63.5" y="-20.32"/>
 <instance part="+3V5" gate="G$1" x="81.28" y="-5.08"/>
-<instance part="GND10" gate="1" x="60.96" y="106.68"/>
-<instance part="GND11" gate="1" x="78.74" y="43.18" rot="R90"/>
+<instance part="GND10" gate="1" x="73.66" y="106.68"/>
 <instance part="IC1" gate="1" x="20.32" y="124.46" rot="R180"/>
 <instance part="GND9" gate="1" x="35.56" y="127"/>
 <instance part="+3V7" gate="G$1" x="58.42" y="93.98"/>
 <instance part="VDD1" gate="G$1" x="7.62" y="93.98"/>
 <instance part="VDD2" gate="G$1" x="7.62" y="129.54"/>
 <instance part="IC2" gate="G$1" x="53.34" y="-10.16" rot="R180"/>
-<instance part="U1" gate="G$1" x="55.88" y="116.84" rot="R180"/>
+<instance part="U1" gate="G$1" x="68.58" y="116.84" rot="R180"/>
 </instances>
 <busses>
 </busses>
@@ -8635,11 +8629,6 @@ Source: &lt;a href="http://www.mouser.com/ds/2/215/042-744829.pdf"&gt; Datasheet
 <junction x="55.88" y="-25.4"/>
 </segment>
 <segment>
-<pinref part="S5" gate="1" pin="O"/>
-<pinref part="GND11" gate="1" pin="GND"/>
-<wire x1="76.2" y1="43.18" x2="73.66" y2="43.18" width="0.1524" layer="91"/>
-</segment>
-<segment>
 <pinref part="IC1" gate="1" pin="GND"/>
 <pinref part="GND9" gate="1" pin="GND"/>
 <wire x1="20.32" y1="132.08" x2="35.56" y2="132.08" width="0.1524" layer="91"/>
@@ -8648,8 +8637,8 @@ Source: &lt;a href="http://www.mouser.com/ds/2/215/042-744829.pdf"&gt; Datasheet
 <segment>
 <pinref part="U1" gate="G$1" pin="NEG"/>
 <pinref part="GND10" gate="1" pin="GND"/>
-<wire x1="55.88" y1="116.84" x2="60.96" y2="116.84" width="0.1524" layer="91"/>
-<wire x1="60.96" y1="116.84" x2="60.96" y2="109.22" width="0.1524" layer="91"/>
+<wire x1="68.58" y1="116.84" x2="73.66" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="73.66" y1="116.84" x2="73.66" y2="109.22" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="+3V3" class="0">
@@ -8672,11 +8661,6 @@ Source: &lt;a href="http://www.mouser.com/ds/2/215/042-744829.pdf"&gt; Datasheet
 <wire x1="119.38" y1="12.7" x2="127" y2="12.7" width="0.1524" layer="91"/>
 <pinref part="+3V4" gate="G$1" pin="+3V3"/>
 <wire x1="127" y1="12.7" x2="127" y2="17.78" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="R8" gate="G$1" pin="2"/>
-<pinref part="+3V6" gate="G$1" pin="+3V3"/>
-<wire x1="86.36" y1="53.34" x2="86.36" y2="55.88" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="U$5" gate="G$1" pin="VCC"/>
@@ -8823,8 +8807,8 @@ Source: &lt;a href="http://www.mouser.com/ds/2/215/042-744829.pdf"&gt; Datasheet
 </segment>
 <segment>
 <pinref part="PHOTON" gate="G$1" pin="D0"/>
-<wire x1="53.34" y1="30.48" x2="58.42" y2="30.48" width="0.1524" layer="91"/>
-<label x="53.34" y="30.48" size="1.778" layer="95"/>
+<wire x1="53.34" y1="30.48" x2="66.04" y2="30.48" width="0.1524" layer="91"/>
+<label x="58.42" y="30.48" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="U$5" gate="G$1" pin="SDA"/>
@@ -8850,8 +8834,8 @@ Source: &lt;a href="http://www.mouser.com/ds/2/215/042-744829.pdf"&gt; Datasheet
 </segment>
 <segment>
 <pinref part="PHOTON" gate="G$1" pin="D1"/>
-<wire x1="53.34" y1="35.56" x2="58.42" y2="35.56" width="0.1524" layer="91"/>
-<label x="53.34" y="35.56" size="1.778" layer="95"/>
+<wire x1="53.34" y1="35.56" x2="66.04" y2="35.56" width="0.1524" layer="91"/>
+<label x="58.42" y="35.56" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="U$5" gate="G$1" pin="SCL"/>
@@ -8882,9 +8866,9 @@ Source: &lt;a href="http://www.mouser.com/ds/2/215/042-744829.pdf"&gt; Datasheet
 <label x="86.36" y="119.38" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="PHOTON" gate="G$1" pin="D7"/>
-<wire x1="53.34" y1="66.04" x2="63.5" y2="66.04" width="0.1524" layer="91"/>
-<label x="60.96" y="66.04" size="1.778" layer="95"/>
+<pinref part="PHOTON" gate="G$1" pin="D6"/>
+<wire x1="53.34" y1="60.96" x2="66.04" y2="60.96" width="0.1524" layer="91"/>
+<label x="58.42" y="60.96" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="DOWN" class="0">
@@ -8894,9 +8878,9 @@ Source: &lt;a href="http://www.mouser.com/ds/2/215/042-744829.pdf"&gt; Datasheet
 <label x="83.82" y="116.84" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="PHOTON" gate="G$1" pin="D6"/>
-<wire x1="53.34" y1="60.96" x2="63.5" y2="60.96" width="0.1524" layer="91"/>
-<label x="56.642" y="60.96" size="1.778" layer="95"/>
+<pinref part="PHOTON" gate="G$1" pin="D5"/>
+<wire x1="53.34" y1="55.88" x2="66.04" y2="55.88" width="0.1524" layer="91"/>
+<label x="58.42" y="55.88" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="LEFT" class="0">
@@ -8906,9 +8890,9 @@ Source: &lt;a href="http://www.mouser.com/ds/2/215/042-744829.pdf"&gt; Datasheet
 <label x="119.38" y="119.38" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="PHOTON" gate="G$1" pin="D5"/>
-<wire x1="53.34" y1="55.88" x2="63.5" y2="55.88" width="0.1524" layer="91"/>
-<label x="58.42" y="55.88" size="1.778" layer="95"/>
+<pinref part="PHOTON" gate="G$1" pin="D4"/>
+<wire x1="53.34" y1="50.8" x2="66.04" y2="50.8" width="0.1524" layer="91"/>
+<label x="58.674" y="51.054" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="RIGHT" class="0">
@@ -8918,9 +8902,9 @@ Source: &lt;a href="http://www.mouser.com/ds/2/215/042-744829.pdf"&gt; Datasheet
 <label x="119.38" y="116.84" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="PHOTON" gate="G$1" pin="D4"/>
-<wire x1="53.34" y1="50.8" x2="63.5" y2="50.8" width="0.1524" layer="91"/>
-<label x="56.896" y="51.054" size="1.778" layer="95"/>
+<pinref part="PHOTON" gate="G$1" pin="D3"/>
+<wire x1="53.34" y1="45.72" x2="66.04" y2="45.72" width="0.1524" layer="91"/>
+<label x="58.42" y="45.72" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="CENT" class="0">
@@ -8930,9 +8914,9 @@ Source: &lt;a href="http://www.mouser.com/ds/2/215/042-744829.pdf"&gt; Datasheet
 <label x="119.38" y="114.3" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="PHOTON" gate="G$1" pin="D3"/>
-<wire x1="53.34" y1="45.72" x2="63.5" y2="45.72" width="0.1524" layer="91"/>
-<label x="58.42" y="45.72" size="1.778" layer="95"/>
+<pinref part="PHOTON" gate="G$1" pin="D2"/>
+<wire x1="53.34" y1="40.64" x2="66.04" y2="40.64" width="0.1524" layer="91"/>
+<label x="58.42" y="40.64" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$13" class="0">
@@ -9003,21 +8987,6 @@ Source: &lt;a href="http://www.mouser.com/ds/2/215/042-744829.pdf"&gt; Datasheet
 <label x="0" y="55.88" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="N$2" class="0">
-<segment>
-<pinref part="PHOTON" gate="G$1" pin="D2"/>
-<pinref part="S5" gate="1" pin="P"/>
-<wire x1="53.34" y1="40.64" x2="66.04" y2="40.64" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$3" class="0">
-<segment>
-<pinref part="S5" gate="1" pin="S"/>
-<wire x1="73.66" y1="38.1" x2="86.36" y2="38.1" width="0.1524" layer="91"/>
-<pinref part="R8" gate="G$1" pin="1"/>
-<wire x1="86.36" y1="38.1" x2="86.36" y2="43.18" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="5V" class="0">
 <segment>
 <pinref part="IC1" gate="1" pin="OUT"/>
@@ -9036,10 +9005,25 @@ Source: &lt;a href="http://www.mouser.com/ds/2/215/042-744829.pdf"&gt; Datasheet
 </net>
 <net name="BATT" class="0">
 <segment>
-<pinref part="IC1" gate="1" pin="IN"/>
 <pinref part="U1" gate="G$1" pin="POS"/>
-<wire x1="27.94" y1="124.46" x2="30.48" y2="124.46" width="0.1524" layer="91"/>
-<wire x1="30.48" y1="124.46" x2="30.48" y2="116.84" width="0.1524" layer="91"/>
+<pinref part="S5" gate="1" pin="P"/>
+<wire x1="43.18" y1="116.84" x2="38.1" y2="116.84" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="ON" class="0">
+<segment>
+<pinref part="S5" gate="1" pin="O"/>
+<pinref part="IC1" gate="1" pin="IN"/>
+<wire x1="30.48" y1="119.38" x2="30.48" y2="124.46" width="0.1524" layer="91"/>
+<wire x1="30.48" y1="124.46" x2="27.94" y2="124.46" width="0.1524" layer="91"/>
+<label x="30.48" y="119.38" size="1.778" layer="95" rot="R90"/>
+</segment>
+</net>
+<net name="NC" class="0">
+<segment>
+<pinref part="S5" gate="1" pin="S"/>
+<wire x1="30.48" y1="114.3" x2="25.4" y2="114.3" width="0.1524" layer="91"/>
+<label x="25.4" y="114.3" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
@@ -9052,7 +9036,6 @@ Source: &lt;a href="http://www.mouser.com/ds/2/215/042-744829.pdf"&gt; Datasheet
 <approved hash="104,1,17.78,86.36,PHOTON,VIN,5V,,,"/>
 <approved hash="104,1,53.34,86.36,PHOTON,3V3,+3V3,,,"/>
 <approved hash="204,1,53.34,76.2,PHOTON,VBAT,,,,"/>
-<approved hash="113,1,69.85,41.2344,S5,,,,,"/>
 <approved hash="113,1,114.3,77.1414,SJ1,,,,,"/>
 <approved hash="113,1,104.14,118.184,JOYSTICK,,,,,"/>
 <approved hash="113,1,20.32,129.057,IC1,,,,,"/>
