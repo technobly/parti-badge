@@ -3,7 +3,7 @@
 <eagle version="9.1.0">
 <drawing>
 <settings>
-<setting alwaysvectorfont="no"/>
+<setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
 <grid distance="50" unitdist="mil" unit="mil" style="lines" multiple="1" display="no" altdistance="5" altunitdist="mil" altunit="mil"/>
@@ -4128,10 +4128,10 @@ RECOMMENDED ON ALL LAYERS</text>
 <element name="R4" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" package="1206" package3d_urn="urn:adsk.eagle:package:39654/1" value=" 200" x="87.63" y="57.15" rot="MR180">
 <attribute name="PROD_ID" value=" " x="87.63" y="57.15" size="1.778" layer="28" rot="MR180" display="off"/>
 </element>
-<element name="R5" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" package="0603" package3d_urn="urn:adsk.eagle:package:39650/1" value="4.7k" x="50.8" y="110.49" rot="MR180">
+<element name="R5" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" package="0603" package3d_urn="urn:adsk.eagle:package:39650/1" value="2.2k" x="50.8" y="110.49" rot="MR180">
 <attribute name="PROD_ID" value="RES-07857" x="50.8" y="110.49" size="1.778" layer="28" rot="MR180" display="off"/>
 </element>
-<element name="R6" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" package="0603" package3d_urn="urn:adsk.eagle:package:39650/1" value="4.7k" x="55.88" y="110.49" rot="MR0">
+<element name="R6" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" package="0603" package3d_urn="urn:adsk.eagle:package:39650/1" value="2.2k" x="55.88" y="110.49" rot="MR0">
 <attribute name="PROD_ID" value="RES-07857" x="55.88" y="110.49" size="1.778" layer="28" rot="MR0" display="off"/>
 </element>
 <element name="R7" library="rcl" library_urn="urn:adsk.eagle:library:334" package="M0805" package3d_urn="urn:adsk.eagle:package:23556/1" value="200" x="20.32" y="76.2" rot="MR270">
@@ -4193,9 +4193,9 @@ RECOMMENDED ON ALL LAYERS</text>
 <attribute name="RS_PART_NUMBER" value="" x="37.211" y="50.8" size="1.778" layer="28" rot="MR270" display="off"/>
 <attribute name="RS_PRICE/STOCK" value="" x="37.211" y="50.8" size="1.778" layer="28" rot="MR270" display="off"/>
 </element>
-<element name="D7" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X01" package3d_urn="urn:adsk.eagle:package:38028/1" value="" x="39.37" y="13.081" smashed="yes">
-<attribute name="NAME" x="38.735" y="14.478" size="0.8128" layer="25" font="vector" ratio="20"/>
-<attribute name="VALUE" x="38.1" y="11.557" size="0.6096" layer="27" font="vector" ratio="20" align="top-left"/>
+<element name="D7" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X01" package3d_urn="urn:adsk.eagle:package:38028/1" value="" x="50.673" y="9.525" smashed="yes">
+<attribute name="NAME" x="50.038" y="10.922" size="0.8128" layer="25" font="vector" ratio="20"/>
+<attribute name="VALUE" x="49.403" y="8.001" size="0.6096" layer="27" font="vector" ratio="20" align="top-left"/>
 </element>
 </elements>
 <signals>
@@ -4784,8 +4784,9 @@ RECOMMENDED ON ALL LAYERS</text>
 <signal name="D7">
 <contactref element="D7" pad="1"/>
 <contactref element="PHOTON" pad="20"/>
-<wire x1="39.37" y1="13.081" x2="42.291" y2="16.002" width="0.3048" layer="1"/>
-<wire x1="42.291" y1="16.002" x2="42.291" y2="17.907" width="0.3048" layer="1"/>
+<wire x1="47.752" y1="9.525" x2="42.291" y2="14.986" width="0.3048" layer="1"/>
+<wire x1="50.673" y1="9.525" x2="47.752" y2="9.525" width="0.3048" layer="1"/>
+<wire x1="42.291" y1="14.986" x2="42.291" y2="17.907" width="0.3048" layer="1"/>
 </signal>
 </signals>
 <mfgpreviewcolors>
