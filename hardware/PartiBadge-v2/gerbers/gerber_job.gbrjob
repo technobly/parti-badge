@@ -1,0 +1,13 @@
+G04 Gerber job file.*
+%TF.FileFunction,JobInfo*%
+%TF.GenerationSoftware,Autodesk,EAGLE,9.1.0*%
+%TF.CreationDate,2018-07-02T22:25:45Z*%
+%TF.Part,Single*%
+%MOMM*%
+%TJ.B_Owner,Brandon Satrom <bsatrom@gmail.com>*%
+%TJ.B_ID,PartiBadge-v2*%
+%TJ.B_LayerNum,4*%
+%TJ.B_Thickness,1.596000*%
+%TJ.B_Size_X,118.872000*%
+%TJ.B_Size_Y,117.729000*%
+M02*
