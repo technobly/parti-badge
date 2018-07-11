@@ -154,14 +154,7 @@ boolean play_memory(void)
 
   while (gameRound < ROUNDS_TO_WIN)
   {
-    display.fillScreen(ST7735_WHITE);
-    display.setCursor(150, -50);
-
-    display.setTextSize(10);
-    display.setTextColor(ST7735_BLUE);
-    display.println();
-    display.print(' ');
-    display.println(gameRound+1);
+    // TODO: Display current score
 
     add_to_moves(); // Add a button to the current moves, then play them back
 

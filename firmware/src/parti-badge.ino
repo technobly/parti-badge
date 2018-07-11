@@ -14,45 +14,39 @@
  *      limitations under the License.
  */
 /*
- *      Project: #PartiBadge, 2018 Maker Faire Edition
+ *      Project: #PartiBadge, 2018 THAT Conference Edition
  *
  *      Description:
- *          This is the firmware for a custom, Electron-based badge PCB that includes:
- *              1. A 1.7" LCD TFT
+ *          This is the firmware for a custom, Photon-based badge PCB that includes:
+ *              1. A 1" OLED Screen
  *              2. An SMD Piezo buzzer
  *              3. A SPDT Switch
  *              4. A 5-way joystick
  *              5. An SMD Si7021 temperature and Humidity sensor
  *              6. 4 Tactile LED Buttons in Red, Blue, Green and Yello/Orange
  *              7. An I2C-Compatible breakout for #BadgeLife add-ons
- *          The exact functionality of this badge includes:
- *              1.
+ *
  */
 
 #include "Particle.h"
 #include "Debounce.h"
-#include "SdFat.h"
 
 #include "parti-badge.h" // #define pin assignments and other general macros
 #include "music/tones.h" // Peizo Sounds
 #include "music/roll.h"
 
-// Custom code for Si7021 Temp/Hu Sensor using Wire1 on Electron C4, C5
-#include "Si7021_MultiWire/Si7021_MultiWire.h"
-
-// TFT include
-#include "Adafruit_ST7735.h"
+#include "Particle_SI7021.h"
 
 SYSTEM_MODE(SEMI_AUTOMATIC);
 
-PRODUCT_ID(7461);
-PRODUCT_VERSION(2);
+// TODO: Set-up new product
+// PRODUCT_ID(7461);
+// PRODUCT_VERSION(2);
 
 String deviceId;
 
 // Button Debounce Support
 Debounce displayDebouncer = Debounce();
-Debounce gameDebouncer = Debounce();
 Debounce redButtonADebouncer = Debounce();
 Debounce blueButtonBDebouncer = Debounce();
 Debounce greenButtonCDebouncer = Debounce();
@@ -60,70 +54,35 @@ Debounce yellowButtonDDebouncer = Debounce();
 #define DEBOUNCE_DELAY 20
 
 // Initialize Si7021 sensor
-Si7021_MultiWire envSensor = Si7021_MultiWire();
+SI7021 envSensor;
 double currentTemp;
 double currentHumidity;
 
-// Initialize TFT Display
-Adafruit_ST7735 display = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
-
 #include "simonsays/simon.h" // Simon Says Code
-
-//SD Card
-SdFat sd;
-
-// Battery charge variables
-FuelGauge fuel;
-int currentBatteryCharge;
 
 // Timing variables
 unsigned long elapsedTime;
 unsigned long startTime = 0;
 unsigned long previousEnvReading = 0;
-unsigned long previousBattReading = 0;
 
 // Wearer details
 String wearerFirstName;
 String wearerLastName;
 
 // Default to display mode, but we'll determine this based on a switch
-int badgeMode = DISPLAY_MODE;
 unsigned long meshImagesTriggerTime = 0;
 unsigned long wearerDetailsTriggerTime = 0;
-int meshImageArrayLength = 5;
-int rollImageArrayLength = 5;
-int currentMeshImage = 0;
-int currentRollImage = 0;
-char* meshImages[] = {
-  "argon.bmp",
-  "boron.bmp",
-  "xenon.bmp",
-  "xenonandboron.bmp",
-  "xenongas.bmp"
-};
-char* rollImages[] = {
-  "rick1.bmp",
-  "rick2.bmp",
-  "rick3.bmp",
-  "rick4.bmp",
-  "rick5.bmp"
-};
 
 // Display variables
 bool displayingTemp = false;
-bool displayingBatteryLevel = false;
 bool displayingLogo = false;
 bool displayingTitle = false;
 bool displayingWearerDetails = false;
-bool displayingMeshImages = false;
 
 // Display state management
 bool titleShown = false;
 bool buttonsInitialized = false;
 
-LEDStatus breatheCyan(RGB_COLOR_CYAN, LED_PATTERN_FADE, LED_PRIORITY_IMPORTANT);
-
-void bmpDraw(char *filename, uint8_t x, uint16_t y);
 
 void setup() {
   resetDisplayBools();
@@ -134,11 +93,8 @@ void setup() {
   //Initialize Temp and Humidity sensor
   envSensor.begin();
 
-  //Init TFT
-  initDisplay();
-
-  //Init SD
-  sd.begin(TFT_SD_CS, SPI_FULL_SPEED);
+  //Init OLED
+  // TODO: Add
 
   // Set up cloud variables and functions
   cloudInit();
@@ -149,20 +105,14 @@ void setup() {
   showLogo();
 
   pinMode(BUZZER_PIN, OUTPUT);
-  displayDebouncer.attach(DISPLAY_MODE_PIN, INPUT_PULLDOWN);
-  displayDebouncer.interval(DEBOUNCE_DELAY);
-
-  gameDebouncer.attach(GAME_MODE_PIN, INPUT_PULLDOWN);
-  gameDebouncer.interval(DEBOUNCE_DELAY);
+  // displayDebouncer.attach(DISPLAY_MODE_PIN, INPUT_PULLDOWN);
+  // displayDebouncer.interval(DEBOUNCE_DELAY);
 
   // Init the LED Buttons
   initButtons();
 
   // Get an initial temp and humidity reading
   getTempAndHumidity();
-
-  // Perform an initial battery check
-  checkBattery();
 
   // Show the title screen
   showTitle();
@@ -173,14 +123,14 @@ void setup() {
   // Play a startup sound on the Piezo
   if (!startupSoundPlayed) playStartup(BUZZER_PIN);
 
-  //Particle.connect();
-  breatheCyan.setActive(true);
-
+  Particle.connect();
+  /*
   checkBadgeMode();
   if (badgeMode == DISPLAY_MODE) {
     displayingMeshImages = true;
     meshImagesTriggerTime = millis();
   }
+  */
 }
 
 void loop() {
@@ -188,25 +138,16 @@ void loop() {
 
   checkBadgeMode();
 
-  if (badgeMode == DISPLAY_MODE) {
+  //if (badgeMode == DISPLAY_MODE) {
     redButtonADebouncer.update();
-    if (redButtonADebouncer.read() == LOW && ! displayingMeshImages) {
-      meshImagesTriggerTime = millis();
-
-      resetDisplayBools();
-      displayingMeshImages = true;
-
+    if (redButtonADebouncer.read() == LOW) {
       toggleAllButtons(LOW);
       digitalWrite(RED_LED, HIGH);
-
-      clearScreen();
-      bmpDraw(meshImages[currentMeshImage], 0, 0);
-      currentMeshImage++;
     }
 
     blueButtonBDebouncer.update();
     if (blueButtonBDebouncer.read() == LOW && ! displayingTemp) {
-      resetDisplayBools();
+      //resetDisplayBools();
       displayingTemp = true;
       toggleAllButtons(LOW);
       digitalWrite(BLUE_LED, HIGH);
@@ -216,75 +157,36 @@ void loop() {
     }
 
     greenButtonCDebouncer.update();
-    if (greenButtonCDebouncer.read() == LOW && ! displayingBatteryLevel) {
-      resetDisplayBools();
-      displayingBatteryLevel = true;
+    if (greenButtonCDebouncer.read() == LOW) {
       toggleAllButtons(LOW);
       digitalWrite(GREEN_LED, HIGH);
 
       // Show Name
-      showName();
+      //showName();
       delay(1000);
       initButtons();
       attractMode();
     }
 
     yellowButtonDDebouncer.update();
-    if (yellowButtonDDebouncer.read() == LOW && !displayingWearerDetails) {
+    if (yellowButtonDDebouncer.read() == LOW) {
       wearerDetailsTriggerTime = millis();
-      resetDisplayBools();
-      displayingWearerDetails = true;
+      // resetDisplayBools();
+      // displayingWearerDetails = true;
 
       toggleAllButtons(LOW);
       digitalWrite(YELLOW_LED, HIGH);
-
-      clearScreen();
-      bmpDraw(rollImages[currentRollImage], 0, 0);
-      currentRollImage++;
-
-      playRoll();
-    }
-
-    if (displayingWearerDetails) {
-      playRoll();
-
-      if (millis() - wearerDetailsTriggerTime > IMAGE_DURATION) {
-        bmpDraw(rollImages[currentRollImage], 0, 0);
-        if (currentRollImage == rollImageArrayLength) {
-          currentRollImage = 0;
-        } else {
-          currentRollImage++;
-        }
-        wearerDetailsTriggerTime = millis();
-      }
-    }
-
-    if (displayingMeshImages) {
-      if (millis() - meshImagesTriggerTime > IMAGE_DURATION) {
-        bmpDraw(meshImages[currentMeshImage], 0, 0);
-        if (currentMeshImage >= meshImageArrayLength) {
-          currentMeshImage = 0;
-        } else {
-          currentMeshImage++;
-        }
-        meshImagesTriggerTime = millis();
-      }
     }
 
     if (currentMillis - previousEnvReading > TEMP_CHECK_INTERVAL) {
       previousEnvReading = currentMillis;
       getTempAndHumidity();
     }
-
-    if (currentMillis - previousBattReading > BATT_CHECK_INTERVAL) {
-      previousBattReading = currentMillis;
-      checkBattery();
-    }
-  } else if (badgeMode == GAME_MODE) {
-    configureGame();
-
-    playGame();
-  }
+  //} else if (badgeMode == GAME_MODE) {
+  //  configureGame();
+  //
+  //  playGame();
+  //}
 }
 
 void cloudInit() {
@@ -294,30 +196,22 @@ void cloudInit() {
   Particle.variable("currentTemp", currentTemp);
   Particle.variable("currentHu", currentHumidity);
 
-  Particle.variable("battCharge", currentBatteryCharge);
-
   Particle.function("updateFName", updateFirstNameHandler);
   Particle.function("updateLName", updateLastNameHandler);
 }
 
-void initDisplay() {
-  display.initR(INITR_BLACKTAB);
-  display.setCursor(0, 0);
-  display.fillScreen(ST7735_BLACK);
-
-  pinMode(TFT_LIGHT, OUTPUT);
-  digitalWrite(TFT_LIGHT, HIGH);
-}
-
 void showLogo() {
+  /*
   display.setCursor(0, 0);
   display.setRotation(3);
 
   bmpDraw("spark.bmp", 0, 0);
   delay(2000);
+  */
 }
 
 void showTitle() {
+  /*
   titleShown = true;
 
   display.setRotation(3);
@@ -332,10 +226,12 @@ void showTitle() {
   display.println(" #PartiBadge");
   display.println(" v1.1");
   display.println();
-  display.println(" NDC {Oslo}");
+  display.println(" THAT Conference");
+  */
 }
 
 void displayWearerDetails() {
+  /*
   display.fillScreen(ST7735_WHITE);
   display.setCursor(0, 0);
   display.setTextColor(ST7735_BLUE);
@@ -345,9 +241,11 @@ void displayWearerDetails() {
   display.println();
   display.println(wearerFirstName);
   display.println(wearerLastName);
+  */
 }
 
 void showName() {
+  /*
   display.fillScreen(ST7735_BLACK);
   display.setCursor(0, 0);
   display.setTextColor(ST7735_WHITE);
@@ -358,6 +256,7 @@ void showName() {
   display.println(" Brandon");
   display.println("");
   display.println(" Particle");
+  */
 }
 
 void initButtons() {
@@ -406,6 +305,7 @@ void initLEDButtons() {
 }
 
 void showTempAndHumidity() {
+  /*
   clearScreen();
 
   display.println();
@@ -421,17 +321,7 @@ void showTempAndHumidity() {
   display.print("  ");
   display.print((int)currentHumidity);
   display.println("%");
-}
-
-void showBatteryLevel() {
-  clearScreen();
-
-  display.setTextSize(4);
-  display.println();
-  display.println(" BATT");
-  display.print("  ");
-  display.print((int)currentBatteryCharge);
-  display.println("%");
+  */
 }
 
 void toggleAllButtons(int state) {
@@ -443,14 +333,13 @@ void toggleAllButtons(int state) {
 
 void resetDisplayBools() {
   displayingTemp = false;
-  displayingBatteryLevel = false;
   displayingWearerDetails = false;
-  displayingMeshImages = false;
   displayingLogo = false;
   displayingTitle = false;
 }
 
 void checkBadgeMode() {
+  /*
   displayDebouncer.update();
   gameDebouncer.update();
 
@@ -459,39 +348,23 @@ void checkBadgeMode() {
   } else if (gameDebouncer.read() == HIGH) {
     badgeMode = GAME_MODE;
   }
+  */
 }
 
 void getTempAndHumidity() {
-  currentTemp = envSensor.readTempF();
-  currentHumidity = envSensor.getRH();
-}
-
-void checkBattery() {
-  currentBatteryCharge = (int)fuel.getSoC();
-
-  if (currentBatteryCharge < BATTERY_CRITICAL) {
-    clearScreen();
-
-    display.setTextSize(4);
-    display.setTextColor(ST7735_BLUE);
-    display.println();
-    display.println("LOW BATT");
-  }
-
-  if (currentBatteryCharge < BATTERY_SHUTOFF) {
-    playGameOver(BUZZER_PIN);
-
-    //Sleep the device to prevent the battery from fully discharging
-    System.sleep(SLEEP_MODE_SOFTPOWEROFF);
-  }
+  si7021_env sensorData = envSensor.getHumidityAndTemperature();
+  currentTemp = sensorData.celsiusHundredths;
+  currentHumidity = sensorData.humidityBasisPoints;
 }
 
 void clearScreen() {
+  /*
   display.fillScreen(ST7735_BLACK);
   display.setCursor(0, 0);
   display.setTextColor(ST7735_WHITE);
   display.setTextWrap(true);
   display.setTextSize(2);
+  */
 }
 
 int updateFirstNameHandler(String data) {
@@ -505,5 +378,3 @@ int updateLastNameHandler(String data) {
 
   return 1;
 }
-
-#include "bmpDraw.h" // Function for drawing Bitmaps on the screen
