@@ -37,6 +37,10 @@
 
 #include "Adafruit_Si7021.h"
 
+// Display includes
+#include "Adafruit_GFX.h"
+#include "Adafruit_SSD1306.h"
+
 SYSTEM_MODE(SEMI_AUTOMATIC);
 
 PRODUCT_ID(7775);
@@ -55,6 +59,9 @@ Debounce yellowButtonDDebouncer = Debounce();
 Adafruit_Si7021 envSensor = Adafruit_Si7021();
 double currentTemp;
 double currentHumidity;
+
+// Init Display
+Adafruit_SSD1306 display(RESET);
 
 #include "simonsays/simon.h" // Simon Says Code
 
@@ -92,7 +99,11 @@ void setup() {
   while(! envSensor.begin());
 
   //Init OLED
-  // TODO: Add
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+
+  display.display(); // show splashscreen
+  delay(2000);
+  display.clearDisplay();   // clears the screen and buffer
 
   // Set up cloud variables and functions
   cloudInit();
