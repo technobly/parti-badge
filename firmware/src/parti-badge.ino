@@ -35,7 +35,7 @@
 #include "music/tones.h" // Peizo Sounds
 #include "music/roll.h"
 
-#include "Particle_SI7021.h"
+#include "Adafruit_Si7021.h"
 
 SYSTEM_MODE(SEMI_AUTOMATIC);
 
@@ -45,7 +45,6 @@ PRODUCT_VERSION(18);
 String deviceId;
 
 // Button Debounce Support
-Debounce displayDebouncer = Debounce();
 Debounce redButtonADebouncer = Debounce();
 Debounce blueButtonBDebouncer = Debounce();
 Debounce greenButtonCDebouncer = Debounce();
@@ -53,7 +52,7 @@ Debounce yellowButtonDDebouncer = Debounce();
 #define DEBOUNCE_DELAY 20
 
 // Initialize Si7021 sensor
-SI7021 envSensor;
+Adafruit_Si7021 envSensor = Adafruit_Si7021();
 double currentTemp;
 double currentHumidity;
 
@@ -90,7 +89,7 @@ void setup() {
   deviceId = System.deviceID();
 
   //Initialize Temp and Humidity sensor
-  envSensor.begin();
+  while(! envSensor.begin());
 
   //Init OLED
   // TODO: Add
@@ -104,8 +103,6 @@ void setup() {
   showLogo();
 
   pinMode(BUZZER_PIN, OUTPUT);
-  // displayDebouncer.attach(DISPLAY_MODE_PIN, INPUT_PULLDOWN);
-  // displayDebouncer.interval(DEBOUNCE_DELAY);
 
   // Init the LED Buttons
   initButtons();
@@ -206,6 +203,8 @@ void cloudInit() {
 
   Particle.function("updateFName", updateFirstNameHandler);
   Particle.function("updateLName", updateLastNameHandler);
+
+  Particle.function("checkTemp", checkTempHandler);
 }
 
 void showLogo() {
@@ -347,9 +346,8 @@ void resetDisplayBools() {
 }
 
 void getTempAndHumidity() {
-  si7021_env sensorData = envSensor.getHumidityAndTemperature();
-  currentTemp = sensorData.celsiusHundredths;
-  currentHumidity = sensorData.humidityBasisPoints;
+  currentTemp = round((envSensor.readTemperature() * 1.8 + 32.00)*10)/10.0;
+  currentHumidity = round(envSensor.readHumidity()*10)/10.0;
 }
 
 void clearScreen() {
@@ -370,6 +368,12 @@ int updateFirstNameHandler(String data) {
 
 int updateLastNameHandler(String data) {
   wearerLastName = data;
+
+  return 1;
+}
+
+int checkTempHandler(String data) {
+  getTempAndHumidity();
 
   return 1;
 }
