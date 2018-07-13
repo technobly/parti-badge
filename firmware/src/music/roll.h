@@ -32,8 +32,8 @@
 #define rest    -1
 
 // change these pins according to your setup
-int piezo = A7;
-int led = D3;
+int piezo = BUZZER_PIN;
+int led = YELLOW_BUTTON_D;
 
 volatile int beatlength = 100; // determines tempo
 float beatseparationconstant = 0.3;

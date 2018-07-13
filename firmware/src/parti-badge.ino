@@ -39,9 +39,8 @@
 
 SYSTEM_MODE(SEMI_AUTOMATIC);
 
-// TODO: Set-up new product
-// PRODUCT_ID(7461);
-// PRODUCT_VERSION(2);
+PRODUCT_ID(7775);
+PRODUCT_VERSION(18);
 
 String deviceId;
 
@@ -69,9 +68,9 @@ unsigned long previousEnvReading = 0;
 String wearerFirstName;
 String wearerLastName;
 
-// Default to display mode, but we'll determine this based on a switch
-unsigned long meshImagesTriggerTime = 0;
-unsigned long wearerDetailsTriggerTime = 0;
+// Default to display mode, but we'll determine this based on a
+// the user holding a button down at startup
+int badgeMode = DISPLAY_MODE;
 
 // Display variables
 bool displayingTemp = false;
@@ -83,8 +82,8 @@ bool displayingWearerDetails = false;
 bool titleShown = false;
 bool buttonsInitialized = false;
 
-
 void setup() {
+  Serial.begin(115200);
   resetDisplayBools();
 
   // Get the current deviceId
@@ -123,22 +122,15 @@ void setup() {
   // Play a startup sound on the Piezo
   if (!startupSoundPlayed) playStartup(BUZZER_PIN);
 
-  Particle.connect();
-  /*
   checkBadgeMode();
-  if (badgeMode == DISPLAY_MODE) {
-    displayingMeshImages = true;
-    meshImagesTriggerTime = millis();
-  }
-  */
+
+  Particle.connect();
 }
 
 void loop() {
   unsigned long currentMillis = millis();
 
-  checkBadgeMode();
-
-  //if (badgeMode == DISPLAY_MODE) {
+  if (badgeMode == DISPLAY_MODE) {
     redButtonADebouncer.update();
     if (redButtonADebouncer.read() == LOW) {
       toggleAllButtons(LOW);
@@ -162,15 +154,15 @@ void loop() {
       digitalWrite(GREEN_LED, HIGH);
 
       // Show Name
-      //showName();
-      delay(1000);
+      // showName();
+      // delay(1000);
       initButtons();
       attractMode();
     }
 
     yellowButtonDDebouncer.update();
     if (yellowButtonDDebouncer.read() == LOW) {
-      wearerDetailsTriggerTime = millis();
+      // wearerDetailsTriggerTime = millis();
       // resetDisplayBools();
       // displayingWearerDetails = true;
 
@@ -182,11 +174,27 @@ void loop() {
       previousEnvReading = currentMillis;
       getTempAndHumidity();
     }
-  //} else if (badgeMode == GAME_MODE) {
-  //  configureGame();
-  //
-  //  playGame();
-  //}
+
+    /* Some other secret key combo to trigger the roll */
+    // if (secredKeyComboFound) {
+    //  playRoll();
+    //}
+  } else if (badgeMode == GAME_MODE) {
+    configureGame();
+
+    playGame();
+  }
+}
+
+void checkBadgeMode() {
+  redButtonADebouncer.update();
+  blueButtonBDebouncer.update();
+
+  if (blueButtonBDebouncer.read() == LOW && blueButtonBDebouncer.read() == LOW) {
+    badgeMode = GAME_MODE;
+  } else {
+    badgeMode = DISPLAY_MODE;
+  }
 }
 
 void cloudInit() {
@@ -336,19 +344,6 @@ void resetDisplayBools() {
   displayingWearerDetails = false;
   displayingLogo = false;
   displayingTitle = false;
-}
-
-void checkBadgeMode() {
-  /*
-  displayDebouncer.update();
-  gameDebouncer.update();
-
-  if (displayDebouncer.read() == HIGH) {
-    badgeMode = DISPLAY_MODE;
-  } else if (gameDebouncer.read() == HIGH) {
-    badgeMode = GAME_MODE;
-  }
-  */
 }
 
 void getTempAndHumidity() {

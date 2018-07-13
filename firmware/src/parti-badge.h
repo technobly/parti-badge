@@ -1,3 +1,6 @@
+/* Display Mode macros */
+#define DISPLAY_MODE 1
+#define GAME_MODE 2
 
 /* Piezo Pin */
 #define BUZZER_PIN TX
