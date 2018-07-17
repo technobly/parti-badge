@@ -35,6 +35,8 @@
 #include "music/tones.h" // Peizo Sounds
 #include "music/roll.h"
 
+#include "images/spark.h"
+
 #include "Adafruit_Si7021.h"
 
 // Display includes
@@ -89,7 +91,6 @@ bool titleShown = false;
 bool buttonsInitialized = false;
 
 void setup() {
-  Serial.begin(115200);
   resetDisplayBools();
 
   // Get the current deviceId
@@ -101,9 +102,10 @@ void setup() {
   //Init OLED
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
 
-  display.display(); // show splashscreen
-  delay(2000);
-  display.clearDisplay();   // clears the screen and buffer
+  // Show Particle Splashscreen
+  showSplashscreen();
+  
+  // Show Title
 
   // Set up cloud variables and functions
   cloudInit();
@@ -192,6 +194,14 @@ void loop() {
 
     playGame();
   }
+}
+
+
+void showSplashscreen() {
+  display.clearDisplay();   // clears the screen and buffer
+  display.drawBitmap(0, 0, sparkLogo, 128, 64, 1);
+  display.display();
+  delay(3000);
 }
 
 void checkBadgeMode() {
