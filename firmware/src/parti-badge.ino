@@ -59,8 +59,8 @@ Debounce yellowButtonDDebouncer = Debounce();
 
 // Initialize Si7021 sensor
 Adafruit_Si7021 envSensor = Adafruit_Si7021();
-double currentTemp;
-double currentHumidity;
+int currentTemp;
+int currentHumidity;
 
 // Init Display
 Adafruit_SSD1306 display(RESET);
@@ -162,7 +162,7 @@ void loop() {
     greenButtonCDebouncer.update();
     if (greenButtonCDebouncer.read() == LOW) {
       resetDisplayBools();
-      
+
       toggleAllButtons(LOW);
       digitalWrite(GREEN_LED, HIGH);
 
@@ -358,8 +358,16 @@ void resetDisplayBools() {
 }
 
 void getTempAndHumidity() {
-  currentTemp = round((envSensor.readTemperature() * 1.8 + 32.00)*10)/10.0;
-  currentHumidity = round(envSensor.readHumidity()*10)/10.0;
+  int prevTemp = currentTemp;
+  int prevHumidity = currentHumidity;
+
+  currentTemp = round((envSensor.readTemperature() * 1.8 + 32.00)*10)/10;
+  currentHumidity = round(envSensor.readHumidity()*10)/10;
+
+  // If either has changed and these values are being displayed, update the display
+  if (displayingTemp && (prevTemp != currentTemp || prevHumidity != currentHumidity)) {
+    showTempAndHumidity();
+  }
 }
 
 void clearScreen() {
