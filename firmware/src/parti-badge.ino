@@ -85,6 +85,7 @@ bool displayingTemp = false;
 bool displayingLogo = false;
 bool displayingTitle = false;
 bool displayingWearerDetails = false;
+bool playingRoll = false;
 
 // Display state management
 bool titleShown = false;
@@ -189,10 +190,11 @@ void loop() {
       getTempAndHumidity();
     }
 
-    /* Some other secret key combo to trigger the roll */
-    // if (secredKeyComboFound) {
-    //  playRoll();
-    //}
+    if (digitalRead(D7) == HIGH || playingRoll) {
+      playingRoll = true;
+
+      playRoll();
+    }
   } else if (badgeMode == GAME_MODE) {
     configureGame();
 
@@ -296,6 +298,9 @@ void initLEDButtons() {
   int del = 300;
   int medDel = 500;
 
+  // Init D7
+  pinMode(D7, INPUT_PULLDOWN);
+
   // Init LEDs and Outputs
   pinMode(RED_LED, OUTPUT);
   pinMode(BLUE_LED, OUTPUT);
@@ -355,6 +360,7 @@ void resetDisplayBools() {
   displayingWearerDetails = false;
   displayingLogo = false;
   displayingTitle = false;
+  playingRoll = false;
 }
 
 void getTempAndHumidity() {
