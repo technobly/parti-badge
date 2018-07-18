@@ -141,13 +141,16 @@ void loop() {
   if (badgeMode == DISPLAY_MODE) {
     redButtonADebouncer.update();
     if (redButtonADebouncer.read() == LOW) {
+      resetDisplayBools();
+
       toggleAllButtons(LOW);
       digitalWrite(RED_LED, HIGH);
     }
 
     blueButtonBDebouncer.update();
     if (blueButtonBDebouncer.read() == LOW && ! displayingTemp) {
-      //resetDisplayBools();
+      resetDisplayBools();
+
       displayingTemp = true;
       toggleAllButtons(LOW);
       digitalWrite(BLUE_LED, HIGH);
@@ -158,6 +161,8 @@ void loop() {
 
     greenButtonCDebouncer.update();
     if (greenButtonCDebouncer.read() == LOW) {
+      resetDisplayBools();
+      
       toggleAllButtons(LOW);
       digitalWrite(GREEN_LED, HIGH);
 
@@ -171,7 +176,8 @@ void loop() {
     yellowButtonDDebouncer.update();
     if (yellowButtonDDebouncer.read() == LOW) {
       // wearerDetailsTriggerTime = millis();
-      // resetDisplayBools();
+
+      resetDisplayBools();
       // displayingWearerDetails = true;
 
       toggleAllButtons(LOW);
@@ -318,23 +324,23 @@ void initLEDButtons() {
 }
 
 void showTempAndHumidity() {
-  /*
   clearScreen();
 
+  display.setTextSize(1);
   display.println();
-  display.println("  Curr Temp");
-  display.setTextSize(3);
-  display.print("  ");
+  display.println("         Temp");
+  display.setTextSize(2);
+  display.print("    ");
   display.print((int)currentTemp);
   display.println("f");
-  display.setTextSize(2);
+  display.setTextSize(1);
   display.println();
-  display.println("  Humidity");
-  display.setTextSize(3);
-  display.print("  ");
+  display.println("       Humidity");
+  display.setTextSize(2);
+  display.print("    ");
   display.print((int)currentHumidity);
   display.println("%");
-  */
+  display.display();
 }
 
 void toggleAllButtons(int state) {
