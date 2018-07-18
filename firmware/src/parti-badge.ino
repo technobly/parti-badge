@@ -104,16 +104,14 @@ void setup() {
 
   // Show Particle Splashscreen
   showSplashscreen();
-  
-  // Show Title
+
+  // Show the title screen
+  showTitle();
 
   // Set up cloud variables and functions
   cloudInit();
 
   rollSetup();
-
-  // Show the Particle Logo on the screen
-  showLogo();
 
   pinMode(BUZZER_PIN, OUTPUT);
 
@@ -122,9 +120,6 @@ void setup() {
 
   // Get an initial temp and humidity reading
   getTempAndHumidity();
-
-  // Show the title screen
-  showTitle();
 
   //Init Tactile LED Buttons
   initLEDButtons();
@@ -135,6 +130,9 @@ void setup() {
   checkBadgeMode();
 
   Particle.connect();
+
+  // Scroll the title text on the screen
+  display.startscrollleft(0x00, 0x0F);
 }
 
 void loop() {
@@ -198,7 +196,7 @@ void loop() {
 
 
 void showSplashscreen() {
-  display.clearDisplay();   // clears the screen and buffer
+  clearScreen();
   display.drawBitmap(0, 0, sparkLogo, 128, 64, 1);
   display.display();
   delay(3000);
@@ -228,34 +226,21 @@ void cloudInit() {
   Particle.function("checkTemp", checkTempHandler);
 }
 
-void showLogo() {
-  /*
-  display.setCursor(0, 0);
-  display.setRotation(3);
-
-  bmpDraw("spark.bmp", 0, 0);
-  delay(2000);
-  */
-}
-
 void showTitle() {
-  /*
   titleShown = true;
 
-  display.setRotation(3);
-  display.fillScreen(ST7735_WHITE);
+  display.clearDisplay();
   display.setCursor(0, 0);
-  display.setTextColor(ST7735_BLUE);
   display.setTextWrap(true);
-  display.setTextSize(2);
+  display.setTextColor(WHITE);
+  display.setTextSize(1);
 
   display.println();
   display.println();
-  display.println(" #PartiBadge");
-  display.println(" v1.1");
+  display.println(" #PartiBadge v2");
   display.println();
-  display.println(" THAT Conference");
-  */
+  display.println(" THAT Conference 2018");
+  display.display();
 }
 
 void displayWearerDetails() {
@@ -372,13 +357,11 @@ void getTempAndHumidity() {
 }
 
 void clearScreen() {
-  /*
-  display.fillScreen(ST7735_BLACK);
+  display.stopscroll();
+  display.clearDisplay();
+  display.display();
   display.setCursor(0, 0);
-  display.setTextColor(ST7735_WHITE);
   display.setTextWrap(true);
-  display.setTextSize(2);
-  */
 }
 
 int updateFirstNameHandler(String data) {
