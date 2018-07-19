@@ -31,17 +31,16 @@
 #include "Particle.h"
 #include "Debounce.h"
 
+// Display includes
+#include "Adafruit_GFX.h"
+#include "Adafruit_SSD1306.h"
+
+#include "images/spark.h"
 #include "parti-badge.h" // #define pin assignments and other general macros
 #include "music/tones.h" // Peizo Sounds
 #include "music/roll.h"
 
-#include "images/spark.h"
-
 #include "Adafruit_Si7021.h"
-
-// Display includes
-#include "Adafruit_GFX.h"
-#include "Adafruit_SSD1306.h"
 
 SYSTEM_MODE(SEMI_AUTOMATIC);
 
@@ -193,7 +192,7 @@ void loop() {
     if (digitalRead(D7) == HIGH || playingRoll) {
       playingRoll = true;
 
-      playRoll();
+      playRoll(&display);
     }
   } else if (badgeMode == GAME_MODE) {
     configureGame();
