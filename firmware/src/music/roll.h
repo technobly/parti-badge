@@ -131,16 +131,6 @@ void rollSetup()
 
 void playRoll(Adafruit_SSD1306* display)
 {
-  // edit code here to define play conditions
-  /*
-    if (CONDITION 1) { // play
-    flag = true;
-    }
-    else if (CONDITION2) { // pause
-    flag = false;
-    }
-  */
-
   if (!displaySetup) {
     setupDisplay(display);
     displaySetup = true;

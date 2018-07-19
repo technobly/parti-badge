@@ -166,20 +166,16 @@ void loop() {
       toggleAllButtons(LOW);
       digitalWrite(GREEN_LED, HIGH);
 
-      // Show Name
-      // showName();
-      // delay(1000);
       initButtons();
       attractMode();
     }
 
     yellowButtonDDebouncer.update();
     if (yellowButtonDDebouncer.read() == LOW) {
-      // wearerDetailsTriggerTime = millis();
-
       resetDisplayBools();
-      // displayingWearerDetails = true;
+      displayingWearerDetails = true;
 
+      displayWearerDetails();
       toggleAllButtons(LOW);
       digitalWrite(YELLOW_LED, HIGH);
     }
@@ -251,32 +247,38 @@ void showTitle() {
 }
 
 void displayWearerDetails() {
-  /*
-  display.fillScreen(ST7735_WHITE);
-  display.setCursor(0, 0);
-  display.setTextColor(ST7735_BLUE);
-  display.setTextWrap(true);
-  display.setTextSize(3);
+  int fnameLength = wearerFirstName.length();
+  int lnameLength = wearerLastName.length();
+  int longestLength = ((fnameLength > lnameLength) ? fnameLength : lnameLength);
 
-  display.println();
-  display.println(wearerFirstName);
-  display.println(wearerLastName);
-  */
-}
+  if (fnameLength > 0 || lnameLength > 0) {
+    clearScreen();
 
-void showName() {
-  /*
-  display.fillScreen(ST7735_BLACK);
-  display.setCursor(0, 0);
-  display.setTextColor(ST7735_WHITE);
-  display.setTextWrap(true);
-  display.setTextSize(3);
+    // setTextSize based on largest of two lengths
+    // Display is 128 x 64
+    // So if the longest of the two names is longer than 10 characters,
+    // set the size to 1
+    if (longestLength > 10) {
+      display.setTextSize(1);
+      display.setCursor(0, 20);
 
-  display.println();
-  display.println(" Brandon");
-  display.println("");
-  display.println(" Particle");
-  */
+    } else {
+      display.setTextSize(2);
+      display.setCursor(0, 10);
+    }
+
+    display.println();
+
+    if (wearerFirstName.length() > 0) {
+      display.println(wearerFirstName);
+    }
+    if (wearerLastName.length() > 0) {
+      display.println(wearerLastName);
+    }
+
+    display.display();
+    display.startscrollleft(0x00, 0x0F);
+  }
 }
 
 void initButtons() {
