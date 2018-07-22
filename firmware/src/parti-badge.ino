@@ -39,6 +39,7 @@
 #include "parti-badge.h" // #define pin assignments and other general macros
 #include "music/tones.h" // Peizo Sounds
 #include "music/roll.h"
+#include "WearerInfo/WearerInfo.h"
 
 #include "Adafruit_Si7021.h"
 
@@ -48,6 +49,7 @@ PRODUCT_ID(7775);
 PRODUCT_VERSION(18);
 
 String deviceId;
+WearerInfo wearerInfo;
 
 // Button Debounce Support
 Debounce redButtonADebouncer = Debounce();
@@ -130,6 +132,8 @@ void setup() {
   checkBadgeMode();
 
   Particle.connect();
+
+  initWearerDetails();
 
   // Scroll the title text on the screen
   display.startscrollleft(0x00, 0x0F);
@@ -227,6 +231,15 @@ void cloudInit() {
   Particle.function("updateLName", updateLastNameHandler);
 
   Particle.function("checkTemp", checkTempHandler);
+}
+
+void initWearerDetails() {
+  wearerInfo = WearerInfo();
+
+  if (wearerInfo.isSet()) {
+    wearerFirstName = wearerInfo.getFirstName();
+    wearerLastName = wearerInfo.getLastName();
+  }
 }
 
 void showTitle() {
@@ -387,12 +400,14 @@ void clearScreen() {
 
 int updateFirstNameHandler(String data) {
   wearerFirstName = data;
+  wearerInfo.setFirstName(wearerFirstName);
 
   return 1;
 }
 
 int updateLastNameHandler(String data) {
   wearerLastName = data;
+  wearerInfo.setLastName(wearerLastName);
 
   return 1;
 }
