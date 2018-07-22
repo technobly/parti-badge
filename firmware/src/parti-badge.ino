@@ -36,6 +36,8 @@
 #include "Adafruit_SSD1306.h"
 
 #include "images/spark.h"
+#include "images/temp.h"
+#include "images/humidity.h"
 #include "parti-badge.h" // #define pin assignments and other general macros
 #include "music/tones.h" // Peizo Sounds
 #include "music/roll.h"
@@ -345,6 +347,7 @@ void initLEDButtons() {
 void showTempAndHumidity() {
   clearScreen();
 
+  display.drawBitmap(7, 13, tempImage, 16, 43, 1);
   display.setTextSize(1);
   display.println();
   display.println("         Temp");
@@ -359,6 +362,7 @@ void showTempAndHumidity() {
   display.print("    ");
   display.print((int)currentHumidity);
   display.println("%");
+  display.drawBitmap(105, 23, humidityImage, 20, 27, 1);
   display.display();
 }
 
