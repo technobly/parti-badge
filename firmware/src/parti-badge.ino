@@ -178,7 +178,7 @@ void loop() {
     }
 
     yellowButtonDDebouncer.update();
-    if (yellowButtonDDebouncer.read() == LOW) {
+    if (yellowButtonDDebouncer.read() == LOW && ! displayingWearerDetails) {
       resetDisplayBools();
       displayingWearerDetails = true;
 
@@ -408,6 +408,9 @@ int updateFirstNameHandler(String data) {
   wearerInfo.setFirstName(wearerFirstName);
 
   fireNamedEvent(deviceId.c_str());
+  if (displayingWearerDetails) {
+    displayWearerDetails();
+  }
   return 1;
 }
 
@@ -416,6 +419,9 @@ int updateLastNameHandler(String data) {
   wearerInfo.setLastName(wearerLastName);
 
   fireNamedEvent(deviceId.c_str());
+  if (displayingWearerDetails) {
+    displayWearerDetails();
+  }
   return 1;
 }
 
