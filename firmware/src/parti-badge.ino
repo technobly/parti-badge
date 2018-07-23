@@ -44,6 +44,7 @@
 #include "WearerInfo/WearerInfo.h"
 
 #include "Adafruit_Si7021.h"
+#include "events/events.h"
 
 SYSTEM_MODE(SEMI_AUTOMATIC);
 
@@ -406,6 +407,7 @@ int updateFirstNameHandler(String data) {
   wearerFirstName = data;
   wearerInfo.setFirstName(wearerFirstName);
 
+  fireNamedEvent(deviceId.c_str());
   return 1;
 }
 
@@ -413,6 +415,7 @@ int updateLastNameHandler(String data) {
   wearerLastName = data;
   wearerInfo.setLastName(wearerLastName);
 
+  fireNamedEvent(deviceId.c_str());
   return 1;
 }
 
