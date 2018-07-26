@@ -46,6 +46,12 @@
 #include "Adafruit_Si7021.h"
 #include "events/events.h"
 
+// Init Display
+Adafruit_SSD1306 display(RESET);
+
+#include "simonsays/simon.h" // Simon Says Code
+#include "animations/animations.h"
+
 SYSTEM_MODE(SEMI_AUTOMATIC);
 
 PRODUCT_ID(7775);
@@ -66,11 +72,6 @@ Adafruit_Si7021 envSensor = Adafruit_Si7021();
 int currentTemp;
 int currentHumidity;
 
-// Init Display
-Adafruit_SSD1306 display(RESET);
-
-#include "simonsays/simon.h" // Simon Says Code
-
 // Timing variables
 unsigned long elapsedTime;
 unsigned long startTime = 0;
@@ -89,6 +90,7 @@ bool displayingTemp = false;
 bool displayingLogo = false;
 bool displayingTitle = false;
 bool displayingWearerDetails = false;
+bool displayingAnimations = false;
 bool playingRoll = false;
 
 // Display state management
@@ -147,11 +149,15 @@ void loop() {
 
   if (badgeMode == DISPLAY_MODE) {
     redButtonADebouncer.update();
-    if (redButtonADebouncer.read() == LOW) {
+    if (redButtonADebouncer.read() == LOW && ! displayingAnimations) {
       resetDisplayBools();
 
+      displayingAnimations = true;
       toggleAllButtons(LOW);
       digitalWrite(RED_LED, HIGH);
+
+      clearScreen();
+      cycleAnimations();
     }
 
     blueButtonBDebouncer.update();
@@ -379,6 +385,7 @@ void resetDisplayBools() {
   displayingWearerDetails = false;
   displayingLogo = false;
   displayingTitle = false;
+  displayingAnimations = false;
   playingRoll = false;
 }
 
