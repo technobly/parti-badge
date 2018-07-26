@@ -393,6 +393,8 @@ void getTempAndHumidity() {
   if (displayingTemp && (prevTemp != currentTemp || prevHumidity != currentHumidity)) {
     showTempAndHumidity();
   }
+
+  fireEnvSensorsEvent(currentTemp, currentHumidity);
 }
 
 void clearScreen() {
@@ -407,7 +409,7 @@ int updateFirstNameHandler(String data) {
   wearerFirstName = data;
   wearerInfo.setFirstName(wearerFirstName);
 
-  fireNamedEvent(deviceId.c_str());
+  fireNamedEvent();
   if (displayingWearerDetails) {
     displayWearerDetails();
   }
@@ -418,7 +420,7 @@ int updateLastNameHandler(String data) {
   wearerLastName = data;
   wearerInfo.setLastName(wearerLastName);
 
-  fireNamedEvent(deviceId.c_str());
+  fireNamedEvent();
   if (displayingWearerDetails) {
     displayWearerDetails();
   }

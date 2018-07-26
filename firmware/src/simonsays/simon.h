@@ -124,6 +124,8 @@ void playGame()
   setLEDs(CHOICE_OFF); // Turn off LEDs
   delay(250);
 
+  fireSimonEvent();
+
   if (gameMode == MODE_MEMORY)
   {
     // Play memory game and handle result
@@ -179,6 +181,7 @@ boolean play_memory(void)
     delay(1000); // Player was correct, delay before playing moves
   }
 
+  fireSimonWinnerEvent();
   return true; // Player made it through all the rounds to win!
 }
 
