@@ -23,7 +23,8 @@ void fireKonamiEvent() {
 }
 
 void fireEnvSensorsEvent(int temp, int humidity) {
-  Particle.publish("tc-env-sensors", "temp:" + String(temp) + ";hu:" + String(humidity), PRIVATE);
+  Particle.publish("tc-env-sensors/temp", String(temp), PRIVATE);
+  Particle.publish("tc-env-sensors/humidity", String(humidity), PRIVATE);
 }
 
 void fireBRBEvent() {

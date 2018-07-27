@@ -48,6 +48,8 @@
 
 // Init Display
 Adafruit_SSD1306 display(RESET);
+void resetDisplayBools();
+void showTitle();
 
 #include "simonsays/simon.h" // Simon Says Code
 #include "animations/animations.h"

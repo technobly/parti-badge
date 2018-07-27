@@ -186,7 +186,7 @@ void testdrawline() {
 }
 
 void testscrolltext(void) {
-  display.setTextSize(3);
+  display.setTextSize(2);
   display.setTextColor(WHITE);
   display.setCursor(10,0);
   display.clearDisplay();
