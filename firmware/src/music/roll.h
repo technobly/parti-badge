@@ -32,8 +32,8 @@
 #define rest    -1
 
 // change these pins according to your setup
-int piezo = A7;
-int led = D3;
+int piezo = BUZZER_PIN;
+int led = YELLOW_BUTTON_D;
 
 volatile int beatlength = 100; // determines tempo
 float beatseparationconstant = 0.3;
@@ -43,6 +43,7 @@ int b; // song index
 int c; // lyric index
 
 boolean flag; // play/pause
+boolean displaySetup = false;
 
 // Parts 1 and 2 (Intro)
 
@@ -115,6 +116,7 @@ char* lyrics_chorus[] =
 };
 
 void play();
+void setupDisplay(Adafruit_SSD1306* display);
 
 void rollSetup()
 {
@@ -127,22 +129,26 @@ void rollSetup()
   c = 0;
 }
 
-void playRoll()
+void playRoll(Adafruit_SSD1306* display)
 {
-  // edit code here to define play conditions
-  /*
-    if (CONDITION 1) { // play
-    flag = true;
-    }
-    else if (CONDITION2) { // pause
-    flag = false;
-    }
-  */
+  if (!displaySetup) {
+    setupDisplay(display);
+    displaySetup = true;
+  }
 
   // play next step in song
   if (flag == true) {
     play();
   }
+}
+
+void setupDisplay(Adafruit_SSD1306* display) {
+  display->clearDisplay();
+  display->display();
+  display->setCursor(0, 0);
+  display->drawBitmap(0, 0, sparkLogo, 128, 64, 1);
+  display->display();
+  display->startscrollleft(0x00, 0x0F);
 }
 
 void play() {

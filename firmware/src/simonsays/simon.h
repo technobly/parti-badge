@@ -124,6 +124,8 @@ void playGame()
   setLEDs(CHOICE_OFF); // Turn off LEDs
   delay(250);
 
+  fireSimonEvent();
+
   if (gameMode == MODE_MEMORY)
   {
     // Play memory game and handle result
@@ -154,14 +156,13 @@ boolean play_memory(void)
 
   while (gameRound < ROUNDS_TO_WIN)
   {
-    display.fillScreen(ST7735_WHITE);
-    display.setCursor(150, -50);
-
-    display.setTextSize(10);
-    display.setTextColor(ST7735_BLUE);
+    clearScreen();
+    display.setCursor(85, -35);
+    display.setTextSize(6);
     display.println();
     display.print(' ');
-    display.println(gameRound+1);
+    display.println(gameRound);
+    display.display();
 
     add_to_moves(); // Add a button to the current moves, then play them back
 
@@ -180,6 +181,7 @@ boolean play_memory(void)
     delay(1000); // Player was correct, delay before playing moves
   }
 
+  fireSimonWinnerEvent();
   return true; // Player made it through all the rounds to win!
 }
 
