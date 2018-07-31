@@ -29,3 +29,4 @@
 
 /* General Macros */
 #define TEMP_CHECK_INTERVAL 120000
+#define DEBOUNCE_INTERVAL 10

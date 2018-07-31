@@ -45,6 +45,7 @@
 
 #include "Adafruit_Si7021.h"
 #include "events/events.h"
+#include "keylogger/keylogger.h"
 
 // Init Display
 Adafruit_SSD1306 display(RESET);
@@ -67,7 +68,13 @@ Debounce redButtonADebouncer = Debounce();
 Debounce blueButtonBDebouncer = Debounce();
 Debounce greenButtonCDebouncer = Debounce();
 Debounce yellowButtonDDebouncer = Debounce();
-#define DEBOUNCE_DELAY 20
+
+// Debouncers for 5-way tactile switch
+Debounce joystickUpDebouncer = Debounce();
+Debounce joystickDownDebouncer = Debounce();
+Debounce joystickLeftDebouncer = Debounce();
+Debounce joystickRightDebouncer = Debounce();
+Debounce joystickCenterDebouncer = Debounce();
 
 // Initialize Si7021 sensor
 Adafruit_Si7021 envSensor = Adafruit_Si7021();
@@ -93,13 +100,18 @@ bool displayingLogo = false;
 bool displayingTitle = false;
 bool displayingWearerDetails = false;
 bool displayingAnimations = false;
+bool displayingEtchASketch = false;
 bool playingRoll = false;
 
 // Display state management
 bool titleShown = false;
 bool buttonsInitialized = false;
+bool checkingInputs = false;
+int displayX = display.width()/2;
+int displayY = display.height()/2;
 
 void setup() {
+  Serial.begin(115200);
   resetDisplayBools();
 
   // Get the current deviceId
@@ -175,14 +187,14 @@ void loop() {
     }
 
     greenButtonCDebouncer.update();
-    if (greenButtonCDebouncer.read() == LOW) {
+    if (greenButtonCDebouncer.read() == LOW && ! displayingEtchASketch) {
       resetDisplayBools();
 
+      displayingEtchASketch = true;
       toggleAllButtons(LOW);
       digitalWrite(GREEN_LED, HIGH);
 
-      initButtons();
-      attractMode();
+      initEtchASketch();
     }
 
     yellowButtonDDebouncer.update();
@@ -198,6 +210,10 @@ void loop() {
     if (currentMillis - previousEnvReading > TEMP_CHECK_INTERVAL) {
       previousEnvReading = currentMillis;
       getTempAndHumidity();
+    }
+
+    if (displayingEtchASketch) {
+      etchASketch();
     }
 
     if (digitalRead(D7) == HIGH || playingRoll) {
@@ -308,13 +324,25 @@ void displayWearerDetails() {
 void initButtons() {
   // Init Buttons as Inputs
   redButtonADebouncer.attach(RED_BUTTON_A, INPUT_PULLUP);
-  redButtonADebouncer.interval(DEBOUNCE_DELAY);
+  redButtonADebouncer.interval(DEBOUNCE_INTERVAL);
   blueButtonBDebouncer.attach(BLUE_BUTTON_B, INPUT_PULLUP);
-  blueButtonBDebouncer.interval(DEBOUNCE_DELAY);
+  blueButtonBDebouncer.interval(DEBOUNCE_INTERVAL);
   greenButtonCDebouncer.attach(GREEN_BUTTON_C, INPUT_PULLUP);
-  greenButtonCDebouncer.interval(DEBOUNCE_DELAY);
+  greenButtonCDebouncer.interval(DEBOUNCE_INTERVAL);
   yellowButtonDDebouncer.attach(YELLOW_BUTTON_D, INPUT_PULLUP);
-  yellowButtonDDebouncer.interval(DEBOUNCE_DELAY);
+  yellowButtonDDebouncer.interval(DEBOUNCE_INTERVAL);
+
+  // Joystick buttons as Inputs
+  joystickUpDebouncer.attach(JOYSTICK_UP, INPUT_PULLUP);
+  joystickUpDebouncer.interval(DEBOUNCE_INTERVAL);
+  joystickDownDebouncer.attach(JOYSTICK_DOWN, INPUT_PULLUP);
+  joystickDownDebouncer.interval(DEBOUNCE_INTERVAL);
+  joystickLeftDebouncer.attach(JOYSTICK_LEFT, INPUT_PULLUP);
+  joystickLeftDebouncer.interval(DEBOUNCE_INTERVAL);
+  joystickRightDebouncer.attach(JOYSTICK_RIGHT, INPUT_PULLUP);
+  joystickRightDebouncer.interval(DEBOUNCE_INTERVAL);
+  joystickCenterDebouncer.attach(JOYSTICK_CENTER, INPUT_PULLUP);
+  joystickCenterDebouncer.interval(DEBOUNCE_INTERVAL);
 }
 
 void initLEDButtons() {
@@ -370,7 +398,7 @@ void showTempAndHumidity() {
   display.setTextSize(2);
   display.print("    ");
   display.print((int)currentHumidity);
-  display.println("%");
+  display.println("%%");
   display.drawBitmap(105, 23, humidityImage, 20, 27, 1);
   display.display();
 }
@@ -388,6 +416,7 @@ void resetDisplayBools() {
   displayingLogo = false;
   displayingTitle = false;
   displayingAnimations = false;
+  displayingEtchASketch = false;
   playingRoll = false;
 }
 
@@ -412,6 +441,125 @@ void clearScreen() {
   display.display();
   display.setCursor(0, 0);
   display.setTextWrap(true);
+}
+
+void initEtchASketch() {
+  clearScreen();
+  display.println();
+  display.setTextSize(2);
+  display.println("  Etch A");
+  display.println("  Sketch");
+  display.setTextSize(1);
+  display.println();
+  display.println("Use the joystick...");
+  display.display();
+  delay(2000);
+
+  clearScreen();
+  drawFilledCircle();
+}
+
+void etchASketch() {
+  int lastY = displayY;
+  int lastX = displayX;
+
+  joystickUpDebouncer.update();
+  if (joystickUpDebouncer.read() == LOW)
+  {
+    displayY--;
+  }
+
+  joystickDownDebouncer.update();
+  if (joystickDownDebouncer.read() == LOW)
+  {
+    displayY++;
+  }
+
+  joystickLeftDebouncer.update();
+  if (joystickLeftDebouncer.read() == LOW)
+  {
+    displayX--;
+  }
+
+  joystickRightDebouncer.update();
+  if (joystickRightDebouncer.read() == LOW)
+  {
+    displayX++;
+  }
+
+  joystickCenterDebouncer.update();
+  if (joystickCenterDebouncer.read() == LOW)
+  {
+    clearScreen();
+    displayX = display.width()/2;
+    displayY = display.height()/2;
+  }
+
+  if ((lastX != displayX) || (lastY != displayY)) {
+    drawFilledCircle();
+  }
+}
+
+void drawFilledCircle() {
+  display.drawCircle(displayX, displayY, 1, WHITE);
+  display.drawCircle(displayX, displayY, 2, WHITE);
+  display.drawCircle(displayX, displayY, 3, WHITE);
+  display.drawCircle(displayX, displayY, 4, WHITE);
+  display.drawCircle(displayX, displayY, 5, WHITE);
+  display.display();
+}
+
+void checkInputSequence() {
+  redButtonADebouncer.update();
+  if (redButtonADebouncer.read() == LOW && !checkingInputs)
+  {
+    checkingInputs = true;
+    checkKeyProgress(RED_BUTTON_A);
+  }
+
+  blueButtonBDebouncer.update();
+  if (blueButtonBDebouncer.read() == LOW && !checkingInputs)
+  {
+    checkingInputs = true;
+    checkKeyProgress(BLUE_BUTTON_B);
+  }
+
+  joystickUpDebouncer.update();
+  if (joystickUpDebouncer.read() == LOW && !checkingInputs)
+  {
+    checkingInputs = true;
+    checkKeyProgress(JOYSTICK_UP);
+  }
+
+  joystickDownDebouncer.update();
+  if (joystickDownDebouncer.read() == LOW && !checkingInputs)
+  {
+    checkingInputs = true;
+    checkKeyProgress(JOYSTICK_DOWN);
+  }
+
+  joystickLeftDebouncer.update();
+  if (joystickLeftDebouncer.read() == LOW && !checkingInputs)
+  {
+    checkingInputs = true;
+    checkKeyProgress(JOYSTICK_LEFT);
+  }
+
+  joystickRightDebouncer.update();
+  if (joystickRightDebouncer.read() == LOW && !checkingInputs)
+  {
+    checkingInputs = true;
+    checkKeyProgress(JOYSTICK_RIGHT);
+  }
+
+  joystickCenterDebouncer.update();
+  if (joystickCenterDebouncer.read() == LOW && !checkingInputs)
+  {
+    checkingInputs = true;
+    checkKeyProgress(JOYSTICK_CENTER);
+  }
+
+  checkingInputs = false;
 }
 
 int updateFirstNameHandler(String data) {

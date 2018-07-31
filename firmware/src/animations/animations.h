@@ -23,6 +23,81 @@ static const unsigned char logo16_glcd_bmp[] =
 ,0B00000000,0B00000000
 ,0B00000000,0B00000000 };
 
+void testdrawbitmap(const uint8_t *bitmap, uint8_t w, uint8_t h);
+void testdrawchar(void);
+void testdrawcircle(void);
+void testfillrect(void);
+void testdrawtriangle(void);
+void testfilltriangle(void);
+void testdrawroundrect(void);
+void testfillroundrect(void);
+void testdrawrect(void);
+void testdrawline();
+void testscrolltext(void);
+
+void cycleAnimations() {
+  // draw many lines
+  testdrawline();
+  display.display();
+  delay(2000);
+  display.clearDisplay();
+
+  // draw rectangles
+  testdrawrect();
+  display.display();
+  delay(2000);
+  display.clearDisplay();
+
+  // draw multiple rectangles
+  testfillrect();
+  display.display();
+  delay(2000);
+  display.clearDisplay();
+
+  // draw mulitple circles
+  testdrawcircle();
+  display.display();
+  delay(2000);
+  display.clearDisplay();
+
+  testdrawroundrect();
+  delay(2000);
+  display.clearDisplay();
+
+  testfillroundrect();
+  delay(2000);
+  display.clearDisplay();
+
+  testdrawtriangle();
+  delay(2000);
+  display.clearDisplay();
+
+  testfilltriangle();
+  delay(2000);
+  display.clearDisplay();
+
+  // draw scrolling text
+  testscrolltext();
+  delay(2000);
+  display.clearDisplay();
+
+  // miniature bitmap display
+  display.clearDisplay();
+  display.drawBitmap(30, 16,  logo16_glcd_bmp, 16, 16, 1);
+  display.display();
+
+  // invert the display
+  display.invertDisplay(true);
+  delay(1000);
+  display.invertDisplay(false);
+  delay(1000);
+  display.clearDisplay();
+  display.display();
+
+  // draw a bitmap icon and 'animate' movement
+  testdrawbitmap(logo16_glcd_bmp, LOGO16_GLCD_HEIGHT, LOGO16_GLCD_WIDTH);
+}
+
 void testdrawbitmap(const uint8_t *bitmap, uint8_t w, uint8_t h) {
   uint8_t icons[NUMFLAKES][3];
 
@@ -55,9 +130,9 @@ void testdrawbitmap(const uint8_t *bitmap, uint8_t w, uint8_t h) {
       icons[f][YPOS] += icons[f][DELTAY];
       // if its gone, reinit
       if (icons[f][YPOS] > display.height()) {
-	icons[f][XPOS] = random(display.width());
-	icons[f][YPOS] = 0;
-	icons[f][DELTAY] = random(5) + 1;
+      	icons[f][XPOS] = random(display.width());
+      	icons[f][YPOS] = 0;
+      	icons[f][DELTAY] = random(5) + 1;
       }
     }
    }
@@ -207,67 +282,4 @@ void testscrolltext(void) {
   display.startscrolldiagleft(0B00000000, 0B00000111);
   delay(2000);
   display.stopscroll();
-}
-
-void cycleAnimations() {
-  // draw many lines
-  testdrawline();
-  display.display();
-  delay(2000);
-  display.clearDisplay();
-
-  // draw rectangles
-  testdrawrect();
-  display.display();
-  delay(2000);
-  display.clearDisplay();
-
-  // draw multiple rectangles
-  testfillrect();
-  display.display();
-  delay(2000);
-  display.clearDisplay();
-
-  // draw mulitple circles
-  testdrawcircle();
-  display.display();
-  delay(2000);
-  display.clearDisplay();
-
-  testdrawroundrect();
-  delay(2000);
-  display.clearDisplay();
-
-  testfillroundrect();
-  delay(2000);
-  display.clearDisplay();
-
-  testdrawtriangle();
-  delay(2000);
-  display.clearDisplay();
-
-  testfilltriangle();
-  delay(2000);
-  display.clearDisplay();
-
-  // draw scrolling text
-  testscrolltext();
-  delay(2000);
-  display.clearDisplay();
-
-  // miniature bitmap display
-  display.clearDisplay();
-  display.drawBitmap(30, 16,  logo16_glcd_bmp, 16, 16, 1);
-  display.display();
-
-  // invert the display
-  display.invertDisplay(true);
-  delay(1000);
-  display.invertDisplay(false);
-  delay(1000);
-  display.clearDisplay();
-  display.display();
-
-  // draw a bitmap icon and 'animate' movement
-  testdrawbitmap(logo16_glcd_bmp, LOGO16_GLCD_HEIGHT, LOGO16_GLCD_WIDTH);
 }
