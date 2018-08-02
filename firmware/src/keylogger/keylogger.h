@@ -21,7 +21,6 @@ void checkKeyProgress(int currentKey) {
     lastCheck = millis();
 
     if (codeKeys[currentProgress] == currentKey) {
-      Serial.println("Pressed!");
       inCodeMode = true;
       if (currentProgress+1 == sizeof(codeKeys)/4) {
         codeEntered = true;
@@ -29,13 +28,11 @@ void checkKeyProgress(int currentKey) {
         currentProgress++;
       }
     } else {
-      Serial.println("Reset!");
       currentProgress = 0;
       inCodeMode = false;
     }
 
     if (codeEntered) {
-      Serial.println("Konami!");
       fireKonamiEvent();
       codeEntered = false;
       currentProgress = 0;
