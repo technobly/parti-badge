@@ -45,7 +45,6 @@
 
 #include "Adafruit_Si7021.h"
 #include "events/events.h"
-#include "keylogger/keylogger.h"
 
 // Init Display
 Adafruit_SSD1306 display(RESET);
@@ -56,6 +55,7 @@ void showTitle();
 #include "animations/animations.h"
 
 SYSTEM_MODE(SEMI_AUTOMATIC);
+SYSTEM_THREAD(ENABLED);
 
 PRODUCT_ID(7775);
 PRODUCT_VERSION(18);
@@ -102,6 +102,9 @@ bool displayingWearerDetails = false;
 bool displayingAnimations = false;
 bool displayingEtchASketch = false;
 bool playingRoll = false;
+bool inCodeMode = false;
+
+#include "keylogger/keylogger.h"
 
 // Display state management
 bool titleShown = false;
@@ -163,7 +166,7 @@ void loop() {
 
   if (badgeMode == DISPLAY_MODE) {
     redButtonADebouncer.update();
-    if (redButtonADebouncer.read() == LOW && ! displayingAnimations) {
+    if (redButtonADebouncer.read() == LOW && ! displayingAnimations && ! inCodeMode) {
       resetDisplayBools();
 
       displayingAnimations = true;
@@ -221,6 +224,8 @@ void loop() {
 
       playRoll(&display);
     }
+
+    checkInputSequence();
   } else if (badgeMode == GAME_MODE) {
     configureGame();
 
@@ -398,7 +403,7 @@ void showTempAndHumidity() {
   display.setTextSize(2);
   display.print("    ");
   display.print((int)currentHumidity);
-  display.println("%%");
+  display.println("%");
   display.drawBitmap(105, 23, humidityImage, 20, 27, 1);
   display.display();
 }
