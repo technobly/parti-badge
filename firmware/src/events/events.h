@@ -2,8 +2,8 @@ void fireNamedEvent() {
   Particle.publish("tc-hunt-event", "tc-named", PRIVATE);
 }
 
-void fireIREvent() {
-  Particle.publish("tc-hunt-event", "tc-blastem", PRIVATE);
+void fireIREvent(String code) {
+  Particle.publish("tc-hunt-event", "tc-blastem-" + code, PRIVATE);
 }
 
 void fireSimonEvent() {

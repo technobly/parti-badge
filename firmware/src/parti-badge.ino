@@ -35,6 +35,9 @@
 #include "Adafruit_GFX.h"
 #include "Adafruit_SSD1306.h"
 
+// IR Sensor include
+#include "IRremoteLearn.h"
+
 #include "images/spark.h"
 #include "images/temp.h"
 #include "images/humidity.h"
@@ -46,19 +49,23 @@
 #include "Adafruit_Si7021.h"
 #include "events/events.h"
 
-// Init Display
-Adafruit_SSD1306 display(RESET);
-void resetDisplayBools();
-void showTitle();
-
-#include "simonsays/simon.h" // Simon Says Code
-#include "animations/animations.h"
-
 SYSTEM_MODE(SEMI_AUTOMATIC);
 SYSTEM_THREAD(ENABLED);
 
 PRODUCT_ID(7775);
 PRODUCT_VERSION(18);
+
+// Init Display
+Adafruit_SSD1306 display(RESET);
+void resetDisplayBools();
+void showTitle();
+
+// Init IR Receiver
+IRrecv irrecv(IR_RECEIVER_PIN);
+decode_results irResults;
+
+#include "simonsays/simon.h" // Simon Says Code
+#include "animations/animations.h"
 
 String deviceId;
 WearerInfo wearerInfo;
@@ -120,11 +127,14 @@ void setup() {
   // Get the current deviceId
   deviceId = System.deviceID();
 
-  //Initialize Temp and Humidity sensor
+  // Initialize Temp and Humidity sensor
   while(! envSensor.begin());
 
-  //Init OLED
+  // Init OLED
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+
+  // Enable IR Receiver
+  irrecv.enableIRIn();
 
   // Show Particle Splashscreen
   showSplashscreen();
@@ -223,6 +233,12 @@ void loop() {
       playingRoll = true;
 
       playRoll(&display);
+    }
+
+    // Check the IR Receiver for any signals in the ether
+    if (irrecv.decode(&irResults)) {
+      irDump(&irResults);
+      irrecv.resume(); // Receive the next value
     }
 
     checkInputSequence();
@@ -512,6 +528,33 @@ void drawFilledCircle() {
   display.drawCircle(displayX, displayY, 4, WHITE);
   display.drawCircle(displayX, displayY, 5, WHITE);
   display.display();
+}
+
+void irDump(decode_results *results) {
+    int count = results->rawlen;
+
+    if (results->decode_type == NEC) {
+      fireIREvent("nec");
+    }
+    else if (results->decode_type == SONY) {
+      fireIREvent("sony");
+    }
+    else if (results->decode_type == RC5) {
+      fireIREvent("rc5");
+    }
+    else if (results->decode_type == RC6) {
+      fireIREvent("rc6");
+    }
+    else if (results->decode_type == PANASONIC) {
+      fireIREvent("panasonic");
+    }
+    else if (results->decode_type == JVC) {
+      fireIREvent("jvc");
+    }
+
+    if (results->decode_type == DISNEY) {
+      fireIREvent("disney");
+    }
 }
 
 void checkInputSequence() {
