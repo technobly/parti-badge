@@ -1,3 +1,5 @@
+#include "../images/konami.h"
+
 static const unsigned int codeKeys[] = {
   JOYSTICK_UP,
   JOYSTICK_UP,
@@ -16,7 +18,16 @@ bool codeEntered = false;
 int currentProgress = 0;
 unsigned long lastCheck = millis();
 
-void checkKeyProgress(int currentKey) {
+void showKonami(Adafruit_SSD1306* display) {
+  display->clearDisplay();
+  display->display();
+  display->setCursor(0, 0);
+  display->drawBitmap(0, 0, konamiLogo, 128, 64, 1);
+  display->display();
+  display->startscrollleft(0x00, 0x0F);
+}
+
+void checkKeyProgress(int currentKey, Adafruit_SSD1306* display) {
   if (lastCheck + 250 <= millis()) {
     lastCheck = millis();
 
@@ -34,6 +45,8 @@ void checkKeyProgress(int currentKey) {
 
     if (codeEntered) {
       fireKonamiEvent();
+      showKonami(display);
+      resetDisplayBools();
       codeEntered = false;
       currentProgress = 0;
       inCodeMode = false;

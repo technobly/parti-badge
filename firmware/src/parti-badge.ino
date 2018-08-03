@@ -519,49 +519,49 @@ void checkInputSequence() {
   if (redButtonADebouncer.read() == LOW && !checkingInputs)
   {
     checkingInputs = true;
-    checkKeyProgress(RED_BUTTON_A);
+    checkKeyProgress(RED_BUTTON_A, &display);
   }
 
   blueButtonBDebouncer.update();
   if (blueButtonBDebouncer.read() == LOW && !checkingInputs)
   {
     checkingInputs = true;
-    checkKeyProgress(BLUE_BUTTON_B);
+    checkKeyProgress(BLUE_BUTTON_B, &display);
   }
 
   joystickUpDebouncer.update();
   if (joystickUpDebouncer.read() == LOW && !checkingInputs)
   {
     checkingInputs = true;
-    checkKeyProgress(JOYSTICK_UP);
+    checkKeyProgress(JOYSTICK_UP, &display);
   }
 
   joystickDownDebouncer.update();
   if (joystickDownDebouncer.read() == LOW && !checkingInputs)
   {
     checkingInputs = true;
-    checkKeyProgress(JOYSTICK_DOWN);
+    checkKeyProgress(JOYSTICK_DOWN, &display);
   }
 
   joystickLeftDebouncer.update();
   if (joystickLeftDebouncer.read() == LOW && !checkingInputs)
   {
     checkingInputs = true;
-    checkKeyProgress(JOYSTICK_LEFT);
+    checkKeyProgress(JOYSTICK_LEFT, &display);
   }
 
   joystickRightDebouncer.update();
   if (joystickRightDebouncer.read() == LOW && !checkingInputs)
   {
     checkingInputs = true;
-    checkKeyProgress(JOYSTICK_RIGHT);
+    checkKeyProgress(JOYSTICK_RIGHT, &display);
   }
 
   joystickCenterDebouncer.update();
   if (joystickCenterDebouncer.read() == LOW && !checkingInputs)
   {
     checkingInputs = true;
-    checkKeyProgress(JOYSTICK_CENTER);
+    checkKeyProgress(JOYSTICK_CENTER, &display);
   }
 
   checkingInputs = false;
