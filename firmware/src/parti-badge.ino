@@ -535,26 +535,41 @@ void irDump(decode_results *results) {
 
     if (results->decode_type == NEC) {
       fireIREvent("nec");
+      displayIRName("NEC");
     }
     else if (results->decode_type == SONY) {
       fireIREvent("sony");
+      displayIRName("Sony");
     }
     else if (results->decode_type == RC5) {
       fireIREvent("rc5");
+      displayIRName("RC5");
     }
     else if (results->decode_type == RC6) {
       fireIREvent("rc6");
+      displayIRName("RC6");
     }
     else if (results->decode_type == PANASONIC) {
       fireIREvent("panasonic");
+      displayIRName("Panasonic");
     }
     else if (results->decode_type == JVC) {
       fireIREvent("jvc");
+      displayIRName("JVC");
     }
 
     if (results->decode_type == DISNEY) {
       fireIREvent("disney");
+      displayIRName("Disney");
     }
+}
+
+void displayIRName(String name) {
+  clearScreen();
+  display.setTextSize(2);
+  display.setCursor(0, 24);
+  display.printlnf("%s!", name.c_str());
+  display.display();
 }
 
 void checkInputSequence() {
