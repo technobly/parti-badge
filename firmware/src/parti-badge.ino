@@ -23,8 +23,9 @@
  *              3. A SPDT Switch
  *              4. A 5-way joystick
  *              5. An SMD Si7021 temperature and Humidity sensor
- *              6. 4 Tactile LED Buttons in Red, Blue, Green and Yello/Orange
+ *              6. 4 Tactile LED Buttons in Red, Blue, Green and Yellow/Orange
  *              7. An I2C-Compatible breakout for #BadgeLife add-ons
+ *              8. An IR Receiver on the Photon TX pin
  *
  */
 
@@ -65,7 +66,6 @@ IRrecv irrecv(IR_RECEIVER_PIN);
 decode_results irResults;
 
 #include "simonsays/simon.h" // Simon Says Code
-#include "animations/animations.h"
 
 String deviceId;
 WearerInfo wearerInfo;
@@ -107,11 +107,13 @@ bool displayingLogo = false;
 bool displayingTitle = false;
 bool displayingWearerDetails = false;
 bool displayingAnimations = false;
+bool animationsInterrupted = false;
 bool displayingEtchASketch = false;
 bool playingRoll = false;
 bool inCodeMode = false;
 
 #include "keylogger/keylogger.h"
+#include "animations/animations.h"
 
 // Display state management
 bool titleShown = false;
@@ -145,12 +147,16 @@ void setup() {
   // Set up cloud variables and functions
   cloudInit();
 
-  rollSetup();
-
+  // Set the Piezo buzzer as an output
   pinMode(BUZZER_PIN, OUTPUT);
 
   // Init the LED Buttons
   initButtons();
+
+  // Set up Interrupts
+  attachInterrupt(BLUE_BUTTON_B, handleInterrupt, CHANGE);
+  attachInterrupt(GREEN_BUTTON_C, handleInterrupt, CHANGE);
+  attachInterrupt(YELLOW_BUTTON_D, handleInterrupt, CHANGE);
 
   // Get an initial temp and humidity reading
   getTempAndHumidity();
@@ -161,10 +167,15 @@ void setup() {
   // Play a startup sound on the Piezo
   if (!startupSoundPlayed) playStartup(BUZZER_PIN);
 
+  rollSetup();
+
+  // Determine if we're in display or game mode
   checkBadgeMode();
 
+  // Connect to the Particle device cloud
   Particle.connect();
 
+  // Fetch badge wearer details from EEPROM
   initWearerDetails();
 
   // Scroll the title text on the screen
@@ -176,7 +187,7 @@ void loop() {
 
   if (badgeMode == DISPLAY_MODE) {
     redButtonADebouncer.update();
-    if (redButtonADebouncer.read() == LOW && ! displayingAnimations && ! inCodeMode) {
+    if (redButtonADebouncer.read() == LOW && ! displayingAnimations && ! animationsInterrupted && ! inCodeMode) {
       resetDisplayBools();
 
       displayingAnimations = true;
@@ -249,7 +260,7 @@ void loop() {
   }
 }
 
-
+// Show the Spark on startup
 void showSplashscreen() {
   clearScreen();
   display.drawBitmap(0, 0, sparkLogo, 128, 64, 1);
@@ -257,6 +268,7 @@ void showSplashscreen() {
   delay(3000);
 }
 
+// Switch to Simon Says mode if the A and B buttons are held down at startup
 void checkBadgeMode() {
   redButtonADebouncer.update();
   blueButtonBDebouncer.update();
@@ -268,6 +280,7 @@ void checkBadgeMode() {
   }
 }
 
+// Init our Device Cloud variables and functions
 void cloudInit() {
   Particle.variable("wearerFName", wearerFirstName);
   Particle.variable("wearerLName", wearerLastName);
@@ -281,6 +294,7 @@ void cloudInit() {
   Particle.function("checkTemp", checkTempHandler);
 }
 
+// Fetch wearer details from our WearerInfo class
 void initWearerDetails() {
   wearerInfo = WearerInfo();
 
@@ -290,6 +304,7 @@ void initWearerDetails() {
   }
 }
 
+// Show the title text on the display
 void showTitle() {
   titleShown = true;
 
@@ -307,6 +322,7 @@ void showTitle() {
   display.display();
 }
 
+// Display the wearer's first and last name on the display
 void displayWearerDetails() {
   int fnameLength = wearerFirstName.length();
   int lnameLength = wearerLastName.length();
@@ -342,6 +358,7 @@ void displayWearerDetails() {
   }
 }
 
+// Init debouncers for all of our inputs
 void initButtons() {
   // Init Buttons as Inputs
   redButtonADebouncer.attach(RED_BUTTON_A, INPUT_PULLUP);
@@ -366,6 +383,15 @@ void initButtons() {
   joystickCenterDebouncer.interval(DEBOUNCE_INTERVAL);
 }
 
+void handleInterrupt() {
+  Serial.println(displayingAnimations);
+  if (displayingAnimations) {
+    displayingAnimations = false;
+    animationsInterrupted = true;
+  }
+}
+
+// Set up the tactile LED buttons
 void initLEDButtons() {
   buttonsInitialized = true;
 
@@ -402,6 +428,7 @@ void initLEDButtons() {
   toggleAllButtons(HIGH);
 }
 
+// Show the temperature and humidity on the display
 void showTempAndHumidity() {
   clearScreen();
 
@@ -424,6 +451,7 @@ void showTempAndHumidity() {
   display.display();
 }
 
+// Toggle all the buttons on or off
 void toggleAllButtons(int state) {
   digitalWrite(RED_LED, state);
   digitalWrite(BLUE_LED, state);
@@ -431,16 +459,19 @@ void toggleAllButtons(int state) {
   digitalWrite(YELLOW_LED, state);
 }
 
+// Reset all display-related state booleans
 void resetDisplayBools() {
   displayingTemp = false;
   displayingWearerDetails = false;
   displayingLogo = false;
   displayingTitle = false;
   displayingAnimations = false;
+  animationsInterrupted = false;
   displayingEtchASketch = false;
   playingRoll = false;
 }
 
+// Get temp and humidity from the sensors
 void getTempAndHumidity() {
   int prevTemp = currentTemp;
   int prevHumidity = currentHumidity;
@@ -456,6 +487,7 @@ void getTempAndHumidity() {
   fireEnvSensorsEvent(currentTemp, currentHumidity);
 }
 
+// Clear the OLED display
 void clearScreen() {
   display.stopscroll();
   display.clearDisplay();
@@ -464,6 +496,7 @@ void clearScreen() {
   display.setTextWrap(true);
 }
 
+// Init Etch A Sketch mode on the OLED
 void initEtchASketch() {
   clearScreen();
   display.println();
@@ -480,6 +513,8 @@ void initEtchASketch() {
   drawFilledCircle();
 }
 
+// Update the display during Etch A Sketch Mode. Draw a new filled circle
+// based on the which joystick direction was used.
 void etchASketch() {
   int lastY = displayY;
   int lastX = displayX;
@@ -508,6 +543,7 @@ void etchASketch() {
     displayX++;
   }
 
+  // Reset the screen
   joystickCenterDebouncer.update();
   if (joystickCenterDebouncer.read() == LOW)
   {
@@ -530,6 +566,7 @@ void drawFilledCircle() {
   display.display();
 }
 
+// Decode IR sensor results and fire events if we get certain codes.
 void irDump(decode_results *results) {
     int count = results->rawlen;
 
@@ -564,6 +601,7 @@ void irDump(decode_results *results) {
     }
 }
 
+// Display the IR event received on the screen
 void displayIRName(String name) {
   clearScreen();
   display.setTextSize(2);
@@ -572,6 +610,7 @@ void displayIRName(String name) {
   display.display();
 }
 
+// This shall remain undocumented, for it is a secret... what it do?
 void checkInputSequence() {
   redButtonADebouncer.update();
   if (redButtonADebouncer.read() == LOW && !checkingInputs)
@@ -625,6 +664,7 @@ void checkInputSequence() {
   checkingInputs = false;
 }
 
+//Update the first name when called from a cloud function
 int updateFirstNameHandler(String data) {
   wearerFirstName = data;
   wearerInfo.setFirstName(wearerFirstName);
@@ -636,6 +676,7 @@ int updateFirstNameHandler(String data) {
   return 1;
 }
 
+//Update the last name when called from a cloud function
 int updateLastNameHandler(String data) {
   wearerLastName = data;
   wearerInfo.setLastName(wearerLastName);
@@ -647,6 +688,7 @@ int updateLastNameHandler(String data) {
   return 1;
 }
 
+// Check the temp and humidity when called from a cloud function
 int checkTempHandler(String data) {
   getTempAndHumidity();
 

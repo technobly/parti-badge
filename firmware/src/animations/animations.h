@@ -36,11 +36,23 @@ void testdrawline();
 void testscrolltext(void);
 
 void cycleAnimations() {
+  if (!displayingAnimations) {
+    display.clearDisplay();
+    display.display();
+    return;
+  }
+
   // draw many lines
   testdrawline();
   display.display();
   delay(2000);
   display.clearDisplay();
+
+  if (!displayingAnimations) {
+    display.clearDisplay();
+    display.display();
+    return;
+  }
 
   // draw rectangles
   testdrawrect();
@@ -48,11 +60,19 @@ void cycleAnimations() {
   delay(2000);
   display.clearDisplay();
 
+  if (!displayingAnimations) {
+    return;
+  }
+
   // draw multiple rectangles
   testfillrect();
   display.display();
   delay(2000);
   display.clearDisplay();
+
+  if (!displayingAnimations) {
+    return;
+  }
 
   // draw mulitple circles
   testdrawcircle();
@@ -60,31 +80,59 @@ void cycleAnimations() {
   delay(2000);
   display.clearDisplay();
 
+  if (!displayingAnimations) {
+    return;
+  }
+
   testdrawroundrect();
   delay(2000);
   display.clearDisplay();
+
+  if (!displayingAnimations) {
+    return;
+  }
 
   testfillroundrect();
   delay(2000);
   display.clearDisplay();
 
+  if (!displayingAnimations) {
+    return;
+  }
+
   testdrawtriangle();
   delay(2000);
   display.clearDisplay();
 
+  if (!displayingAnimations) {
+    return;
+  }
+
   testfilltriangle();
   delay(2000);
   display.clearDisplay();
+
+  if (!displayingAnimations) {
+    return;
+  }
 
   // draw scrolling text
   testscrolltext();
   delay(2000);
   display.clearDisplay();
 
+  if (!displayingAnimations) {
+    return;
+  }
+
   // miniature bitmap display
   display.clearDisplay();
   display.drawBitmap(30, 16,  logo16_glcd_bmp, 16, 16, 1);
   display.display();
+
+  if (!displayingAnimations) {
+    return;
+  }
 
   // invert the display
   display.invertDisplay(true);
@@ -93,6 +141,10 @@ void cycleAnimations() {
   delay(1000);
   display.clearDisplay();
   display.display();
+
+  if (!displayingAnimations) {
+    return;
+  }
 
   // draw a bitmap icon and 'animate' movement
   testdrawbitmap(logo16_glcd_bmp, LOGO16_GLCD_HEIGHT, LOGO16_GLCD_WIDTH);
@@ -115,7 +167,7 @@ void testdrawbitmap(const uint8_t *bitmap, uint8_t w, uint8_t h) {
     Serial.println(icons[f][DELTAY], DEC);
   }
 
-  while (1) {
+  while (displayingAnimations) {
     // draw each icon
     for (uint8_t f=0; f< NUMFLAKES; f++) {
       display.drawBitmap(icons[f][XPOS], icons[f][YPOS], logo16_glcd_bmp, w, h, WHITE);
