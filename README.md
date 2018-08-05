@@ -10,11 +10,11 @@ The hardware folder contains Eagle design files for iterations of the badge hard
 
 The finished badge includes:
 
-1. A 1" OLED Screen
-2. An SMD Piezo buzzer
-3. A SPDT Switch
-4. A 5-way joystick
-5. An SMD Si7021 temperature and Humidity sensor
-6. 4 Tactile LED Buttons in Red, Blue, Green and Yellow/Orange
-7. An I2C-Compatible breakout for #BadgeLife add-ons
-8. An IR Receiver
+1.  A 1" OLED Screen
+2.  An SMD Piezo buzzer
+3.  A SPDT Switch
+4.  A 5-way joystick
+5.  An SMD Si7021 temperature and Humidity sensor
+6.  4 Tactile LED Buttons in Red, Blue, Green and Yellow/Orange
+7.  An I2C-Compatible breakout for #BadgeLife add-ons
+8.  An IR Receiver
