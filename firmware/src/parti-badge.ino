@@ -147,6 +147,8 @@ void setup() {
   // Set up cloud variables and functions
   cloudInit();
 
+  rollSetup();
+
   // Set the Piezo buzzer as an output
   pinMode(BUZZER_PIN, OUTPUT);
 
@@ -166,8 +168,6 @@ void setup() {
 
   // Play a startup sound on the Piezo
   if (!startupSoundPlayed) playStartup(BUZZER_PIN);
-
-  rollSetup();
 
   // Determine if we're in display or game mode
   checkBadgeMode();
