@@ -2674,15 +2674,15 @@ Source: &lt;a href="http://www.silabs.com/Support%20Documents/TechnicalDocs/Si70
 <description>&lt;b&gt;Transistors&lt;/b&gt;&lt;p&gt;
 &lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
 <packages>
-<package name="SOT23" urn="urn:adsk.eagle:footprint:29840/1" library_version="2">
-<description>&lt;b&gt;SOT-23&lt;/b&gt;</description>
-<wire x1="1.4224" y1="0.6604" x2="1.4224" y2="-0.6604" width="0.1524" layer="51"/>
-<wire x1="1.4224" y1="-0.6604" x2="-1.4224" y2="-0.6604" width="0.1524" layer="51"/>
-<wire x1="-1.4224" y1="-0.6604" x2="-1.4224" y2="0.6604" width="0.1524" layer="51"/>
-<wire x1="-1.4224" y1="0.6604" x2="1.4224" y2="0.6604" width="0.1524" layer="51"/>
-<smd name="3" x="0" y="1.1" dx="1" dy="1.4" layer="1"/>
-<smd name="2" x="0.95" y="-1.1" dx="1" dy="1.4" layer="1"/>
-<smd name="1" x="-0.95" y="-1.1" dx="1" dy="1.4" layer="1"/>
+<package name="SOT23-BEC" urn="urn:adsk.eagle:footprint:28685/1" library_version="4">
+<description>TO-236 ITT Intermetall</description>
+<wire x1="1.4224" y1="0.6604" x2="1.4224" y2="-0.6604" width="0.127" layer="51"/>
+<wire x1="1.4224" y1="-0.6604" x2="-1.4224" y2="-0.6604" width="0.127" layer="51"/>
+<wire x1="-1.4224" y1="-0.6604" x2="-1.4224" y2="0.6604" width="0.127" layer="51"/>
+<wire x1="-1.4224" y1="0.6604" x2="1.4224" y2="0.6604" width="0.127" layer="51"/>
+<smd name="C" x="0" y="1.1" dx="1" dy="1.4" layer="1"/>
+<smd name="E" x="0.95" y="-1.1" dx="1" dy="1.4" layer="1"/>
+<smd name="B" x="-0.95" y="-1.1" dx="1" dy="1.4" layer="1"/>
 <text x="-1.905" y="1.905" size="1.27" layer="25">&gt;NAME</text>
 <text x="-1.905" y="-3.175" size="1.27" layer="27">&gt;VALUE</text>
 <rectangle x1="-0.2286" y1="0.7112" x2="0.2286" y2="1.2954" layer="51"/>
@@ -2691,10 +2691,10 @@ Source: &lt;a href="http://www.silabs.com/Support%20Documents/TechnicalDocs/Si70
 </package>
 </packages>
 <packages3d>
-<package3d name="SOT23" urn="urn:adsk.eagle:package:29904/2" type="model" library_version="2">
-<description>SOT-23</description>
+<package3d name="SOT23-BEC" urn="urn:adsk.eagle:package:28748/2" type="model" library_version="4">
+<description>TO-236 ITT Intermetall</description>
 <packageinstances>
-<packageinstance name="SOT23"/>
+<packageinstance name="SOT23-BEC"/>
 </packageinstances>
 </package3d>
 </packages3d>
@@ -3012,9 +3012,8 @@ Based on the following sources:
 <attribute name="VALUE" x="25.781" y="6.731" size="0.6096" layer="27" font="vector" ratio="20" align="top-left"/>
 </element>
 <element name="MS1" library="Particle-Mesh" package="FEATHERWING_SMT2" value="PARTICLE_MESH_SMTDUAL" x="11.43" y="36.83" rot="R330"/>
-<element name="T1" library="transistor" library_urn="urn:adsk.eagle:library:402" package="SOT23" package3d_urn="urn:adsk.eagle:package:29904/2" value="BC850" x="27.94" y="92.71" rot="MR0"/>
 <element name="D1" library="diode" library_urn="urn:adsk.eagle:library:210" package="SOD323-W" package3d_urn="urn:adsk.eagle:package:43418/1" value="" x="33.02" y="100.33" rot="MR180"/>
-<element name="R8" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" package="0603" package3d_urn="urn:adsk.eagle:package:39650/1" value="180" x="33.02" y="91.44" rot="MR180">
+<element name="R8" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" package="0603" package3d_urn="urn:adsk.eagle:package:39650/1" value="1k" x="33.02" y="91.44" rot="MR180">
 <attribute name="PROD_ID" value="RES-00824" x="33.02" y="91.44" size="1.778" layer="28" rot="MR180" display="off"/>
 </element>
 <element name="LS1" library="SMT-1127-S-R" package="XDCR_SMT-1127-S-R" value="SMT-1127-S-R" x="19.05" y="99.06" rot="MR0">
@@ -3025,6 +3024,7 @@ Based on the following sources:
 <attribute name="MP" value="SMT-1127-S-R" x="19.05" y="99.06" size="1.778" layer="28" rot="MR0" display="off"/>
 <attribute name="PACKAGE" value=" PUI" x="19.05" y="99.06" size="1.778" layer="28" rot="MR0" display="off"/>
 </element>
+<element name="T1" library="transistor" library_urn="urn:adsk.eagle:library:402" package="SOT23-BEC" package3d_urn="urn:adsk.eagle:package:28748/2" value="MMBT4401-7-F" x="2.54" y="-6.35"/>
 </elements>
 <signals>
 <signal name="GND">
@@ -3071,12 +3071,30 @@ Based on the following sources:
 <via x="59.69" y="99.06" extent="1-16" drill="0.5"/>
 <contactref element="MS1" pad="4'"/>
 <contactref element="MS1" pad="4"/>
-<contactref element="T1" pad="2"/>
-<contactref element="T1" pad="3"/>
 <contactref element="D1" pad="A"/>
 <contactref element="LS1" pad="2"/>
 <wire x1="17.78" y1="87.63" x2="21.76" y2="91.61" width="0.254" layer="16"/>
-<wire x1="21.76" y1="91.61" x2="26.99" y2="91.61" width="0.254" layer="16"/>
+<contactref element="T1" pad="E"/>
+<contactref element="T1" pad="C"/>
+<wire x1="95.658" y1="77.383" x2="102.235" y2="83.693" width="0" layer="19" extent="1-1"/>
+<wire x1="89.408" y1="73.133" x2="95.658" y2="77.383" width="0" layer="19" extent="1-1"/>
+<wire x1="76.1" y1="59.73" x2="89.408" y2="73.133" width="0" layer="19" extent="1-1"/>
+<wire x1="69.85" y1="55.48" x2="76.1" y2="59.73" width="0" layer="19" extent="1-1"/>
+<wire x1="89.789" y1="38.97" x2="76.1" y2="59.73" width="0" layer="19" extent="1-1"/>
+<wire x1="96.039" y1="43.22" x2="89.789" y2="38.97" width="0" layer="19" extent="1-1"/>
+<wire x1="107.95" y1="55.48" x2="96.039" y2="43.22" width="0" layer="19" extent="1-1"/>
+<wire x1="114.2" y1="59.73" x2="107.95" y2="55.48" width="0" layer="19" extent="1-1"/>
+<wire x1="59.69" y1="99.06" x2="89.408" y2="73.133" width="0" layer="19" extent="1-1"/>
+<wire x1="57.15" y1="106.68" x2="59.69" y2="99.06" width="0" layer="19" extent="1-1"/>
+<wire x1="48.68" y1="107.95" x2="56.06" y2="106.68" width="0" layer="19" extent="1-16"/>
+<wire x1="36.724" y1="104.213" x2="46.736" y2="107.442" width="0" layer="19" extent="16-16"/>
+<wire x1="34.47" y1="100.33" x2="36.724" y2="104.213" width="0" layer="19" extent="16-16"/>
+<wire x1="21.76" y1="91.61" x2="34.47" y2="100.33" width="0" layer="19" extent="16-16"/>
+<wire x1="14.9" y1="99.06" x2="16.321128125" y2="89.08886875" width="0" layer="19" extent="1-16"/>
+<wire x1="24.607871875" y1="31.714746875" x2="69.85" y2="55.48" width="0" layer="19" extent="1-1"/>
+<wire x1="22.448871875" y1="27.97525" x2="24.607871875" y2="31.714746875" width="0" layer="19" extent="1-1"/>
+<wire x1="2.54" y1="-5.25" x2="22.448871875" y2="27.97525" width="0" layer="19" extent="1-1"/>
+<wire x1="3.49" y1="-7.45" x2="2.54" y2="-5.25" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="+3V3">
 <contactref element="SI7021" pad="5"/>
@@ -3568,9 +3586,9 @@ Based on the following sources:
 </signal>
 <signal name="N$5">
 <contactref element="R8" pad="1"/>
-<contactref element="T1" pad="1"/>
-<wire x1="28.89" y1="91.61" x2="32" y2="91.61" width="0.254" layer="16"/>
 <wire x1="32" y1="91.61" x2="32.17" y2="91.44" width="0.254" layer="16"/>
+<contactref element="T1" pad="B"/>
+<wire x1="1.59" y1="-7.45" x2="32.17" y2="91.44" width="0" layer="19" extent="1-16"/>
 </signal>
 </signals>
 <mfgpreviewcolors>
