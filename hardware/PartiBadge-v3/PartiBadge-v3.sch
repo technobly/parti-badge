@@ -9086,18 +9086,10 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <pinref part="T1" gate="G$1" pin="E"/>
 </segment>
 <segment>
-<wire x1="114.3" y1="60.96" x2="116.84" y2="60.96" width="0.1524" layer="91"/>
-<wire x1="116.84" y1="60.96" x2="124.46" y2="60.96" width="0.1524" layer="91"/>
-<pinref part="D1" gate="G$1" pin="A"/>
-<wire x1="116.84" y1="63.5" x2="116.84" y2="60.96" width="0.1524" layer="91"/>
-<junction x="116.84" y="60.96"/>
 <pinref part="GND3" gate="1" pin="GND"/>
-<wire x1="124.46" y1="60.96" x2="124.46" y2="53.34" width="0.1524" layer="91"/>
-<wire x1="124.46" y1="60.96" x2="124.46" y2="63.5" width="0.1524" layer="91"/>
-<junction x="124.46" y="60.96"/>
+<wire x1="124.46" y1="63.5" x2="124.46" y2="53.34" width="0.1524" layer="91"/>
 <pinref part="LS1" gate="G$1" pin="-"/>
 <wire x1="124.46" y1="63.5" x2="129.54" y2="63.5" width="0.1524" layer="91"/>
-<pinref part="T1" gate="G$1" pin="C"/>
 </segment>
 </net>
 <net name="+3V3" class="0">
@@ -9434,6 +9426,14 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <pinref part="R8" gate="G$1" pin="1"/>
 <wire x1="99.06" y1="55.88" x2="109.22" y2="55.88" width="0.1524" layer="91"/>
 <pinref part="T1" gate="G$1" pin="B"/>
+</segment>
+</net>
+<net name="N$18" class="0">
+<segment>
+<pinref part="D1" gate="G$1" pin="A"/>
+<wire x1="116.84" y1="63.5" x2="116.84" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="114.3" y1="60.96" x2="116.84" y2="60.96" width="0.1524" layer="91"/>
+<pinref part="T1" gate="G$1" pin="C"/>
 </segment>
 </net>
 </nets>
