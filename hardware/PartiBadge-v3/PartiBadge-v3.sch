@@ -8898,6 +8898,99 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 </deviceset>
 </devicesets>
 </library>
+<library name="Spark">
+<packages>
+<package name="SPARK_LOGO_PLUS_PLANE">
+<polygon width="0.0254" layer="29">
+<vertex x="-1.5494" y="1.524"/>
+<vertex x="-0.5842" y="0"/>
+<vertex x="-1.5494" y="-1.5748"/>
+<vertex x="0" y="-0.5588"/>
+<vertex x="1.5748" y="-1.6002"/>
+<vertex x="0.5588" y="0"/>
+<vertex x="1.524" y="1.5494"/>
+<vertex x="0" y="0.5588"/>
+</polygon>
+<polygon width="0.0254" layer="29">
+<vertex x="0" y="2.2352"/>
+<vertex x="-0.254" y="1.0668"/>
+<vertex x="0" y="0.9144"/>
+<vertex x="0.254" y="1.0668"/>
+</polygon>
+<polygon width="0.0254" layer="29">
+<vertex x="-2.2352" y="0"/>
+<vertex x="-1.0668" y="-0.2286"/>
+<vertex x="-0.9144" y="0"/>
+<vertex x="-1.0668" y="0.2286"/>
+</polygon>
+<polygon width="0.0254" layer="29">
+<vertex x="1.0668" y="0.2286"/>
+<vertex x="0.9144" y="0"/>
+<vertex x="1.0668" y="-0.2286"/>
+<vertex x="2.1844" y="0"/>
+</polygon>
+<polygon width="0.0254" layer="29">
+<vertex x="-0.254" y="-1.1176"/>
+<vertex x="0" y="-2.2352"/>
+<vertex x="0.254" y="-1.1176"/>
+<vertex x="0" y="-0.9398"/>
+</polygon>
+<polygon width="0.0254" layer="1">
+<vertex x="-1.5494" y="1.524"/>
+<vertex x="-0.5842" y="0"/>
+<vertex x="-1.5494" y="-1.5748"/>
+<vertex x="0" y="-0.5588"/>
+<vertex x="1.5748" y="-1.6002"/>
+<vertex x="0.5588" y="0"/>
+<vertex x="1.524" y="1.5494"/>
+<vertex x="0" y="0.5588"/>
+</polygon>
+<polygon width="0.0254" layer="1">
+<vertex x="0" y="2.2352"/>
+<vertex x="-0.254" y="1.0668"/>
+<vertex x="0" y="0.9144"/>
+<vertex x="0.254" y="1.0668"/>
+</polygon>
+<polygon width="0.0254" layer="1">
+<vertex x="-2.2352" y="0"/>
+<vertex x="-1.0668" y="-0.2286"/>
+<vertex x="-0.9144" y="0"/>
+<vertex x="-1.0668" y="0.2286"/>
+</polygon>
+<polygon width="0.0254" layer="1">
+<vertex x="1.0668" y="0.2286"/>
+<vertex x="0.9144" y="0"/>
+<vertex x="1.0668" y="-0.2286"/>
+<vertex x="2.1844" y="0"/>
+</polygon>
+<polygon width="0.0254" layer="1">
+<vertex x="-0.254" y="-1.1176"/>
+<vertex x="0" y="-2.2352"/>
+<vertex x="0.254" y="-1.1176"/>
+<vertex x="0" y="-0.9398"/>
+</polygon>
+</package>
+</packages>
+<symbols>
+<symbol name="SPARK_LOGO">
+<text x="0" y="0" size="1.778" layer="94" font="vector">Spark</text>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="SPARK_LOGO_WITH_PLANE">
+<gates>
+<gate name="G$1" symbol="SPARK_LOGO" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="SPARK_LOGO_PLUS_PLANE">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -8925,7 +9018,6 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <part name="GND2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="+3V1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="+3V2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
-<part name="GND3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="+3V4" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="GND4" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="J1" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" deviceset="CONN_02" device="" package3d_urn="urn:adsk.eagle:package:38039/1" value="I2C"/>
@@ -8948,6 +9040,9 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <part name="GND8" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="LS1" library="SMT-1127-S-R" deviceset="SMT-1127-S-R" device=""/>
 <part name="T1" library="transistor" library_urn="urn:adsk.eagle:library:402" deviceset="*-NPN-" device="SOT23-BEC" package3d_urn="urn:adsk.eagle:package:28748/2" technology="MMBT4401LT1" value="MMBT4401-7-F"/>
+<part name="R7" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" deviceset="10KOHM" device="-0603-1/10W-1%" package3d_urn="urn:adsk.eagle:package:39650/1" value="33R"/>
+<part name="U$1" library="Spark" deviceset="SPARK_LOGO_WITH_PLANE" device=""/>
+<part name="U$2" library="Spark" deviceset="SPARK_LOGO_WITH_PLANE" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -8973,7 +9068,6 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <instance part="GND2" gate="1" x="20.32" y="-17.78"/>
 <instance part="+3V1" gate="G$1" x="30.48" y="20.32"/>
 <instance part="+3V2" gate="G$1" x="63.5" y="-5.08"/>
-<instance part="GND3" gate="1" x="124.46" y="50.8"/>
 <instance part="+3V4" gate="G$1" x="127" y="20.32"/>
 <instance part="GND4" gate="1" x="127" y="5.08"/>
 <instance part="J1" gate="G$1" x="93.98" y="10.16"/>
@@ -8994,13 +9088,16 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <instance part="MS1" gate="G$1" x="33.02" y="27.94"/>
 <instance part="D1" gate="G$1" x="116.84" y="66.04" rot="R90"/>
 <instance part="R8" gate="G$1" x="93.98" y="55.88" rot="R180"/>
-<instance part="+3V3" gate="G$1" x="104.14" y="80.264" smashed="yes"/>
+<instance part="+3V3" gate="G$1" x="101.6" y="80.264" smashed="yes"/>
 <instance part="GND8" gate="1" x="114.3" y="45.72"/>
 <instance part="LS1" gate="G$1" x="132.08" y="66.04"/>
 <instance part="T1" gate="G$1" x="111.76" y="55.88" smashed="yes">
 <attribute name="NAME" x="96.52" y="63.5" size="1.778" layer="95"/>
 <attribute name="VALUE" x="96.52" y="60.96" size="1.778" layer="96"/>
 </instance>
+<instance part="R7" gate="G$1" x="109.22" y="73.66" rot="R180"/>
+<instance part="U$1" gate="G$1" x="91.44" y="-2.54"/>
+<instance part="U$2" gate="G$1" x="101.6" y="-2.54"/>
 </instances>
 <busses>
 </busses>
@@ -9085,12 +9182,6 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <wire x1="114.3" y1="50.8" x2="114.3" y2="45.72" width="0.1524" layer="91"/>
 <pinref part="T1" gate="G$1" pin="E"/>
 </segment>
-<segment>
-<pinref part="GND3" gate="1" pin="GND"/>
-<wire x1="124.46" y1="63.5" x2="124.46" y2="53.34" width="0.1524" layer="91"/>
-<pinref part="LS1" gate="G$1" pin="-"/>
-<wire x1="124.46" y1="63.5" x2="129.54" y2="63.5" width="0.1524" layer="91"/>
-</segment>
 </net>
 <net name="+3V3" class="0">
 <segment>
@@ -9136,18 +9227,10 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 </segment>
 <segment>
 <pinref part="+3V3" gate="G$1" pin="+3V3"/>
-<wire x1="104.14" y1="77.724" x2="104.14" y2="73.66" width="0.1524" layer="91"/>
-<wire x1="104.14" y1="73.66" x2="109.22" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="101.6" y1="77.724" x2="101.6" y2="73.66" width="0.1524" layer="91"/>
 <label x="101.6" y="73.66" size="1.778" layer="95" rot="R90"/>
-<pinref part="D1" gate="G$1" pin="C"/>
-<wire x1="116.84" y1="73.66" x2="116.84" y2="68.58" width="0.1524" layer="91"/>
-<wire x1="116.84" y1="73.66" x2="121.92" y2="73.66" width="0.1524" layer="91"/>
-<wire x1="121.92" y1="73.66" x2="121.92" y2="66.04" width="0.1524" layer="91"/>
-<wire x1="121.92" y1="66.04" x2="127" y2="66.04" width="0.1524" layer="91"/>
-<pinref part="LS1" gate="G$1" pin="+"/>
-<wire x1="127" y1="66.04" x2="129.54" y2="66.04" width="0.1524" layer="91"/>
-<wire x1="109.22" y1="73.66" x2="116.84" y2="73.66" width="0.1524" layer="91"/>
-<junction x="116.84" y="73.66"/>
+<pinref part="R7" gate="G$1" pin="2"/>
+<wire x1="104.14" y1="73.66" x2="101.6" y2="73.66" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$4" class="0">
@@ -9430,10 +9513,27 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 </net>
 <net name="N$18" class="0">
 <segment>
+<pinref part="LS1" gate="G$1" pin="-"/>
 <pinref part="D1" gate="G$1" pin="A"/>
 <wire x1="116.84" y1="63.5" x2="116.84" y2="60.96" width="0.1524" layer="91"/>
 <wire x1="114.3" y1="60.96" x2="116.84" y2="60.96" width="0.1524" layer="91"/>
 <pinref part="T1" gate="G$1" pin="C"/>
+<wire x1="129.54" y1="63.5" x2="116.84" y2="63.5" width="0.1524" layer="91"/>
+<junction x="116.84" y="63.5"/>
+</segment>
+</net>
+<net name="N$20" class="0">
+<segment>
+<pinref part="D1" gate="G$1" pin="C"/>
+<wire x1="116.84" y1="73.66" x2="116.84" y2="68.58" width="0.1524" layer="91"/>
+<wire x1="116.84" y1="73.66" x2="121.92" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="121.92" y1="73.66" x2="121.92" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="121.92" y1="66.04" x2="127" y2="66.04" width="0.1524" layer="91"/>
+<pinref part="LS1" gate="G$1" pin="+"/>
+<wire x1="127" y1="66.04" x2="129.54" y2="66.04" width="0.1524" layer="91"/>
+<pinref part="R7" gate="G$1" pin="1"/>
+<wire x1="114.3" y1="73.66" x2="116.84" y2="73.66" width="0.1524" layer="91"/>
+<junction x="116.84" y="73.66"/>
 </segment>
 </net>
 </nets>
