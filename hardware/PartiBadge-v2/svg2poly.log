@@ -4,7 +4,7 @@ Object origin:
 
 Eagle Command:
 set wire_bend 2;
-change layer tPlace;
+change layer tNames;
 set width 0.000500;
 poly;
 

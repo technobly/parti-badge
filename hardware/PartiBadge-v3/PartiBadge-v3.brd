@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.1.1">
+<eagle version="9.1.3">
 <drawing>
 <settings>
-<setting alwaysvectorfont="no"/>
+<setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
 <grid distance="5" unitdist="mil" unit="mil" style="dots" multiple="1" display="yes" altdistance="5" altunitdist="mil" altunit="mil"/>
@@ -179,22 +179,21 @@
 <wire x1="4.318" y1="32.385" x2="4.318" y2="33.401" width="0.3048" layer="20"/>
 <wire x1="4.318" y1="33.401" x2="20.701" y2="61.595" width="0.3048" layer="20"/>
 <wire x1="20.701" y1="61.595" x2="20.701" y2="62.23" width="0.3048" layer="20"/>
-<text x="26.67" y="72.644" size="3.048" layer="21" font="vector" ratio="18">#PartiBadge</text>
-<text x="25.4" y="67.691" size="3.1496" layer="21" font="vector" ratio="18">Spectra 2018</text>
-<circle x="38.1" y="114.3" radius="4.318" width="0.4064" layer="20"/>
-<text x="65.024" y="68.58" size="2.4384" layer="21" font="vector" ratio="18">A</text>
-<text x="84.455" y="86.233" size="2.4384" layer="21" font="vector" ratio="18">B</text>
-<text x="102.997" y="68.58" size="2.4384" layer="21" font="vector" ratio="18">C</text>
-<text x="84.836" y="52.07" size="2.4384" layer="21" font="vector" ratio="18">D</text>
+<text x="27.051" y="72.644" size="3.048" layer="21" font="vector" ratio="18">#PartiBadge</text>
+<text x="25.781" y="67.691" size="3.1496" layer="21" font="vector" ratio="18">Spectra 2018</text>
+<circle x="38.227" y="114.935" radius="3.556" width="0.4064" layer="20"/>
+<text x="61.087" y="61.087" size="2.4384" layer="21" font="vector" ratio="18">A</text>
+<text x="80.645" y="80.264" size="2.4384" layer="21" font="vector" ratio="18">B</text>
+<text x="115.697" y="60.706" size="2.4384" layer="21" font="vector" ratio="18">C</text>
+<text x="96.52" y="41.021" size="2.4384" layer="21" font="vector" ratio="18">D</text>
 <text x="29.337" y="6.604" size="3.048" layer="21" font="vector" ratio="18">#BadgeLife</text>
 <text x="101.219" y="87.757" size="0.8128" layer="21" font="vector" ratio="18">3V3</text>
 <text x="103.759" y="87.757" size="0.8128" layer="21" font="vector" ratio="18">SDA</text>
 <text x="101.219" y="81.407" size="0.8128" layer="21" font="vector" ratio="18">GND</text>
 <text x="103.759" y="81.407" size="0.8128" layer="21" font="vector" ratio="18">SCL</text>
-<text x="89.662" y="44.577" size="3.6576" layer="22" font="vector" ratio="18" rot="MR0" align="bottom-center">particle.io</text>
+<text x="38.1" y="61.722" size="3.6576" layer="22" font="vector" ratio="18" rot="MR0" align="bottom-center">particle.io</text>
 <text x="53.721" y="86.995" size="1.8288" layer="21" font="vector" ratio="18">On</text>
 <text x="62.357" y="86.868" size="1.8288" layer="21" font="vector" ratio="18">Off</text>
-<text x="89.154" y="61.087" size="3.048" layer="21" font="vector" ratio="18" align="bottom-center">Particle.io</text>
 <wire x1="72.159240625" y1="32.86226875" x2="54.9562" y2="3.817159375" width="2.286" layer="21"/>
 <wire x1="54.9562" y1="3.817159375" x2="22.19465" y2="3.817159375" width="2.286" layer="21"/>
 <wire x1="22.19465" y1="3.817159375" x2="5.36575" y2="32.98926875" width="2.286" layer="21"/>
@@ -252,7 +251,6 @@
 <rectangle x1="119.3546" y1="116.2812" x2="157.4546" y2="118.8212" layer="49"/>
 <rectangle x1="119.3546" y1="103.5812" x2="157.4546" y2="106.1212" layer="49"/>
 <rectangle x1="119.3546" y1="98.5012" x2="157.4546" y2="101.0412" layer="49"/>
-<dimension x1="51.689" y1="83.058" x2="64.008" y2="83.058" x3="57.8485" y3="111.125" textsize="1.778" layer="47" visible="yes"/>
 <text x="23.876" y="19.812" size="3.1496" layer="21" font="vector" ratio="18" rot="R330">Xenon</text>
 <text x="31.496" y="53.594" size="3.048" layer="21" font="vector" ratio="18">Particle Mesh</text>
 <wire x1="47.625" y1="30.861" x2="55.499" y2="30.861" width="0.1524" layer="20"/>
@@ -3021,20 +3019,18 @@ Based on the following sources:
 </pass>
 </autorouter>
 <elements>
-<element name="BLUE" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" package="TACTILE_SWITCH_LED_PTH_12MM_KIT" package3d_urn="urn:adsk.eagle:package:40174/1" value="MOMENTARY-SWITCH-SPST-LED" x="89.408" y="79.883" smashed="yes">
-<attribute name="NAME" x="89.408" y="88.265" size="1.2192" layer="25" font="vector" ratio="20" align="bottom-center"/>
-<attribute name="PROD_ID" value="SWCH-11758" x="89.408" y="79.883" size="1.778" layer="27" display="off"/>
-<attribute name="SF_SKU" value="COM-10442" x="89.408" y="79.883" size="1.778" layer="27" display="off"/>
-<attribute name="VALUE" x="89.408" y="71.628" size="0.6096" layer="27" font="vector" ratio="20" align="top-center"/>
+<element name="BLUE" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" package="TACTILE_SWITCH_LED_PTH_12MM_KIT" package3d_urn="urn:adsk.eagle:package:40174/1" value="MOMENTARY-SWITCH-SPST-LED" x="88.9" y="81.407" smashed="yes">
+<attribute name="PROD_ID" value="SWCH-11758" x="88.9" y="81.407" size="1.778" layer="27" display="off"/>
+<attribute name="SF_SKU" value="COM-10442" x="88.9" y="81.407" size="1.778" layer="27" display="off"/>
+<attribute name="VALUE" x="88.9" y="73.152" size="0.6096" layer="27" font="vector" ratio="20" align="top-center"/>
 </element>
 <element name="C1" library="SparkFun-Capacitors" library_urn="urn:adsk.eagle:library:510" package="0603" package3d_urn="urn:adsk.eagle:package:37414/1" value="0.1uF" x="49.53" y="107.95" rot="MR0">
 <attribute name="PROD_ID" value="CAP-00810" x="49.53" y="107.95" size="1.778" layer="28" rot="MR0" display="off"/>
 </element>
-<element name="GREEN" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" package="TACTILE_SWITCH_LED_PTH_12MM_KIT" package3d_urn="urn:adsk.eagle:package:40174/1" value="MOMENTARY-SWITCH-SPST-LED" x="107.95" y="62.23" smashed="yes">
-<attribute name="NAME" x="107.95" y="70.612" size="1.2192" layer="25" font="vector" ratio="20" align="bottom-center"/>
-<attribute name="PROD_ID" value="SWCH-11758" x="107.95" y="62.23" size="1.778" layer="27" display="off"/>
-<attribute name="SF_SKU" value="COM-10442" x="107.95" y="62.23" size="1.778" layer="27" display="off"/>
-<attribute name="VALUE" x="107.95" y="53.975" size="0.6096" layer="27" font="vector" ratio="20" align="top-center"/>
+<element name="GREEN" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" package="TACTILE_SWITCH_LED_PTH_12MM_KIT" package3d_urn="urn:adsk.eagle:package:40174/1" value="MOMENTARY-SWITCH-SPST-LED" x="107.95" y="61.849" smashed="yes">
+<attribute name="PROD_ID" value="SWCH-11758" x="107.95" y="61.849" size="1.778" layer="27" display="off"/>
+<attribute name="SF_SKU" value="COM-10442" x="107.95" y="61.849" size="1.778" layer="27" display="off"/>
+<attribute name="VALUE" x="107.95" y="53.594" size="0.6096" layer="27" font="vector" ratio="20" align="top-center"/>
 </element>
 <element name="J1" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X02" package3d_urn="urn:adsk.eagle:package:38039/1" value="I2C" x="104.775" y="86.233" smashed="yes" rot="R270"/>
 <element name="J2" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X02" package3d_urn="urn:adsk.eagle:package:38039/1" value="Supply" x="102.235" y="83.693" smashed="yes" rot="R90"/>
@@ -3064,11 +3060,10 @@ Based on the following sources:
 <element name="R6" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" package="0603" package3d_urn="urn:adsk.eagle:package:39650/1" value="2.2k" x="55.88" y="110.49" rot="MR0">
 <attribute name="PROD_ID" value="RES-07857" x="55.88" y="110.49" size="1.778" layer="28" rot="MR0" display="off"/>
 </element>
-<element name="RED" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" package="TACTILE_SWITCH_LED_PTH_12MM_KIT" package3d_urn="urn:adsk.eagle:package:40174/1" value="MOMENTARY-SWITCH-SPST-LED" x="69.85" y="62.23" smashed="yes">
-<attribute name="NAME" x="69.85" y="70.612" size="1.2192" layer="25" font="vector" ratio="20" align="bottom-center"/>
-<attribute name="PROD_ID" value="SWCH-11758" x="69.85" y="62.23" size="1.778" layer="27" display="off"/>
-<attribute name="SF_SKU" value="COM-10442" x="69.85" y="62.23" size="1.778" layer="27" display="off"/>
-<attribute name="VALUE" x="69.85" y="53.975" size="0.6096" layer="27" font="vector" ratio="20" align="top-center"/>
+<element name="RED" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" package="TACTILE_SWITCH_LED_PTH_12MM_KIT" package3d_urn="urn:adsk.eagle:package:40174/1" value="MOMENTARY-SWITCH-SPST-LED" x="69.85" y="61.976" smashed="yes">
+<attribute name="PROD_ID" value="SWCH-11758" x="69.85" y="61.976" size="1.778" layer="27" display="off"/>
+<attribute name="SF_SKU" value="COM-10442" x="69.85" y="61.976" size="1.778" layer="27" display="off"/>
+<attribute name="VALUE" x="69.85" y="53.721" size="0.6096" layer="27" font="vector" ratio="20" align="top-center"/>
 </element>
 <element name="S5" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" package="SWITCH_SPDT_PTH_11.6X4.0MM" package3d_urn="urn:adsk.eagle:package:40177/1" value="" x="59.69" y="91.44" smashed="yes" rot="R90">
 <attribute name="PROD_ID" value="SWCH-08261" x="59.69" y="91.44" size="1.778" layer="27" rot="R90" display="off"/>
@@ -3084,17 +3079,16 @@ Based on the following sources:
 <attribute name="VALUE" x="56.06" y="109.88" size="1.27" layer="27" rot="R180"/>
 </element>
 <element name="U$5" library="tft_1.8_1.44_oled_0.96" package="OLED_0.96_I2C" value="OLED_0.96_I2C" x="38.354" y="92.583"/>
-<element name="YELLOW" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" package="TACTILE_SWITCH_LED_PTH_12MM_KIT" package3d_urn="urn:adsk.eagle:package:40174/1" value="MOMENTARY-SWITCH-SPST-LED" x="89.789" y="45.72" smashed="yes">
-<attribute name="NAME" x="89.789" y="54.102" size="1.2192" layer="25" font="vector" ratio="20" align="bottom-center"/>
-<attribute name="PROD_ID" value="SWCH-11758" x="89.789" y="45.72" size="1.778" layer="27" display="off"/>
-<attribute name="SF_SKU" value="COM-10442" x="89.789" y="45.72" size="1.778" layer="27" display="off"/>
-<attribute name="VALUE" x="89.789" y="37.465" size="0.6096" layer="27" font="vector" ratio="20" align="top-center"/>
+<element name="YELLOW" library="SparkFun-Switches" library_urn="urn:adsk.eagle:library:535" package="TACTILE_SWITCH_LED_PTH_12MM_KIT" package3d_urn="urn:adsk.eagle:package:40174/1" value="MOMENTARY-SWITCH-SPST-LED" x="88.9" y="42.164" smashed="yes">
+<attribute name="PROD_ID" value="SWCH-11758" x="88.9" y="42.164" size="1.778" layer="27" display="off"/>
+<attribute name="SF_SKU" value="COM-10442" x="88.9" y="42.164" size="1.778" layer="27" display="off"/>
+<attribute name="VALUE" x="88.9" y="33.909" size="0.6096" layer="27" font="vector" ratio="20" align="top-center"/>
 </element>
 <element name="U$3" library="ParticleMeshMed" package="MESH#1PX#SVG" value="" x="63.5" y="62.23"/>
-<element name="U$4" library="particle-spark" package="SPARK-LOGO" value="" x="88.9" y="63.5" rot="MR0"/>
-<element name="D7" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X01" package3d_urn="urn:adsk.eagle:package:38028/1" value="" x="27.051" y="8.255" smashed="yes">
-<attribute name="NAME" x="26.416" y="9.652" size="0.8128" layer="25" font="vector" ratio="20"/>
-<attribute name="VALUE" x="25.781" y="6.731" size="0.6096" layer="27" font="vector" ratio="20" align="top-left"/>
+<element name="U$4" library="particle-spark" package="SPARK-LOGO" value="" x="37.973" y="76.581" rot="MR0"/>
+<element name="D7" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X01" package3d_urn="urn:adsk.eagle:package:38028/1" value="" x="27.305" y="8.128" smashed="yes">
+<attribute name="NAME" x="26.67" y="9.525" size="0.8128" layer="25" font="vector" ratio="20"/>
+<attribute name="VALUE" x="26.035" y="6.604" size="0.6096" layer="27" font="vector" ratio="20" align="top-left"/>
 </element>
 <element name="MS1" library="Particle-Mesh" package="FEATHERWING_SMT2" value="PARTICLE_MESH_SMTDUAL" x="11.43" y="36.83" rot="R330"/>
 <element name="D1" library="diode" library_urn="urn:adsk.eagle:library:210" package="SOD323-W" package3d_urn="urn:adsk.eagle:package:43418/1" value="" x="27.813" y="97.409" rot="MR180"/>
@@ -3115,6 +3109,7 @@ Based on the following sources:
 </element>
 <element name="U$1" library="Spark" package="SPARK_LOGO_PLUS_PLANE" value="SPARK_LOGO_WITH_PLANE" x="51.943" y="8.001"/>
 <element name="U$2" library="Spark" package="SPARK_LOGO_PLUS_PLANE" value="SPARK_LOGO_WITH_PLANE" x="51.943" y="8.001" rot="MR0"/>
+<element name="U$6" library="particle-spark" package="SPARK-LOGO" value="" x="88.9" y="61.849"/>
 </elements>
 <signals>
 <signal name="GND">
@@ -3177,10 +3172,9 @@ Based on the following sources:
 <wire x1="49.9404" y1="106.3239375" x2="57.17716875" y2="99.08716875" width="0.508" layer="1"/>
 <wire x1="57.17716875" y1="99.08716875" x2="58.4743375" y2="97.79" width="0.508" layer="1"/>
 <wire x1="58.4743375" y1="97.79" x2="62.23" y2="97.79" width="0.508" layer="1"/>
-<wire x1="100.5904" y1="87.8776" x2="102.235" y2="86.233" width="0.508" layer="16"/>
+<wire x1="98.8124" y1="89.6556" x2="102.235" y2="86.233" width="0.508" layer="16"/>
 <via x="74.168" y="87.884" extent="1-16" drill="0.5"/>
-<wire x1="74.1744" y1="87.8776" x2="74.168" y2="87.884" width="0.508" layer="16"/>
-<wire x1="74.1744" y1="87.8776" x2="100.5904" y2="87.8776" width="0.508" layer="16"/>
+<wire x1="75.9396" y1="89.6556" x2="98.8124" y2="89.6556" width="0.508" layer="16"/>
 <contactref element="R5" pad="2"/>
 <contactref element="R6" pad="2"/>
 <wire x1="54.864" y1="110.656" x2="55.03" y2="110.49" width="0.3048" layer="16"/>
@@ -3217,17 +3211,18 @@ Based on the following sources:
 <contactref element="R7" pad="2"/>
 <wire x1="28.663" y1="100.33" x2="32.546" y2="104.213" width="0.508" layer="16"/>
 <wire x1="32.546" y1="104.213" x2="34.184" y2="104.213" width="0.508" layer="16"/>
+<wire x1="74.168" y1="87.884" x2="75.9396" y2="89.6556" width="0.508" layer="16"/>
 </signal>
 <signal name="N$4">
 <contactref element="R1" pad="2"/>
 <contactref element="RED" pad="A"/>
-<wire x1="69.85" y1="68.98" x2="69.85" y2="74.8" width="0.3048" layer="16"/>
+<wire x1="69.85" y1="68.726" x2="69.85" y2="74.8" width="0.3048" layer="16"/>
 <wire x1="69.85" y1="74.8" x2="69.98" y2="74.93" width="0.3048" layer="16"/>
 </signal>
 <signal name="BUTTON_R">
 <contactref element="RED" pad="2"/>
-<wire x1="76.1" y1="64.73" x2="71.4748" y2="60.1048" width="0.3048" layer="16"/>
-<wire x1="71.4748" y1="60.1048" x2="69.13966875" y2="60.1048" width="0.3048" layer="16"/>
+<wire x1="76.1" y1="64.476" x2="71.7288" y2="60.1048" width="0.3048" layer="16"/>
+<wire x1="71.7288" y1="60.1048" x2="69.13966875" y2="60.1048" width="0.3048" layer="16"/>
 <contactref element="MS1" pad="12"/>
 <contactref element="MS1" pad="12'"/>
 <wire x1="69.13966875" y1="60.1048" x2="43.18" y2="34.14513125" width="0.3048" layer="16"/>
@@ -3276,7 +3271,7 @@ Based on the following sources:
 <signal name="N$7">
 <contactref element="R2" pad="2"/>
 <contactref element="GREEN" pad="A"/>
-<wire x1="107.95" y1="68.98" x2="107.95" y2="76.07" width="0.3048" layer="16"/>
+<wire x1="107.95" y1="68.599" x2="107.95" y2="76.07" width="0.3048" layer="16"/>
 <wire x1="107.95" y1="76.07" x2="108.08" y2="76.2" width="0.3048" layer="16"/>
 </signal>
 <signal name="LED_B">
@@ -3296,14 +3291,14 @@ Based on the following sources:
 <signal name="N$8">
 <contactref element="R3" pad="2"/>
 <contactref element="BLUE" pad="A"/>
-<wire x1="89.408" y1="86.633" x2="78.883" y2="86.633" width="0.3048" layer="16"/>
-<wire x1="78.883" y1="86.633" x2="78.74" y2="86.49" width="0.3048" layer="16"/>
+<wire x1="87.249" y1="86.506" x2="78.756" y2="86.506" width="0.3048" layer="16"/>
+<wire x1="78.756" y1="86.506" x2="78.74" y2="86.49" width="0.3048" layer="16"/>
+<wire x1="88.9" y1="88.157" x2="87.249" y2="86.506" width="0.3048" layer="16"/>
 </signal>
 <signal name="N$10">
 <contactref element="R4" pad="2"/>
 <contactref element="YELLOW" pad="A"/>
-<wire x1="89.789" y1="52.47" x2="89.789" y2="53.721" width="0.3048" layer="16"/>
-<wire x1="89.789" y1="53.721" x2="88.9" y2="54.61" width="0.3048" layer="16"/>
+<wire x1="88.9" y1="48.914" x2="88.9" y2="54.61" width="0.3048" layer="16"/>
 <wire x1="88.9" y1="54.61" x2="88.9" y2="57.02" width="0.3048" layer="16"/>
 <wire x1="88.9" y1="57.02" x2="89.03" y2="57.15" width="0.3048" layer="16"/>
 </signal>
@@ -3330,11 +3325,11 @@ Based on the following sources:
 </signal>
 <signal name="BUTTON_Y">
 <contactref element="YELLOW" pad="2"/>
-<wire x1="96.039" y1="48.22" x2="92.0488" y2="44.2298" width="0.3048" layer="16"/>
-<wire x1="92.0488" y1="44.2298" x2="89.077375" y2="44.2298" width="0.3048" layer="16"/>
+<wire x1="95.15" y1="44.664" x2="94.7158" y2="44.2298" width="0.3048" layer="16"/>
+<wire x1="94.7158" y1="44.2298" x2="89.712375" y2="44.2298" width="0.3048" layer="16"/>
 <wire x1="68.961" y1="36.83" x2="65.151" y2="33.02" width="0.3048" layer="16"/>
-<wire x1="81.677575" y1="36.83" x2="68.961" y2="36.83" width="0.3048" layer="16"/>
-<wire x1="89.077375" y1="44.2298" x2="81.677575" y2="36.83" width="0.3048" layer="16"/>
+<wire x1="82.312575" y1="36.83" x2="68.961" y2="36.83" width="0.3048" layer="16"/>
+<wire x1="89.712375" y1="44.2298" x2="82.312575" y2="36.83" width="0.3048" layer="16"/>
 <contactref element="MS1" pad="9"/>
 <contactref element="MS1" pad="9'"/>
 <wire x1="65.151" y1="33.02" x2="65.151" y2="31.496" width="0.3048" layer="16"/>
@@ -3372,14 +3367,14 @@ Based on the following sources:
 <wire x1="33.71985625" y1="96.12885625" x2="41.804" y2="104.213" width="0.2032" layer="1"/>
 <wire x1="12.217396875" y1="96.12885625" x2="33.71985625" y2="96.12885625" width="0.2032" layer="1"/>
 <wire x1="103.77686875" y1="89.154" x2="103.77686875" y2="87.23113125" width="0.2032" layer="1"/>
-<wire x1="103.77686875" y1="89.154" x2="103.24986875" y2="89.681" width="0.2032" layer="1"/>
-<wire x1="103.24986875" y1="89.681" x2="71.99" y2="89.681" width="0.2032" layer="1"/>
+<wire x1="103.77686875" y1="89.154" x2="102.74186875" y2="90.189" width="0.2032" layer="1"/>
+<wire x1="102.74186875" y1="90.189" x2="71.482" y2="90.189" width="0.2032" layer="1"/>
 <wire x1="48.68" y1="110.49" x2="49.95" y2="110.49" width="0.3048" layer="16"/>
 <wire x1="13.06899375" y1="87.85906875" x2="19.6480625" y2="81.28" width="0.2032" layer="1"/>
 <wire x1="19.6480625" y1="81.28" x2="21.844" y2="81.28" width="0.2032" layer="1"/>
 <wire x1="30.734" y1="72.39" x2="21.844" y2="81.28" width="0.2032" layer="1"/>
 <wire x1="104.775" y1="86.233" x2="103.77686875" y2="87.23113125" width="0.2032" layer="1"/>
-<wire x1="71.99" y1="89.681" x2="56.06" y2="105.611" width="0.2032" layer="1"/>
+<wire x1="71.482" y1="90.189" x2="56.06" y2="105.611" width="0.2032" layer="1"/>
 <wire x1="56.06" y1="105.611" x2="56.06" y2="105.68" width="0.3048" layer="1"/>
 <wire x1="58.42" y1="106.68" x2="57.351" y2="105.611" width="0.2032" layer="1"/>
 <wire x1="57.351" y1="105.611" x2="56.06" y2="105.611" width="0.2032" layer="1"/>
@@ -3422,10 +3417,10 @@ Based on the following sources:
 <wire x1="39.264" y1="102.8300625" x2="39.264" y2="104.213" width="0.2032" layer="1"/>
 <wire x1="62.46146875" y1="98.3488" x2="59.1312" y2="98.3488" width="0.2032" layer="1"/>
 <wire x1="104.775" y1="82.44086875" x2="104.14753125" y2="81.8134" width="0.2032" layer="1"/>
-<wire x1="94.1994" y1="89.1013" x2="71.70896875" y2="89.1013" width="0.2032" layer="1"/>
-<wire x1="71.70896875" y1="89.1013" x2="62.46146875" y2="98.3488" width="0.2032" layer="1"/>
+<wire x1="93.6914" y1="89.6093" x2="71.20096875" y2="89.6093" width="0.2032" layer="1"/>
+<wire x1="71.20096875" y1="89.6093" x2="62.46146875" y2="98.3488" width="0.2032" layer="1"/>
 <wire x1="104.14753125" y1="81.8134" x2="101.4873" y2="81.8134" width="0.2032" layer="1"/>
-<wire x1="101.4873" y1="81.8134" x2="94.1994" y2="89.1013" width="0.2032" layer="1"/>
+<wire x1="101.4873" y1="81.8134" x2="93.6914" y2="89.6093" width="0.2032" layer="1"/>
 <wire x1="53.16" y1="104.32" x2="53.16" y2="105.68" width="0.2032" layer="1"/>
 <wire x1="59.1312" y1="98.3488" x2="53.16" y2="104.32" width="0.2032" layer="1"/>
 <wire x1="25.2095" y1="69.6595" x2="21.0818" y2="73.7872" width="0.2032" layer="16"/>
@@ -3558,14 +3553,14 @@ Based on the following sources:
 </signal>
 <signal name="BUTTON_G">
 <contactref element="GREEN" pad="2"/>
-<wire x1="114.2" y1="64.73" x2="111.8608" y2="62.3908" width="0.3048" layer="16"/>
-<wire x1="111.8608" y1="62.3908" x2="109.905375" y2="62.3908" width="0.3048" layer="16"/>
+<wire x1="114.2" y1="64.349" x2="112.2418" y2="62.3908" width="0.3048" layer="16"/>
+<wire x1="112.2418" y1="62.3908" x2="109.905375" y2="62.3908" width="0.3048" layer="16"/>
 <wire x1="109.905375" y1="62.3908" x2="99.4553" y2="51.940725" width="0.3048" layer="16"/>
-<wire x1="99.4553" y1="51.940725" x2="99.4553" y2="48.815875" width="0.3048" layer="16"/>
-<wire x1="99.4553" y1="48.815875" x2="94.181425" y2="43.542" width="0.3048" layer="16"/>
-<wire x1="94.181425" y1="43.542" x2="89.31555" y2="43.542" width="0.3048" layer="16"/>
-<wire x1="81.96855" y1="36.195" x2="69.85" y2="36.195" width="0.3048" layer="16"/>
-<wire x1="89.31555" y1="43.542" x2="81.96855" y2="36.195" width="0.3048" layer="16"/>
+<wire x1="99.4553" y1="51.940725" x2="99.4553" y2="46.529875" width="0.3048" layer="16"/>
+<wire x1="99.4553" y1="46.529875" x2="95.832425" y2="42.907" width="0.3048" layer="16"/>
+<wire x1="95.832425" y1="42.907" x2="89.82355" y2="42.907" width="0.3048" layer="16"/>
+<wire x1="83.11155" y1="36.195" x2="69.85" y2="36.195" width="0.3048" layer="16"/>
+<wire x1="89.82355" y1="42.907" x2="83.11155" y2="36.195" width="0.3048" layer="16"/>
 <contactref element="MS1" pad="11'"/>
 <contactref element="MS1" pad="11"/>
 <wire x1="69.85" y1="36.195" x2="69.215" y2="36.195" width="0.3048" layer="16"/>
@@ -3583,11 +3578,11 @@ Based on the following sources:
 </signal>
 <signal name="BUTTON_B">
 <contactref element="BLUE" pad="2"/>
-<wire x1="79.9957" y1="77.7024" x2="82.0093" y2="79.716" width="0.3048" layer="16"/>
-<wire x1="79.9957" y1="72.898" x2="79.9957" y2="77.7024" width="0.3048" layer="16"/>
-<wire x1="82.0093" y1="79.716" x2="92.991" y2="79.716" width="0.3048" layer="16"/>
+<wire x1="79.9957" y1="78.5914" x2="81.8823" y2="80.478" width="0.3048" layer="16"/>
+<wire x1="79.9957" y1="72.898" x2="79.9957" y2="78.5914" width="0.3048" layer="16"/>
+<wire x1="81.8823" y1="80.478" x2="91.721" y2="80.478" width="0.3048" layer="16"/>
 <wire x1="79.9957" y1="72.898" x2="42.060265625" y2="34.962565625" width="0.3048" layer="16"/>
-<wire x1="92.991" y1="79.716" x2="95.658" y2="82.383" width="0.3048" layer="16"/>
+<wire x1="91.721" y1="80.478" x2="95.15" y2="83.907" width="0.3048" layer="16"/>
 <contactref element="MS1" pad="10'"/>
 <contactref element="MS1" pad="10"/>
 <wire x1="42.060265625" y1="34.962565625" x2="42.060265625" y2="29.360265625" width="0.3048" layer="16"/>
@@ -3612,8 +3607,8 @@ Based on the following sources:
 <wire x1="38.1" y1="34.64519375" x2="38.1" y2="29.21" width="0.3048" layer="1"/>
 <wire x1="38.1" y1="29.21" x2="36.83" y2="27.94" width="0.3048" layer="1"/>
 <via x="36.83" y="27.94" extent="1-16" drill="0.35"/>
-<wire x1="36.83" y1="27.94" x2="27.051" y2="18.161" width="0.3048" layer="16"/>
-<wire x1="27.051" y1="18.161" x2="27.051" y2="8.255" width="0.3048" layer="16"/>
+<wire x1="36.83" y1="27.94" x2="27.305" y2="18.415" width="0.3048" layer="16"/>
+<wire x1="27.305" y1="18.415" x2="27.305" y2="8.128" width="0.3048" layer="16"/>
 </signal>
 <signal name="3V3">
 <contactref element="MS1" pad="2"/>
@@ -3692,13 +3687,12 @@ Based on the following sources:
 <contactref element="LS1" pad="2"/>
 <contactref element="D1" pad="A"/>
 <contactref element="T1" pad="C"/>
-<wire x1="29.253" y1="97.409" x2="29.263" y2="97.409" width="0.3048" layer="16"/>
-<wire x1="29.263" y1="97.409" x2="29.263" y2="95.133" width="0.3048" layer="16"/>
-<wire x1="29.263" y1="95.133" x2="27.94" y2="93.81" width="0.3048" layer="16"/>
+<wire x1="27.94" y1="93.81" x2="29.263" y2="95.133" width="0.3048" layer="16"/>
 <wire x1="14.9" y1="99.06" x2="15.154" y2="98.806" width="0.508" layer="16"/>
 <wire x1="15.154" y1="98.806" x2="18.161" y2="98.806" width="0.508" layer="16"/>
 <wire x1="18.161" y1="98.806" x2="23.157" y2="93.81" width="0.508" layer="16"/>
 <wire x1="23.157" y1="93.81" x2="27.94" y2="93.81" width="0.508" layer="16"/>
+<wire x1="29.263" y1="95.133" x2="29.263" y2="97.409" width="0.3048" layer="16"/>
 </signal>
 <signal name="N$20">
 <contactref element="D1" pad="C"/>
