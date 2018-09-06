@@ -191,7 +191,7 @@
 <text x="103.759" y="87.757" size="0.8128" layer="21" font="vector" ratio="18">SDA</text>
 <text x="101.219" y="81.407" size="0.8128" layer="21" font="vector" ratio="18">GND</text>
 <text x="103.759" y="81.407" size="0.8128" layer="21" font="vector" ratio="18">SCL</text>
-<text x="38.1" y="61.722" size="3.6576" layer="22" font="vector" ratio="18" rot="MR0" align="bottom-center">particle.io</text>
+<text x="38.1" y="61.722" size="3.6576" layer="22" font="vector" ratio="18" rot="MR0" align="bottom-center">Particle</text>
 <text x="53.721" y="86.995" size="1.8288" layer="21" font="vector" ratio="18">On</text>
 <text x="62.357" y="86.868" size="1.8288" layer="21" font="vector" ratio="18">Off</text>
 <wire x1="72.159240625" y1="32.86226875" x2="54.9562" y2="3.817159375" width="2.286" layer="21"/>
