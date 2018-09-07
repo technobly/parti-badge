@@ -96,6 +96,7 @@ unsigned long previousEnvReading = 0;
 // Wearer details
 String wearerFirstName;
 String wearerLastName;
+String wearerTwitter;
 
 // Default to display mode, but we'll determine this based on a
 // the user holding a button down at startup
@@ -284,12 +285,14 @@ void checkBadgeMode() {
 void cloudInit() {
   Particle.variable("wearerFName", wearerFirstName);
   Particle.variable("wearerLName", wearerLastName);
+  Particle.variable("wearerTwitter", wearerTwitter);
 
   Particle.variable("currentTemp", currentTemp);
   Particle.variable("currentHu", currentHumidity);
 
   Particle.function("updateFName", updateFirstNameHandler);
   Particle.function("updateLName", updateLastNameHandler);
+  Particle.function("updateTwitter", updateTwitterHandler);
 
   Particle.function("checkTemp", checkTempHandler);
 }
@@ -301,6 +304,7 @@ void initWearerDetails() {
   if (wearerInfo.isSet()) {
     wearerFirstName = wearerInfo.getFirstName();
     wearerLastName = wearerInfo.getLastName();
+    wearerTwitter = wearerInfo.getTwitter();
   }
 }
 
@@ -330,6 +334,13 @@ void displayWearerDetails() {
 
   if (fnameLength > 0 || lnameLength > 0) {
     clearScreen();
+    //put Twitter info up in yellow band area
+    if (wearerTwitter.length() > 10) {
+      display.setTextSize(1);
+    }
+    if (wearerTwitter.length() > 0) {
+      display.println(wearerTwitter);
+    }
 
     // setTextSize based on largest of two lengths
     // Display is 128 x 64
@@ -683,6 +694,17 @@ int updateLastNameHandler(String data) {
 
   fireNamedEvent();
   if (displayingWearerDetails) {
+    displayWearerDetails();
+  }
+  return 1;
+}
+
+int updateTwitterHandler(String data) {
+  wearerTwitter = data;
+  wearerInfo.setTwitter(wearerTwitter);
+
+  fireNamedEvent();
+  if (displayWearerDetails) {
     displayWearerDetails();
   }
   return 1;
