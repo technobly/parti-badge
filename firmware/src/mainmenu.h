@@ -29,3 +29,11 @@ const char *const mnuDisplay[] = {
     itmRootDisplay,
     itmRootDisplay1, itmRootDisplay2, itmRootDisplay3, itmRootDisplay4, itmBack };
 const int cntDisplay = 5;
+
+static const char itmRootMesh1[] = "Mesh Network";
+static const char itmRootMesh2[] = "Network Scan";
+static const char itmRootMesh3[] = "Hello Ping";
+const char *const mnuMesh[] = {
+    itmRootMesh,
+    itmRootMesh1, itmRootMesh2, itmRootMesh3, itmBack };
+const int cntMesh = 4;

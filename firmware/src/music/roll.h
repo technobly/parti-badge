@@ -11,6 +11,7 @@
     is not the creative property of the author. This code simply
     plays a Piezo buzzer rendition of the song.
 */
+#include "images/spark.h"
 
 #define  a3f    208     // 208 Hz
 #define  b3f    233     // 233 Hz
@@ -146,7 +147,7 @@ void setupDisplay(Adafruit_SSD1306* display) {
   display->clearDisplay();
   display->display();
   display->setCursor(0, 0);
-  display->drawBitmap(0, 0, sparkLogo, 128, 64, 1);
+  display->drawBitmap(0, 16, sparkLogo, 128, 48, 1);
   display->display();
   display->startscrollleft(0x00, 0x0F);
 }
