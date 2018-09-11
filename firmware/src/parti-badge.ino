@@ -368,7 +368,7 @@ void loop()
 // Show the Spark on startup
 void showSplashscreen() {
   clearScreen();
-  display.drawBitmap(0, 0, sparkLogo, 128, 64, 1);
+  display.drawBitmap(0, 16, sparkLogo, 128, 48, 1);
   display.display();
   delay(3000);
 }
