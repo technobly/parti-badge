@@ -131,3 +131,16 @@ void showTempAndHumidity()
   display.drawBitmap(105, 28, humidityImage, 20, 27, 1);
   display.display();
 }
+
+void displayCredits() {
+  clearScreen();
+
+  display.setTextWrap(true);
+  display.setCursor(1, 28);
+  display.setTextSize(1);
+  display.println("Created by");
+  display.println("a GLOBAL team");
+  display.println("at Particle!");
+  display.display();
+  display.startscrollleft(0x00, 0x0F);
+}

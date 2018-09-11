@@ -7,5 +7,6 @@ void displayWearerDetails();
 void displayTwitterHandle();
 void showTitle();
 void showTempAndHumidity();
+void displayCredits();
 
 #endif

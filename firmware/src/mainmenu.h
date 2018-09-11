@@ -21,19 +21,58 @@ static const char *mnuRoot[] = {
     itmRootGames, itmRootAnimations, itmRootBlinky, itmRootAbout};
 const int cntRoot = 8;
 
-static const char itmRootDisplay1[] = "Badge Marquee";
-static const char itmRootDisplay2[] = "Name";
-static const char itmRootDisplay3[] = "Twitter Handle";
-static const char itmRootDisplay4[] = "Temp & Humidity";
+static const char itmDisplay1[] = "Badge Marquee";
+static const char itmDisplay2[] = "Name";
+static const char itmDisplay3[] = "Twitter Handle";
+static const char itmDisplay4[] = "Temp & Humidity";
 const char *const mnuDisplay[] = {
     itmRootDisplay,
-    itmRootDisplay1, itmRootDisplay2, itmRootDisplay3, itmRootDisplay4, itmBack };
+    itmDisplay1, itmDisplay2, itmDisplay3, itmDisplay4, itmBack };
 const int cntDisplay = 5;
 
-static const char itmRootMesh1[] = "Mesh Network";
-static const char itmRootMesh2[] = "Network Scan";
-static const char itmRootMesh3[] = "Hello Ping";
+static const char itmMesh1[] = "Mesh Network";
+static const char itmMesh2[] = "Network Scan";
+static const char itmMesh3[] = "Hello Ping";
 const char *const mnuMesh[] = {
     itmRootMesh,
-    itmRootMesh1, itmRootMesh2, itmRootMesh3, itmBack };
+    itmMesh1, itmMesh2, itmMesh3, itmBack };
 const int cntMesh = 4;
+
+static const char itmSensors1[] = "Temp & Humidity";
+static const char itmSensors2[] = "Battery Status";
+const char *const mnuSensors[] = {
+    itmRootMesh,
+    itmSensors1, itmSensors2, itmBack };
+const int cntSensors = 3;
+
+static const char itmMusic1[] = "Mario Start";
+static const char itmMusic2[] = "Mario Game Over";
+static const char itmMusic3[] = "Never Gonna";
+const char *const mnuMusic[] = {
+    itmRootMesh,
+    itmMusic1, itmMusic2, itmMusic3, itmBack };
+const int cntMusic = 4;
+
+static const char itmGame1[] = "Simon Says";
+static const char itmGame2[] = "Etch a Sketch";
+static const char itmGame3[] = "Snake";
+const char *const mnuGames[] = {
+    itmRootMesh,
+    itmGame1, itmGame2, itmGame3, itmBack };
+const int cntGames = 4;
+
+static const char itmAnimation1[] = "All";
+static const char itmAnimation2[] = "Snowflakes";
+const char *const mnuAnimations[] = {
+    itmRootMesh,
+    itmAnimation1, itmAnimation2, itmBack };
+const int cntAnimations = 3;
+
+static const char itmBlinky1[] = "Light ring";
+static const char itmBlinky2[] = "Pulsing";
+static const char itmBlinky3[] = "Random";
+static const char itmBlinky4[] = "See-saw";
+const char *const mnuBlinky[] = {
+    itmRootMesh,
+    itmBlinky4, itmBlinky2, itmBlinky3, itmBlinky4, itmBack };
+const int cntBlinky = 5;

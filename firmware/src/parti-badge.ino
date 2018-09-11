@@ -294,18 +294,25 @@ void loop()
           menu.InitMenu((const char ** )mnuDisplay, cntDisplay,1);
           break;
         case 2:
+          menu.InitMenu((const char ** )mnuMesh, cntMesh,1);
           break;
         case 3:
+          menu.InitMenu((const char ** )mnuSensors, cntSensors,1);
           break;
         case 4:
+          menu.InitMenu((const char ** )mnuMusic, cntMusic,1);
           break;
         case 5:
+          menu.InitMenu((const char ** )mnuGames, cntGames,1);
           break;
         case 6:
+          menu.InitMenu((const char ** )mnuAnimations, cntAnimations,1);
           break;
         case 7:
+          menu.InitMenu((const char ** )mnuBlinky, cntBlinky,1);
           break;
         case 8:
+          displayCredits();
           break;
       }
     }
