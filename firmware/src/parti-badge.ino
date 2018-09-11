@@ -425,16 +425,14 @@ void showTitle()
   titleShown = true;
 
   display.clearDisplay();
-  display.setCursor(0, 0);
   display.setTextWrap(true);
   display.setTextColor(WHITE);
-  display.setTextSize(1);
+  display.setTextSize(2);
 
-  display.println();
-  display.println();
-  display.println(" #PartiBadge");
-  display.println();
-  display.println(" Spectra 2018");
+  display.setCursor(1, 18);
+  display.println("PartiBadge");
+  display.setCursor(0, 35);
+  display.println("Spectra 18");
   display.display();
 }
 
