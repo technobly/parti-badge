@@ -5,9 +5,6 @@
 /* Piezo Pin */
 #define BUZZER_PIN TX
 
-/* IR Receiver PIN */
-#define IR_RECEIVER_PIN RX
-
 /* Tactile LED Button Pins */
 /* LEDS */
 #define RED_LED A3

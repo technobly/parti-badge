@@ -36,8 +36,9 @@
 #include "Adafruit_GFX.h"
 #include "Adafruit_SSD1306.h"
 
-// IR Sensor include
-#include "IRremoteLearn.h"
+// Menu System include
+#include "mainmenu.h"
+#include <qMenuSystem.h>
 
 #include "images/spark.h"
 #include "images/temp.h"
@@ -61,9 +62,8 @@ Adafruit_SSD1306 display(RESET);
 void resetDisplayBools();
 void showTitle();
 
-// Init IR Receiver
-IRrecv irrecv(IR_RECEIVER_PIN);
-decode_results irResults;
+// Menu Init
+qMenuSystem menu = qMenuSystem(&display);
 
 #include "simonsays/simon.h" // Simon Says Code
 
@@ -112,6 +112,7 @@ bool animationsInterrupted = false;
 bool displayingEtchASketch = false;
 bool playingRoll = false;
 bool inCodeMode = false;
+bool menuShowing = false;
 
 #include "keylogger/keylogger.h"
 #include "animations/animations.h"
@@ -120,10 +121,66 @@ bool inCodeMode = false;
 bool titleShown = false;
 bool buttonsInitialized = false;
 bool checkingInputs = false;
-int displayX = display.width()/2;
-int displayY = display.height()/2;
+int displayX = display.width() / 2;
+int displayY = display.height() / 2;
 
-void setup() {
+unsigned long last_micros = 0;
+long debouncing_time = 250;
+volatile byte btncounter = 0;
+volatile byte btnid  = 0;
+byte appmode = 0;
+
+void UP(){
+  if(menuShowing && (long)(micros() - last_micros) >= debouncing_time * 1000) {
+    if (appmode){
+    }
+    else {
+      btncounter ++;
+    }
+    btnid = 3;
+    last_micros = micros();
+  }
+}
+
+void DOWN(){
+  if(menuShowing && (long)(micros() - last_micros) >= debouncing_time * 1000)
+  {
+    if (appmode){
+    }
+    else {
+      btncounter ++;
+    }
+    btnid = 2;
+    last_micros = micros();
+  }
+}
+
+void ENTER(){
+  if(menuShowing && (long)(micros() - last_micros) >= debouncing_time * 1000) {
+    if (appmode){
+    }
+    else {
+      btncounter ++;
+    }
+    btnid = 1;
+    last_micros = micros();
+  }
+}
+
+void LEFT(){
+  if(menuShowing && (long)(micros() - last_micros) >= debouncing_time * 1000) {
+    if (appmode){
+    }
+    else {
+      btncounter ++;
+    }
+    btnid = 4;
+    last_micros = micros();
+  }
+}
+
+void setup()
+{
   Serial.begin(115200);
   resetDisplayBools();
 
@@ -131,13 +188,10 @@ void setup() {
   deviceId = System.deviceID();
 
   // Initialize Temp and Humidity sensor
-  while(! envSensor.begin());
+  while (!envSensor.begin());
 
   // Init OLED
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
-
-  // Enable IR Receiver
-  irrecv.enableIRIn();
 
   // Show Particle Splashscreen
   showSplashscreen();
@@ -153,13 +207,14 @@ void setup() {
   // Set the Piezo buzzer as an output
   pinMode(BUZZER_PIN, OUTPUT);
 
-  // Init the LED Buttons
+  // Init the LED and Joystick Buttons
   initButtons();
 
   // Set up Interrupts
-  attachInterrupt(BLUE_BUTTON_B, handleInterrupt, CHANGE);
-  attachInterrupt(GREEN_BUTTON_C, handleInterrupt, CHANGE);
-  attachInterrupt(YELLOW_BUTTON_D, handleInterrupt, CHANGE);
+  attachInterrupt(JOYSTICK_UP, UP, FALLING);
+  attachInterrupt(JOYSTICK_DOWN, DOWN, FALLING);
+  attachInterrupt(JOYSTICK_CENTER, ENTER, FALLING);
+  attachInterrupt(JOYSTICK_LEFT, LEFT, FALLING);
 
   // Get an initial temp and humidity reading
   getTempAndHumidity();
@@ -168,7 +223,8 @@ void setup() {
   initLEDButtons();
 
   // Play a startup sound on the Piezo
-  if (!startupSoundPlayed) playStartup(BUZZER_PIN);
+  if (!startupSoundPlayed)
+    playStartup(BUZZER_PIN);
 
   // Determine if we're in display or game mode
   checkBadgeMode();
@@ -183,61 +239,108 @@ void setup() {
   display.startscrollleft(0x00, 0x0F);
 }
 
-void loop() {
+void loop()
+{
   unsigned long currentMillis = millis();
+  int keycode=0;
+  int clickedItem=0;
 
-  if (badgeMode == DISPLAY_MODE) {
+  if (menuShowing == false) {
     redButtonADebouncer.update();
-    if (redButtonADebouncer.read() == LOW && ! displayingAnimations && ! animationsInterrupted && ! inCodeMode) {
-      resetDisplayBools();
+    blueButtonBDebouncer.update();
+    greenButtonCDebouncer.update();
+    yellowButtonDDebouncer.update();
+    joystickCenterDebouncer.update();
 
-      displayingAnimations = true;
-      toggleAllButtons(LOW);
-      digitalWrite(RED_LED, HIGH);
+    if (redButtonADebouncer.read() == LOW ||
+      blueButtonBDebouncer.read() == LOW ||
+      greenButtonCDebouncer.read() == LOW ||
+      yellowButtonDDebouncer.read() == LOW ||
+      joystickCenterDebouncer.read() == LOW) {
+      menuShowing = true;
 
       clearScreen();
-      cycleAnimations();
+      menu.InitMenu(mnuRoot, cntRoot, 1);
     }
+  }
 
-    blueButtonBDebouncer.update();
-    if (blueButtonBDebouncer.read() == LOW && ! displayingTemp) {
-      resetDisplayBools();
-
-      displayingTemp = true;
-      toggleAllButtons(LOW);
-      digitalWrite(BLUE_LED, HIGH);
-
-      // Show Temp and Humidity on Display
-      showTempAndHumidity();
+  if (btncounter > 0 && menuShowing)
+  {
+    switch(btnid)
+    {
+      case 1:
+        clickedItem=menu.ProcessMenu(ACTION_SELECT);
+        btncounter--;
+        break;
+      case 2:
+        menu.ProcessMenu(ACTION_DOWN);
+        btncounter--;
+        break;
+      case 3:
+        menu.ProcessMenu(ACTION_UP);
+        btncounter--;
+        break;
+      case 4:
+        clickedItem=menu.ProcessMenu(ACTION_BACK);
+        btncounter--;
+        break;
     }
+  }
 
-    greenButtonCDebouncer.update();
-    if (greenButtonCDebouncer.read() == LOW && ! displayingEtchASketch) {
-      resetDisplayBools();
-
-      displayingEtchASketch = true;
-      toggleAllButtons(LOW);
-      digitalWrite(GREEN_LED, HIGH);
-
-      initEtchASketch();
+  if (clickedItem > 0 && menuShowing) {
+    if (menu.CurrentMenu == mnuRoot) {
+      switch (clickedItem)
+      {
+        case 1:
+          menu.InitMenu((const char ** )mnuDisplay, cntDisplay,1);
+          break;
+        case 2:
+          break;
+        case 3:
+          break;
+        case 4:
+          break;
+        case 5:
+          break;
+        case 6:
+          break;
+        case 7:
+          break;
+        case 8:
+          break;
+      }
     }
-
-    yellowButtonDDebouncer.update();
-    if (yellowButtonDDebouncer.read() == LOW && ! displayingWearerDetails) {
-      resetDisplayBools();
-      displayingWearerDetails = true;
-
-      displayWearerDetails();
-      toggleAllButtons(LOW);
-      digitalWrite(YELLOW_LED, HIGH);
+    // Logic for sub menus
+    else if (menu.CurrentMenu == mnuDisplay) {
+      switch (clickedItem)
+      {
+        case 1:
+          break;
+        case 2:
+          break;
+        case 3:
+          break;
+        case 4:
+          menu.InitMenu(mnuRoot, cntRoot, 1);
+          break;
+      }
     }
+  } else if (clickedItem == -1 && menuShowing) {
+    if (menu.CurrentMenu == mnuRoot) { /* In root, do nothing */ }
 
+    //2nd level menus
+    else if (menu.CurrentMenu == mnuDisplay) {
+      menu.InitMenu((const char **)mnuRoot, cntRoot, 1);
+    }
+  }
+
+  if (badgeMode == DISPLAY_MODE) {
     if (currentMillis - previousEnvReading > TEMP_CHECK_INTERVAL) {
       previousEnvReading = currentMillis;
       getTempAndHumidity();
     }
 
-    if (displayingEtchASketch) {
+    if (displayingEtchASketch){
       etchASketch();
     }
 
@@ -247,14 +350,9 @@ void loop() {
       playRoll(&display);
     }
 
-    // Check the IR Receiver for any signals in the ether
-    if (irrecv.decode(&irResults)) {
-      irDump(&irResults);
-      irrecv.resume(); // Receive the next value
-    }
-
     checkInputSequence();
-  } else if (badgeMode == GAME_MODE) {
+  }
+  else if (badgeMode == GAME_MODE) {
     configureGame();
 
     playGame();
@@ -270,19 +368,24 @@ void showSplashscreen() {
 }
 
 // Switch to Simon Says mode if the A and B buttons are held down at startup
-void checkBadgeMode() {
+void checkBadgeMode()
+{
   redButtonADebouncer.update();
   blueButtonBDebouncer.update();
 
-if (redButtonADebouncer.read() == LOW && blueButtonBDebouncer.read() == LOW) {
-  badgeMode = GAME_MODE;
-  } else {
+  if (redButtonADebouncer.read() == LOW && blueButtonBDebouncer.read() == LOW)
+  {
+    badgeMode = GAME_MODE;
+  }
+  else
+  {
     badgeMode = DISPLAY_MODE;
   }
 }
 
 // Init our Device Cloud variables and functions
-void cloudInit() {
+void cloudInit()
+{
   Particle.variable("wearerFName", wearerFirstName);
   Particle.variable("wearerLName", wearerLastName);
   Particle.variable("wearerTwitter", wearerTwitter);
@@ -298,10 +401,12 @@ void cloudInit() {
 }
 
 // Fetch wearer details from our WearerInfo class
-void initWearerDetails() {
+void initWearerDetails()
+{
   wearerInfo = WearerInfo();
 
-  if (wearerInfo.isSet()) {
+  if (wearerInfo.isSet())
+  {
     wearerFirstName = wearerInfo.getFirstName();
     wearerLastName = wearerInfo.getLastName();
     wearerTwitter = wearerInfo.getTwitter();
@@ -309,7 +414,8 @@ void initWearerDetails() {
 }
 
 // Show the title text on the display
-void showTitle() {
+void showTitle()
+{
   titleShown = true;
 
   display.clearDisplay();
@@ -320,19 +426,21 @@ void showTitle() {
 
   display.println();
   display.println();
-  display.println(" #PartiBadge v2");
+  display.println(" #PartiBadge");
   display.println();
-  display.println(" THAT Conference 2018");
+  display.println(" Spectra 2018");
   display.display();
 }
 
 // Display the wearer's first and last name on the display
-void displayWearerDetails() {
+void displayWearerDetails()
+{
   int fnameLength = wearerFirstName.length();
   int lnameLength = wearerLastName.length();
   int longestLength = ((fnameLength > lnameLength) ? fnameLength : lnameLength);
 
-  if (fnameLength > 0 || lnameLength > 0) {
+  if (fnameLength > 0 || lnameLength > 0)
+  {
     clearScreen();
     //put Twitter info up in yellow band area
     if (wearerTwitter.length() > 10) {
@@ -346,21 +454,25 @@ void displayWearerDetails() {
     // Display is 128 x 64
     // So if the longest of the two names is longer than 10 characters,
     // set the size to 1
-    if (longestLength > 10) {
+    if (longestLength > 10)
+    {
       display.setTextSize(1);
       display.setCursor(0, 20);
-
-    } else {
+    }
+    else
+    {
       display.setTextSize(2);
       display.setCursor(0, 10);
     }
 
     display.println();
 
-    if (wearerFirstName.length() > 0) {
+    if (wearerFirstName.length() > 0)
+    {
       display.println(wearerFirstName);
     }
-    if (wearerLastName.length() > 0) {
+    if (wearerLastName.length() > 0)
+    {
       display.println(wearerLastName);
     }
 
@@ -370,7 +482,8 @@ void displayWearerDetails() {
 }
 
 // Init debouncers for all of our inputs
-void initButtons() {
+void initButtons()
+{
   // Init Buttons as Inputs
   redButtonADebouncer.attach(RED_BUTTON_A, INPUT_PULLUP);
   redButtonADebouncer.interval(DEBOUNCE_INTERVAL);
@@ -394,16 +507,9 @@ void initButtons() {
   joystickCenterDebouncer.interval(DEBOUNCE_INTERVAL);
 }
 
-void handleInterrupt() {
-  Serial.println(displayingAnimations);
-  if (displayingAnimations) {
-    displayingAnimations = false;
-    animationsInterrupted = true;
-  }
-}
-
 // Set up the tactile LED buttons
-void initLEDButtons() {
+void initLEDButtons()
+{
   buttonsInitialized = true;
 
   int del = 300;
@@ -440,7 +546,8 @@ void initLEDButtons() {
 }
 
 // Show the temperature and humidity on the display
-void showTempAndHumidity() {
+void showTempAndHumidity()
+{
   clearScreen();
 
   display.drawBitmap(7, 13, tempImage, 16, 43, 1);
@@ -463,7 +570,8 @@ void showTempAndHumidity() {
 }
 
 // Toggle all the buttons on or off
-void toggleAllButtons(int state) {
+void toggleAllButtons(int state)
+{
   digitalWrite(RED_LED, state);
   digitalWrite(BLUE_LED, state);
   digitalWrite(GREEN_LED, state);
@@ -471,7 +579,8 @@ void toggleAllButtons(int state) {
 }
 
 // Reset all display-related state booleans
-void resetDisplayBools() {
+void resetDisplayBools()
+{
   displayingTemp = false;
   displayingWearerDetails = false;
   displayingLogo = false;
@@ -483,15 +592,17 @@ void resetDisplayBools() {
 }
 
 // Get temp and humidity from the sensors
-void getTempAndHumidity() {
+void getTempAndHumidity()
+{
   int prevTemp = currentTemp;
   int prevHumidity = currentHumidity;
 
-  currentTemp = round((envSensor.readTemperature() * 1.8 + 32.00)*10)/10;
-  currentHumidity = round(envSensor.readHumidity()*10)/10;
+  currentTemp = round((envSensor.readTemperature() * 1.8 + 32.00) * 10) / 10;
+  currentHumidity = round(envSensor.readHumidity() * 10) / 10;
 
   // If either has changed and these values are being displayed, update the display
-  if (displayingTemp && (prevTemp != currentTemp || prevHumidity != currentHumidity)) {
+  if (displayingTemp && (prevTemp != currentTemp || prevHumidity != currentHumidity))
+  {
     showTempAndHumidity();
   }
 
@@ -499,7 +610,8 @@ void getTempAndHumidity() {
 }
 
 // Clear the OLED display
-void clearScreen() {
+void clearScreen()
+{
   display.stopscroll();
   display.clearDisplay();
   display.display();
@@ -508,7 +620,8 @@ void clearScreen() {
 }
 
 // Init Etch A Sketch mode on the OLED
-void initEtchASketch() {
+void initEtchASketch()
+{
   clearScreen();
   display.println();
   display.setTextSize(2);
@@ -526,7 +639,8 @@ void initEtchASketch() {
 
 // Update the display during Etch A Sketch Mode. Draw a new filled circle
 // based on the which joystick direction was used.
-void etchASketch() {
+void etchASketch()
+{
   int lastY = displayY;
   int lastX = displayX;
 
@@ -559,16 +673,18 @@ void etchASketch() {
   if (joystickCenterDebouncer.read() == LOW)
   {
     clearScreen();
-    displayX = display.width()/2;
-    displayY = display.height()/2;
+    displayX = display.width() / 2;
+    displayY = display.height() / 2;
   }
 
-  if ((lastX != displayX) || (lastY != displayY)) {
+  if ((lastX != displayX) || (lastY != displayY))
+  {
     drawFilledCircle();
   }
 }
 
-void drawFilledCircle() {
+void drawFilledCircle()
+{
   display.drawCircle(displayX, displayY, 1, WHITE);
   display.drawCircle(displayX, displayY, 2, WHITE);
   display.drawCircle(displayX, displayY, 3, WHITE);
@@ -577,52 +693,9 @@ void drawFilledCircle() {
   display.display();
 }
 
-// Decode IR sensor results and fire events if we get certain codes.
-void irDump(decode_results *results) {
-    int count = results->rawlen;
-
-    if (results->decode_type == NEC) {
-      fireIREvent("nec");
-      displayIRName("NEC");
-    }
-    else if (results->decode_type == SONY) {
-      fireIREvent("sony");
-      displayIRName("Sony");
-    }
-    else if (results->decode_type == RC5) {
-      fireIREvent("rc5");
-      displayIRName("RC5");
-    }
-    else if (results->decode_type == RC6) {
-      fireIREvent("rc6");
-      displayIRName("RC6");
-    }
-    else if (results->decode_type == PANASONIC) {
-      fireIREvent("panasonic");
-      displayIRName("Panasonic");
-    }
-    else if (results->decode_type == JVC) {
-      fireIREvent("jvc");
-      displayIRName("JVC");
-    }
-
-    if (results->decode_type == DISNEY) {
-      fireIREvent("disney");
-      displayIRName("Disney");
-    }
-}
-
-// Display the IR event received on the screen
-void displayIRName(String name) {
-  clearScreen();
-  display.setTextSize(2);
-  display.setCursor(0, 24);
-  display.printlnf("%s!", name.c_str());
-  display.display();
-}
-
 // This shall remain undocumented, for it is a secret... what it do?
-void checkInputSequence() {
+void checkInputSequence()
+{
   redButtonADebouncer.update();
   if (redButtonADebouncer.read() == LOW && !checkingInputs)
   {
@@ -676,24 +749,28 @@ void checkInputSequence() {
 }
 
 //Update the first name when called from a cloud function
-int updateFirstNameHandler(String data) {
+int updateFirstNameHandler(String data)
+{
   wearerFirstName = data;
   wearerInfo.setFirstName(wearerFirstName);
 
   fireNamedEvent();
-  if (displayingWearerDetails) {
+  if (displayingWearerDetails)
+  {
     displayWearerDetails();
   }
   return 1;
 }
 
 //Update the last name when called from a cloud function
-int updateLastNameHandler(String data) {
+int updateLastNameHandler(String data)
+{
   wearerLastName = data;
   wearerInfo.setLastName(wearerLastName);
 
   fireNamedEvent();
-  if (displayingWearerDetails) {
+  if (displayingWearerDetails)
+  {
     displayWearerDetails();
   }
   return 1;
@@ -711,7 +788,8 @@ int updateTwitterHandler(String data) {
 }
 
 // Check the temp and humidity when called from a cloud function
-int checkTempHandler(String data) {
+int checkTempHandler(String data)
+{
   getTempAndHumidity();
 
   return 1;
