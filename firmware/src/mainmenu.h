@@ -21,10 +21,11 @@ static const char *mnuRoot[] = {
     itmRootGames, itmRootAnimations, itmRootBlinky, itmRootAbout};
 const int cntRoot = 8;
 
-static const char PROGMEM itmRootDisplay1[] = "Name";
-static const char PROGMEM itmRootDisplay2[] = "Twitter Handle";
-static const char PROGMEM itmRootDisplay3[] = "Temp & Humidity";
-const char *const mnuDisplay[] PROGMEM = {
+static const char itmRootDisplay1[] = "Badge Marquee";
+static const char itmRootDisplay2[] = "Name";
+static const char itmRootDisplay3[] = "Twitter Handle";
+static const char itmRootDisplay4[] = "Temp & Humidity";
+const char *const mnuDisplay[] = {
     itmRootDisplay,
-    itmRootDisplay1, itmRootDisplay2, itmRootDisplay3, itmBack };
-const int cntDisplay PROGMEM = 4;
+    itmRootDisplay1, itmRootDisplay2, itmRootDisplay3, itmRootDisplay4, itmBack };
+const int cntDisplay = 5;

@@ -315,12 +315,18 @@ void loop()
       switch (clickedItem)
       {
         case 1:
+          showTitle();
+          display.startscrollleft(0x00, 0x0F);
           break;
         case 2:
+          displayWearerDetails();
           break;
         case 3:
           break;
         case 4:
+          showTempAndHumidity();
+          break;
+        case 5:
           menu.InitMenu(mnuRoot, cntRoot, 1);
           break;
       }
@@ -550,22 +556,22 @@ void showTempAndHumidity()
 {
   clearScreen();
 
-  display.drawBitmap(7, 13, tempImage, 16, 43, 1);
+  display.drawBitmap(7, 18, tempImage, 16, 43, 1);
   display.setTextSize(1);
-  display.println();
-  display.println("         Temp");
+  display.setCursor(52, 16);
+  display.println("Temp");
   display.setTextSize(2);
-  display.print("    ");
+  display.setCursor(48, 25);
   display.print((int)currentTemp);
   display.println("f");
   display.setTextSize(1);
-  display.println();
-  display.println("       Humidity");
+  display.setCursor(42, 42);
+  display.println("Humidity");
   display.setTextSize(2);
-  display.print("    ");
+  display.setCursor(48, 50);
   display.print((int)currentHumidity);
   display.println("%");
-  display.drawBitmap(105, 23, humidityImage, 20, 27, 1);
+  display.drawBitmap(105, 28, humidityImage, 20, 27, 1);
   display.display();
 }
 
