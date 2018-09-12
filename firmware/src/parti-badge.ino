@@ -40,8 +40,12 @@
 #include "mainmenu.h"
 #include <qMenuSystem.h>
 
+// Interrupts
+#include "interrupts/interrupts.h"
+
 // Sub-system includes
 #include "display/display.h"
+#include "games/games.h"
 
 #include "parti-badge.h" // #define pin assignments and other general macros
 #include "music/tones.h" // Peizo Sounds
@@ -120,63 +124,10 @@ bool menuShowing = false;
 bool titleShown = false;
 bool buttonsInitialized = false;
 bool checkingInputs = false;
-int displayX = display.width() / 2;
-int displayY = display.height() / 2;
 
-unsigned long last_micros = 0;
-long debouncing_time = 250;
 volatile byte btncounter = 0;
 volatile byte btnid  = 0;
 byte appmode = 0;
-
-void UP(){
-  if(menuShowing && (long)(micros() - last_micros) >= debouncing_time * 1000) {
-    if (appmode){
-    }
-    else {
-      btncounter ++;
-    }
-    btnid = 3;
-    last_micros = micros();
-  }
-}
-
-void DOWN(){
-  if(menuShowing && (long)(micros() - last_micros) >= debouncing_time * 1000)
-  {
-    if (appmode){
-    }
-    else {
-      btncounter ++;
-    }
-    btnid = 2;
-    last_micros = micros();
-  }
-}
-
-void ENTER(){
-  if(menuShowing && (long)(micros() - last_micros) >= debouncing_time * 1000) {
-    if (appmode){
-    }
-    else {
-      btncounter ++;
-    }
-    btnid = 1;
-    last_micros = micros();
-  }
-}
-
-void LEFT(){
-  if(menuShowing && (long)(micros() - last_micros) >= debouncing_time * 1000) {
-    if (appmode){
-    }
-    else {
-      btncounter ++;
-    }
-    btnid = 4;
-    last_micros = micros();
-  }
-}
 
 void setup()
 {
@@ -210,10 +161,7 @@ void setup()
   initButtons();
 
   // Set up Interrupts
-  attachInterrupt(JOYSTICK_UP, UP, FALLING);
-  attachInterrupt(JOYSTICK_DOWN, DOWN, FALLING);
-  attachInterrupt(JOYSTICK_CENTER, ENTER, FALLING);
-  attachInterrupt(JOYSTICK_LEFT, LEFT, FALLING);
+  setupJoystickInterrupts();
 
   // Get an initial temp and humidity reading
   getTempAndHumidity();
@@ -337,6 +285,19 @@ void loop()
           menu.InitMenu(mnuRoot, cntRoot, 1);
           break;
       }
+    } else if (menu.CurrentMenu == mnuGames) {
+      switch (clickedItem) {
+        case 1:
+          break;
+        case 2:
+          etchASketch();
+          break;
+        case 3:
+          break;
+        case 4:
+          menu.InitMenu(mnuRoot, cntRoot, 1);
+          break;
+      }
     }
   } else if (clickedItem == -1 && menuShowing) {
     if (menu.CurrentMenu == mnuRoot) { /* In root, do nothing */ }
@@ -344,6 +305,9 @@ void loop()
     //2nd level menus
     else if (menu.CurrentMenu == mnuDisplay) {
       menu.InitMenu((const char **)mnuRoot, cntRoot, 1);
+    }
+    else if (menu.CurrentMenu == mnuGames) {
+      menu.InitMenu((const char **)mnuRoot, cntRoot, 5);
     }
   }
 
@@ -520,80 +484,6 @@ void getTempAndHumidity()
   }
 
   fireEnvSensorsEvent(currentTemp, currentHumidity);
-}
-
-// Init Etch A Sketch mode on the OLED
-void initEtchASketch()
-{
-  clearScreen();
-  display.println();
-  display.setTextSize(2);
-  display.println("  Etch A");
-  display.println("  Sketch");
-  display.setTextSize(1);
-  display.println();
-  display.println("Use the joystick...");
-  display.display();
-  delay(2000);
-
-  clearScreen();
-  drawFilledCircle();
-}
-
-// Update the display during Etch A Sketch Mode. Draw a new filled circle
-// based on the which joystick direction was used.
-void etchASketch()
-{
-  int lastY = displayY;
-  int lastX = displayX;
-
-  joystickUpDebouncer.update();
-  if (joystickUpDebouncer.read() == LOW)
-  {
-    displayY--;
-  }
-
-  joystickDownDebouncer.update();
-  if (joystickDownDebouncer.read() == LOW)
-  {
-    displayY++;
-  }
-
-  joystickLeftDebouncer.update();
-  if (joystickLeftDebouncer.read() == LOW)
-  {
-    displayX--;
-  }
-
-  joystickRightDebouncer.update();
-  if (joystickRightDebouncer.read() == LOW)
-  {
-    displayX++;
-  }
-
-  // Reset the screen
-  joystickCenterDebouncer.update();
-  if (joystickCenterDebouncer.read() == LOW)
-  {
-    clearScreen();
-    displayX = display.width() / 2;
-    displayY = display.height() / 2;
-  }
-
-  if ((lastX != displayX) || (lastY != displayY))
-  {
-    drawFilledCircle();
-  }
-}
-
-void drawFilledCircle()
-{
-  display.drawCircle(displayX, displayY, 1, WHITE);
-  display.drawCircle(displayX, displayY, 2, WHITE);
-  display.drawCircle(displayX, displayY, 3, WHITE);
-  display.drawCircle(displayX, displayY, 4, WHITE);
-  display.drawCircle(displayX, displayY, 5, WHITE);
-  display.display();
 }
 
 // This shall remain undocumented, for it is a secret... what it do?

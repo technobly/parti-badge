@@ -21,6 +21,28 @@ void clearScreen()
   display.setTextWrap(true);
 }
 
+int getCenterX(const char text[]) {
+  int textWidth = strlen(text) * 9;
+
+  return 64 - (textWidth / 2);
+}
+
+void messageBoxWithArray(const char *textStrings[]) {
+  int arrayLen = sizeof(textStrings);
+  int textHeight = 12;
+  int y = 64 / arrayLen;
+  clearScreen();
+  display.setTextSize(1);
+
+  for (int i = 0; i < arrayLen; i++) {
+    int x = getCenterX(textStrings[i]);
+
+    display.setCursor(x + 15 + i, y + textHeight * i);
+    display.println(textStrings[i]);
+  }
+  display.display();
+}
+
 void showSplashscreen() {
   clearScreen();
   display.drawBitmap(0, 16, sparkLogo, 128, 48, 1);
@@ -133,14 +155,8 @@ void showTempAndHumidity()
 }
 
 void displayCredits() {
-  clearScreen();
+  const char *creditStrings[] = { "Created by",
+    "a GLOBAL team", "at Particle!" };
 
-  display.setTextWrap(true);
-  display.setCursor(1, 28);
-  display.setTextSize(1);
-  display.println("Created by");
-  display.println("a GLOBAL team");
-  display.println("at Particle!");
-  display.display();
-  display.startscrollleft(0x00, 0x0F);
+  messageBoxWithArray(creditStrings);
 }
