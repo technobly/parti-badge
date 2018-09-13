@@ -11,6 +11,18 @@ extern bool titleShown;
 extern int currentTemp;
 extern int currentHumidity;
 
+bool displayingTemp = false;
+bool displayingWearerDetails = false;
+bool displayingAnimations = false;
+
+// Reset all display-related state booleans
+void resetDisplayBools()
+{
+  displayingTemp = false;
+  displayingWearerDetails = false;
+  displayingAnimations = false;
+}
+
 // Clear the OLED display
 void clearScreen()
 {
@@ -52,6 +64,8 @@ void showSplashscreen() {
 // Display the wearer's first and last name on the display
 void displayWearerDetails()
 {
+  displayingWearerDetails = true;
+
   int fnameLength = wearerFirstName.length();
   int lnameLength = wearerLastName.length();
   int longestLength = ((fnameLength > lnameLength) ? fnameLength : lnameLength);
@@ -99,6 +113,8 @@ void displayWearerDetails()
 }
 
 void displayTwitterHandle() {
+  displayingWearerDetails = true;
+
   clearScreen();
   display.setTextSize(2);
   display.setCursor(0, 10);
@@ -132,6 +148,8 @@ void showTitle()
 // Show the temperature and humidity on the display
 void showTempAndHumidity()
 {
+  displayingTemp = true;
+  
   clearScreen();
 
   display.drawBitmap(7, 18, tempImage, 16, 43, 1);
@@ -151,6 +169,8 @@ void showTempAndHumidity()
   display.println("%");
   display.drawBitmap(105, 28, humidityImage, 20, 27, 1);
   display.display();
+
+  displayingTemp = true;
 }
 
 void displayCredits() {

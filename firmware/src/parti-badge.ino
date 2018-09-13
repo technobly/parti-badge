@@ -102,13 +102,9 @@ String wearerLastName;
 String wearerTwitter;
 
 // Display variables
-bool displayingTemp = false;
-bool displayingLogo = false;
-bool displayingTitle = false;
-bool displayingWearerDetails = false;
-bool displayingAnimations = false;
-bool animationsInterrupted = false;
-bool playingRoll = false;
+extern bool displayingTemp;
+extern bool displayingWearerDetails;
+extern bool displayingAnimations;
 bool inCodeMode = false;
 bool menuShowing = false;
 
@@ -276,6 +272,17 @@ void loop()
           menu.InitMenu(mnuRoot, cntRoot, 1);
           break;
       }
+    } else if (menu.CurrentMenu == mnuSensors) {
+      switch (clickedItem) {
+        case 1:
+          showTempAndHumidity();
+          break;
+        case 2:
+          break;
+        case 3:
+          menu.InitMenu(mnuRoot, cntRoot, 3);
+          break;
+      }
     } else if (menu.CurrentMenu == mnuMusic) {
       switch (clickedItem) {
         case 1:
@@ -290,7 +297,7 @@ void loop()
           playBeegees();
           break;
         case 5:
-          menu.InitMenu(mnuRoot, cntRoot, 5);
+          menu.InitMenu(mnuRoot, cntRoot, 4);
           break;
       }
     } else if (menu.CurrentMenu == mnuGames) {
@@ -304,7 +311,7 @@ void loop()
         case 3:
           break;
         case 4:
-          menu.InitMenu(mnuRoot, cntRoot, 4);
+          menu.InitMenu(mnuRoot, cntRoot, 5);
           break;
       }
     }
@@ -315,11 +322,23 @@ void loop()
     else if (menu.CurrentMenu == mnuDisplay) {
       menu.InitMenu((const char **)mnuRoot, cntRoot, 1);
     }
+    else if (menu.CurrentMenu == mnuMesh) {
+      menu.InitMenu((const char **)mnuRoot, cntRoot, 2);
+    }
+    else if (menu.CurrentMenu == mnuSensors) {
+      menu.InitMenu((const char **)mnuRoot, cntRoot, 3);
+    }
     else if (menu.CurrentMenu == mnuMusic) {
       menu.InitMenu((const char **)mnuRoot, cntRoot, 4);
     }
     else if (menu.CurrentMenu == mnuGames) {
       menu.InitMenu((const char **)mnuRoot, cntRoot, 5);
+    }
+    else if (menu.CurrentMenu == mnuAnimations) {
+      menu.InitMenu((const char **)mnuRoot, cntRoot, 6);
+    }
+    else if (menu.CurrentMenu == mnuBlinky) {
+      menu.InitMenu((const char **)mnuRoot, cntRoot, 7);
     }
   }
 
@@ -421,18 +440,6 @@ void initLEDButtons()
   delay(medDel);
 
   toggleAllButtons(HIGH);
-}
-
-// Reset all display-related state booleans
-void resetDisplayBools()
-{
-  displayingTemp = false;
-  displayingWearerDetails = false;
-  displayingLogo = false;
-  displayingTitle = false;
-  displayingAnimations = false;
-  animationsInterrupted = false;
-  playingRoll = false;
 }
 
 // Get temp and humidity from the sensors

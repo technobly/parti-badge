@@ -1,6 +1,7 @@
 #include "parti-badge.h"
 #include "Particle.h"
 #include "leds/leds.h"
+#include "display/display.h"
 
 unsigned long last_micros = 0;
 long debouncing_time = 250;
@@ -53,6 +54,7 @@ void LEFT(){
     else {
       btncounter ++;
     }
+    resetDisplayBools();
     btnid = 4;
     last_micros = micros();
   }
@@ -69,6 +71,7 @@ void setupJoystickInterrupts() {
 void ESC(){
   if((long)(micros() - last_micros) >= debouncing_time * 1000) {
     detachInterrupt(RED_BUTTON_A);
+    resetDisplayBools();
     appmode = 0;
     btnid = 4;
     btncounter++;
@@ -80,6 +83,7 @@ void BACK(){
     appmode = 0;
     btnid = 4;
     btncounter++;
+    resetDisplayBools();
     toggleAllButtons(LOW);
     detachInterrupt(JOYSTICK_LEFT);
     attachInterrupt(JOYSTICK_LEFT, LEFT, FALLING); // Set the default interrupt back up
