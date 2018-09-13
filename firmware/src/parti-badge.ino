@@ -46,9 +46,11 @@
 // Sub-system includes
 #include "display/display.h"
 #include "games/games.h"
+#include "games/simon.h"
+#include "leds/leds.h"
+#include "music/music.h"
 
 #include "parti-badge.h" // #define pin assignments and other general macros
-#include "music/tones.h" // Peizo Sounds
 #include "music/roll.h"
 #include "WearerInfo/WearerInfo.h"
 
@@ -67,8 +69,6 @@ void resetDisplayBools();
 
 // Menu Init
 qMenuSystem menu = qMenuSystem(&display);
-
-#include "simonsays/simon.h" // Simon Says Code
 
 String deviceId;
 WearerInfo wearerInfo;
@@ -101,10 +101,6 @@ String wearerFirstName;
 String wearerLastName;
 String wearerTwitter;
 
-// Default to display mode, but we'll determine this based on a
-// the user holding a button down at startup
-int badgeMode = DISPLAY_MODE;
-
 // Display variables
 bool displayingTemp = false;
 bool displayingLogo = false;
@@ -112,7 +108,6 @@ bool displayingTitle = false;
 bool displayingWearerDetails = false;
 bool displayingAnimations = false;
 bool animationsInterrupted = false;
-bool displayingEtchASketch = false;
 bool playingRoll = false;
 bool inCodeMode = false;
 bool menuShowing = false;
@@ -170,11 +165,7 @@ void setup()
   initLEDButtons();
 
   // Play a startup sound on the Piezo
-  if (!startupSoundPlayed)
-    playStartup(BUZZER_PIN);
-
-  // Determine if we're in display or game mode
-  checkBadgeMode();
+  playStartup(BUZZER_PIN);
 
   // Connect to the Particle device cloud
   Particle.connect();
@@ -285,9 +276,27 @@ void loop()
           menu.InitMenu(mnuRoot, cntRoot, 1);
           break;
       }
+    } else if (menu.CurrentMenu == mnuMusic) {
+      switch (clickedItem) {
+        case 1:
+          playStartup(BUZZER_PIN);
+          break;
+        case 2:
+          playGameOver(BUZZER_PIN);
+          break;
+        case 3:
+          break;
+        case 4:
+          playBeegees();
+          break;
+        case 5:
+          menu.InitMenu(mnuRoot, cntRoot, 5);
+          break;
+      }
     } else if (menu.CurrentMenu == mnuGames) {
       switch (clickedItem) {
         case 1:
+          initSimon();
           break;
         case 2:
           etchASketch();
@@ -295,7 +304,7 @@ void loop()
         case 3:
           break;
         case 4:
-          menu.InitMenu(mnuRoot, cntRoot, 1);
+          menu.InitMenu(mnuRoot, cntRoot, 4);
           break;
       }
     }
@@ -306,49 +315,17 @@ void loop()
     else if (menu.CurrentMenu == mnuDisplay) {
       menu.InitMenu((const char **)mnuRoot, cntRoot, 1);
     }
+    else if (menu.CurrentMenu == mnuMusic) {
+      menu.InitMenu((const char **)mnuRoot, cntRoot, 4);
+    }
     else if (menu.CurrentMenu == mnuGames) {
       menu.InitMenu((const char **)mnuRoot, cntRoot, 5);
     }
   }
 
-  if (badgeMode == DISPLAY_MODE) {
-    if (currentMillis - previousEnvReading > TEMP_CHECK_INTERVAL) {
-      previousEnvReading = currentMillis;
-      getTempAndHumidity();
-    }
-
-    if (displayingEtchASketch){
-      etchASketch();
-    }
-
-    if (digitalRead(D7) == HIGH || playingRoll) {
-      playingRoll = true;
-
-      playRoll(&display);
-    }
-
-    checkInputSequence();
-  }
-  else if (badgeMode == GAME_MODE) {
-    configureGame();
-
-    playGame();
-  }
-}
-
-// Switch to Simon Says mode if the A and B buttons are held down at startup
-void checkBadgeMode()
-{
-  redButtonADebouncer.update();
-  blueButtonBDebouncer.update();
-
-  if (redButtonADebouncer.read() == LOW && blueButtonBDebouncer.read() == LOW)
-  {
-    badgeMode = GAME_MODE;
-  }
-  else
-  {
-    badgeMode = DISPLAY_MODE;
+  if (currentMillis - previousEnvReading > TEMP_CHECK_INTERVAL) {
+    previousEnvReading = currentMillis;
+    getTempAndHumidity();
   }
 }
 
@@ -446,15 +423,6 @@ void initLEDButtons()
   toggleAllButtons(HIGH);
 }
 
-// Toggle all the buttons on or off
-void toggleAllButtons(int state)
-{
-  digitalWrite(RED_LED, state);
-  digitalWrite(BLUE_LED, state);
-  digitalWrite(GREEN_LED, state);
-  digitalWrite(YELLOW_LED, state);
-}
-
 // Reset all display-related state booleans
 void resetDisplayBools()
 {
@@ -464,7 +432,6 @@ void resetDisplayBools()
   displayingTitle = false;
   displayingAnimations = false;
   animationsInterrupted = false;
-  displayingEtchASketch = false;
   playingRoll = false;
 }
 

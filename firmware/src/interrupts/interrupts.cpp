@@ -1,5 +1,6 @@
 #include "parti-badge.h"
 #include "Particle.h"
+#include "leds/leds.h"
 
 unsigned long last_micros = 0;
 long debouncing_time = 250;
@@ -74,6 +75,22 @@ void ESC(){
   }
 }
 
+void BACK(){
+  if((long)(micros() - last_micros) >= debouncing_time * 1000) {
+    appmode = 0;
+    btnid = 4;
+    btncounter++;
+    toggleAllButtons(LOW);
+    detachInterrupt(JOYSTICK_LEFT);
+    attachInterrupt(JOYSTICK_LEFT, LEFT, FALLING); // Set the default interrupt back up
+  }
+}
+
 void setupAButtonInterrupt() {
   attachInterrupt(RED_BUTTON_A, ESC, FALLING);
+}
+
+void setupBackButtonInterrupt() {
+  detachInterrupt(JOYSTICK_LEFT);
+  attachInterrupt(JOYSTICK_LEFT, BACK, FALLING);
 }

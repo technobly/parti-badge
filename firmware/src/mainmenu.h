@@ -48,23 +48,24 @@ const int cntSensors = 3;
 static const char itmMusic1[] = "Mario Start";
 static const char itmMusic2[] = "Mario Game Over";
 static const char itmMusic3[] = "Never Gonna";
+static const char itmMusic4[] = "Bee Gees";
 const char *const mnuMusic[] = {
-    itmRootMesh,
-    itmMusic1, itmMusic2, itmMusic3, itmBack };
-const int cntMusic = 4;
+    itmRootMusic,
+    itmMusic1, itmMusic2, itmMusic3, itmMusic4, itmBack };
+const int cntMusic = 5;
 
 static const char itmGame1[] = "Simon Says";
 static const char itmGame2[] = "Etch a Sketch";
 static const char itmGame3[] = "Snake";
 const char *const mnuGames[] = {
-    itmRootMesh,
+    itmRootGames,
     itmGame1, itmGame2, itmGame3, itmBack };
 const int cntGames = 4;
 
 static const char itmAnimation1[] = "All";
 static const char itmAnimation2[] = "Snowflakes";
 const char *const mnuAnimations[] = {
-    itmRootMesh,
+    itmRootAnimations,
     itmAnimation1, itmAnimation2, itmBack };
 const int cntAnimations = 3;
 
@@ -73,6 +74,6 @@ static const char itmBlinky2[] = "Pulsing";
 static const char itmBlinky3[] = "Random";
 static const char itmBlinky4[] = "See-saw";
 const char *const mnuBlinky[] = {
-    itmRootMesh,
+    itmRootBlinky,
     itmBlinky4, itmBlinky2, itmBlinky3, itmBlinky4, itmBack };
 const int cntBlinky = 5;

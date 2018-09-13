@@ -3,5 +3,6 @@
 
 void setupJoystickInterrupts();
 void setupAButtonInterrupt();
+void setupBackButtonInterrupt();
 
 #endif

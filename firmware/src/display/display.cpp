@@ -21,23 +21,22 @@ void clearScreen()
   display.setTextWrap(true);
 }
 
-int getCenterX(const char text[]) {
-  int textWidth = strlen(text) * 9;
+int getCenterX(const char text[], int textSize) {
+  int textWidth = strlen(text) * 9 * textSize;
 
   return 64 - (textWidth / 2);
 }
 
-void messageBoxWithArray(const char *textStrings[]) {
-  int arrayLen = sizeof(textStrings);
+void messageBoxWithArray(const char *textStrings[], int arrayLen, int textSize) {
   int textHeight = 12;
-  int y = 64 / arrayLen;
+  int y = textSize == 1 ? 64 / arrayLen : 18;
   clearScreen();
-  display.setTextSize(1);
+  display.setTextSize(textSize);
 
   for (int i = 0; i < arrayLen; i++) {
-    int x = getCenterX(textStrings[i]);
+    int x = getCenterX(textStrings[i], textSize);
 
-    display.setCursor(x + 15 + i, y + textHeight * i);
+    display.setCursor(x + (15 / textSize) + i, y + textHeight * i * textSize);
     display.println(textStrings[i]);
   }
   display.display();
@@ -158,5 +157,5 @@ void displayCredits() {
   const char *creditStrings[] = { "Created by",
     "a GLOBAL team", "at Particle!" };
 
-  messageBoxWithArray(creditStrings);
+  messageBoxWithArray(creditStrings, 3, 1);
 }
