@@ -61,19 +61,11 @@ void playGameOver(int tonePin) {
 }
 
 void playBeegees() {
-  //Turn on the bottom right (yellow) LED
-  setLEDs(CHOICE_YELLOW);
-  toner(CHOICE_YELLOW, 150);
-
   setLEDs(CHOICE_RED | CHOICE_GREEN | CHOICE_BLUE); // Turn on the other LEDs until you release button
-
-  while(checkButton() != CHOICE_NONE) ; // Wait for user to stop pressing button
 
   setLEDs(CHOICE_NONE); // Turn off LEDs
 
-  delay(1000); // Wait a second before playing song
-
-  while(checkButton() == CHOICE_NONE) //Play song until you press a button
+  for (int i = 0; i < 2; i++)
   {
     // iterate over the notes of the melody:
     for (int thisNote = 0; thisNote < 32; thisNote++) {
@@ -87,6 +79,8 @@ void playBeegees() {
       noTone(BUZZER_PIN);
     }
   }
+
+  setLEDs(CHOICE_NONE);
 }
 
 // Toggle buzzer every buzz_delay_us, for a duration of buzz_length_ms.
