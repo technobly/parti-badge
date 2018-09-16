@@ -1,7 +1,9 @@
 #include "Adafruit_SSD1306.h"
+
 #include "images/spark.h"
 #include "images/temp.h"
 #include "images/humidity.h"
+#include "images/konami.h"
 
 extern Adafruit_SSD1306 display;
 extern String wearerFirstName;
@@ -149,7 +151,7 @@ void showTitle()
 void showTempAndHumidity()
 {
   displayingTemp = true;
-  
+
   clearScreen();
 
   display.drawBitmap(7, 18, tempImage, 16, 43, 1);
@@ -178,4 +180,13 @@ void displayCredits() {
     "a GLOBAL team", "at Particle!" };
 
   messageBoxWithArray(creditStrings, 3, 1);
+}
+
+void showKonami() {
+  display.clearDisplay();
+  display.display();
+  display.setCursor(0, 0);
+  display.drawBitmap(0, 0, konamiLogo, 128, 64, 1);
+  display.display();
+  display.startscrollleft(0x00, 0x0F);
 }

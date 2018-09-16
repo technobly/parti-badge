@@ -49,6 +49,7 @@
 #include "games/simon.h"
 #include "leds/leds.h"
 #include "music/music.h"
+#include "keylogger/keylogger.h"
 
 #include "parti-badge.h" // #define pin assignments and other general macros
 #include "music/roll.h"
@@ -105,10 +106,8 @@ String wearerTwitter;
 extern bool displayingTemp;
 extern bool displayingWearerDetails;
 extern bool displayingAnimations;
-bool inCodeMode = false;
 bool menuShowing = false;
 
-#include "keylogger/keylogger.h"
 #include "animations/animations.h"
 
 // Display state management
@@ -241,12 +240,15 @@ void loop()
           menu.InitMenu((const char ** )mnuGames, cntGames,1);
           break;
         case 6:
-          menu.InitMenu((const char ** )mnuAnimations, cntAnimations,1);
+          menu.InitMenu((const char ** )mnuGraphics, cntGraphics, 1);
           break;
         case 7:
-          menu.InitMenu((const char ** )mnuBlinky, cntBlinky,1);
+          menu.InitMenu((const char ** )mnuAnimations, cntAnimations,1);
           break;
         case 8:
+          menu.InitMenu((const char ** )mnuBlinky, cntBlinky,1);
+          break;
+        case 9:
           displayCredits();
           break;
       }
@@ -314,6 +316,20 @@ void loop()
           menu.InitMenu(mnuRoot, cntRoot, 5);
           break;
       }
+    }  else if (menu.CurrentMenu == mnuGraphics) {
+      switch (clickedItem) {
+        case 1:
+          showSplashscreen();
+          break;
+        case 2:
+          break;
+        case 3:
+          showKonami();
+          break;
+        case 4:
+          menu.InitMenu(mnuRoot, cntRoot, 6);
+          break;
+      }
     }
   } else if (clickedItem == -1 && menuShowing) {
     if (menu.CurrentMenu == mnuRoot) { /* In root, do nothing */ }
@@ -334,11 +350,14 @@ void loop()
     else if (menu.CurrentMenu == mnuGames) {
       menu.InitMenu((const char **)mnuRoot, cntRoot, 5);
     }
-    else if (menu.CurrentMenu == mnuAnimations) {
+    else if (menu.CurrentMenu == mnuGraphics) {
       menu.InitMenu((const char **)mnuRoot, cntRoot, 6);
     }
-    else if (menu.CurrentMenu == mnuBlinky) {
+    else if (menu.CurrentMenu == mnuAnimations) {
       menu.InitMenu((const char **)mnuRoot, cntRoot, 7);
+    }
+    else if (menu.CurrentMenu == mnuBlinky) {
+      menu.InitMenu((const char **)mnuRoot, cntRoot, 8);
     }
   }
 
@@ -458,61 +477,6 @@ void getTempAndHumidity()
   }
 
   fireEnvSensorsEvent(currentTemp, currentHumidity);
-}
-
-// This shall remain undocumented, for it is a secret... what it do?
-void checkInputSequence()
-{
-  redButtonADebouncer.update();
-  if (redButtonADebouncer.read() == LOW && !checkingInputs)
-  {
-    checkingInputs = true;
-    checkKeyProgress(RED_BUTTON_A, &display);
-  }
-
-  blueButtonBDebouncer.update();
-  if (blueButtonBDebouncer.read() == LOW && !checkingInputs)
-  {
-    checkingInputs = true;
-    checkKeyProgress(BLUE_BUTTON_B, &display);
-  }
-
-  joystickUpDebouncer.update();
-  if (joystickUpDebouncer.read() == LOW && !checkingInputs)
-  {
-    checkingInputs = true;
-    checkKeyProgress(JOYSTICK_UP, &display);
-  }
-
-  joystickDownDebouncer.update();
-  if (joystickDownDebouncer.read() == LOW && !checkingInputs)
-  {
-    checkingInputs = true;
-    checkKeyProgress(JOYSTICK_DOWN, &display);
-  }
-
-  joystickLeftDebouncer.update();
-  if (joystickLeftDebouncer.read() == LOW && !checkingInputs)
-  {
-    checkingInputs = true;
-    checkKeyProgress(JOYSTICK_LEFT, &display);
-  }
-
-  joystickRightDebouncer.update();
-  if (joystickRightDebouncer.read() == LOW && !checkingInputs)
-  {
-    checkingInputs = true;
-    checkKeyProgress(JOYSTICK_RIGHT, &display);
-  }
-
-  joystickCenterDebouncer.update();
-  if (joystickCenterDebouncer.read() == LOW && !checkingInputs)
-  {
-    checkingInputs = true;
-    checkKeyProgress(JOYSTICK_CENTER, &display);
-  }
-
-  checkingInputs = false;
 }
 
 //Update the first name when called from a cloud function

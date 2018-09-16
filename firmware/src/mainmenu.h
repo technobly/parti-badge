@@ -11,6 +11,7 @@ static const char itmRootMesh[] = "Mesh Tools";
 static const char itmRootSensors[] = "Sensors";
 static const char itmRootMusic[] = "Music";
 static const char itmRootGames[] = "Games";
+static const char itmRootGraphics[] = "Graphics";
 static const char itmRootAnimations[] = "Animations";
 static const char itmRootBlinky[] = "Blnky";
 static const char itmRootAbout[] = "About";
@@ -18,8 +19,9 @@ static const char itmRootAbout[] = "About";
 static const char *mnuRoot[] = {
     itmRoot,
     itmRootDisplay, itmRootMesh, itmRootSensors, itmRootMusic,
-    itmRootGames, itmRootAnimations, itmRootBlinky, itmRootAbout};
-const int cntRoot = 8;
+    itmRootGames, itmRootGraphics, itmRootAnimations, itmRootBlinky,
+    itmRootAbout};
+const int cntRoot = 9;
 
 static const char itmDisplay1[] = "Badge Marquee";
 static const char itmDisplay2[] = "Name";
@@ -61,6 +63,14 @@ const char *const mnuGames[] = {
     itmRootGames,
     itmGame1, itmGame2, itmGame3, itmBack };
 const int cntGames = 4;
+
+static const char itmGraphics1[] = "Spark";
+static const char itmGraphics2[] = "Mesh";
+static const char itmGraphics3[] = "Konami";
+const char *const mnuGraphics[] = {
+    itmRootGraphics,
+    itmGraphics1, itmGraphics2, itmGraphics3, itmBack };
+  const int cntGraphics = 4;
 
 static const char itmAnimation1[] = "All";
 static const char itmAnimation2[] = "Snowflakes";

@@ -10,5 +10,6 @@ void displayTwitterHandle();
 void showTitle();
 void showTempAndHumidity();
 void displayCredits();
+void showKonami();
 
 #endif
