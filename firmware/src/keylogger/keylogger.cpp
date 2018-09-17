@@ -1,18 +1,9 @@
 #include "parti-badge.h"
-#include "Debounce.h"
+#include "inputs/inputs.h"
 #include "Adafruit_SSD1306.h"
 #include "display/display.h"
 
 extern Adafruit_SSD1306 display;
-extern Debounce redButtonADebouncer;
-extern Debounce blueButtonBDebouncer;
-extern Debounce greenButtonCDebouncer;
-extern Debounce yellowButtonDDebouncer;
-extern Debounce joystickUpDebouncer;
-extern Debounce joystickDownDebouncer;
-extern Debounce joystickLeftDebouncer;
-extern Debounce joystickRightDebouncer;
-extern Debounce joystickCenterDebouncer;
 extern bool checkingInputs;
 
 static const unsigned int codeKeys[] = {

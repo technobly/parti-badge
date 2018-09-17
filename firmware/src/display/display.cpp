@@ -133,8 +133,6 @@ void displayTwitterHandle() {
 // Show the title text on the display
 void showTitle()
 {
-  titleShown = true;
-
   display.clearDisplay();
   display.setTextWrap(true);
   display.setTextColor(WHITE);

@@ -1,14 +1,9 @@
 #include "Adafruit_SSD1306.h"
-#include "Debounce.h"
+#include "inputs/inputs.h"
 #include "display/display.h"
 #include "interrupts/interrupts.h"
 
 extern Adafruit_SSD1306 display;
-extern Debounce joystickUpDebouncer;
-extern Debounce joystickDownDebouncer;
-extern Debounce joystickLeftDebouncer;
-extern Debounce joystickRightDebouncer;
-extern Debounce joystickCenterDebouncer;
 extern byte appmode;
 extern byte btncounter;
 extern byte btnid;

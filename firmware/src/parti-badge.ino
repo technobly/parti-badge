@@ -30,7 +30,6 @@
  */
 
 #include "Particle.h"
-#include "Debounce.h"
 
 // Display includes
 #include "Adafruit_GFX.h"
@@ -40,10 +39,13 @@
 #include "mainmenu.h"
 #include <qMenuSystem.h>
 
+#include "parti-badge.h" // #define pin assignments and other general macros
+
 // Interrupts
 #include "interrupts/interrupts.h"
 
 // Sub-system includes
+#include "inputs/inputs.h"
 #include "display/display.h"
 #include "games/games.h"
 #include "games/simon.h"
@@ -51,7 +53,6 @@
 #include "music/music.h"
 #include "keylogger/keylogger.h"
 
-#include "parti-badge.h" // #define pin assignments and other general macros
 #include "music/roll.h"
 #include "WearerInfo/WearerInfo.h"
 
@@ -73,19 +74,6 @@ qMenuSystem menu = qMenuSystem(&display);
 
 String deviceId;
 WearerInfo wearerInfo;
-
-// Button Debounce Support
-Debounce redButtonADebouncer = Debounce();
-Debounce blueButtonBDebouncer = Debounce();
-Debounce greenButtonCDebouncer = Debounce();
-Debounce yellowButtonDDebouncer = Debounce();
-
-// Debouncers for 5-way tactile switch
-Debounce joystickUpDebouncer = Debounce();
-Debounce joystickDownDebouncer = Debounce();
-Debounce joystickLeftDebouncer = Debounce();
-Debounce joystickRightDebouncer = Debounce();
-Debounce joystickCenterDebouncer = Debounce();
 
 // Initialize Si7021 sensor
 Adafruit_Si7021 envSensor = Adafruit_Si7021();
@@ -111,8 +99,6 @@ bool menuShowing = false;
 #include "animations/animations.h"
 
 // Display state management
-bool titleShown = false;
-bool buttonsInitialized = false;
 bool checkingInputs = false;
 
 volatile byte btncounter = 0;
@@ -148,7 +134,7 @@ void setup()
   pinMode(BUZZER_PIN, OUTPUT);
 
   // Init the LED and Joystick Buttons
-  initButtons();
+  initInputDebouncers();
 
   // Set up Interrupts
   setupJoystickInterrupts();
@@ -395,70 +381,6 @@ void initWearerDetails()
     wearerLastName = wearerInfo.getLastName();
     wearerTwitter = wearerInfo.getTwitter();
   }
-}
-
-// Init debouncers for all of our inputs
-void initButtons()
-{
-  // Init Buttons as Inputs
-  redButtonADebouncer.attach(RED_BUTTON_A, INPUT_PULLUP);
-  redButtonADebouncer.interval(DEBOUNCE_INTERVAL);
-  blueButtonBDebouncer.attach(BLUE_BUTTON_B, INPUT_PULLUP);
-  blueButtonBDebouncer.interval(DEBOUNCE_INTERVAL);
-  greenButtonCDebouncer.attach(GREEN_BUTTON_C, INPUT_PULLUP);
-  greenButtonCDebouncer.interval(DEBOUNCE_INTERVAL);
-  yellowButtonDDebouncer.attach(YELLOW_BUTTON_D, INPUT_PULLUP);
-  yellowButtonDDebouncer.interval(DEBOUNCE_INTERVAL);
-
-  // Joystick buttons as Inputs
-  joystickUpDebouncer.attach(JOYSTICK_UP, INPUT_PULLUP);
-  joystickUpDebouncer.interval(DEBOUNCE_INTERVAL);
-  joystickDownDebouncer.attach(JOYSTICK_DOWN, INPUT_PULLUP);
-  joystickDownDebouncer.interval(DEBOUNCE_INTERVAL);
-  joystickLeftDebouncer.attach(JOYSTICK_LEFT, INPUT_PULLUP);
-  joystickLeftDebouncer.interval(DEBOUNCE_INTERVAL);
-  joystickRightDebouncer.attach(JOYSTICK_RIGHT, INPUT_PULLUP);
-  joystickRightDebouncer.interval(DEBOUNCE_INTERVAL);
-  joystickCenterDebouncer.attach(JOYSTICK_CENTER, INPUT_PULLUP);
-  joystickCenterDebouncer.interval(DEBOUNCE_INTERVAL);
-}
-
-// Set up the tactile LED buttons
-void initLEDButtons()
-{
-  buttonsInitialized = true;
-
-  int del = 300;
-  int medDel = 500;
-
-  // Init D7
-  pinMode(D7, INPUT_PULLDOWN);
-
-  // Init LEDs and Outputs
-  pinMode(RED_LED, OUTPUT);
-  pinMode(BLUE_LED, OUTPUT);
-  pinMode(GREEN_LED, OUTPUT);
-  pinMode(YELLOW_LED, OUTPUT);
-
-  digitalWrite(RED_LED, HIGH);
-  delay(del);
-  digitalWrite(BLUE_LED, HIGH);
-  delay(del);
-  digitalWrite(GREEN_LED, HIGH);
-  delay(del);
-  digitalWrite(YELLOW_LED, HIGH);
-  delay(del);
-
-  toggleAllButtons(LOW);
-  delay(medDel);
-
-  toggleAllButtons(HIGH);
-  delay(medDel);
-
-  toggleAllButtons(LOW);
-  delay(medDel);
-
-  toggleAllButtons(HIGH);
 }
 
 // Get temp and humidity from the sensors
