@@ -134,8 +134,6 @@ void setup()
   // Set up cloud variables and functions
   cloudInit();
 
-  rollSetup();
-
   // Set the Piezo buzzer as an output
   pinMode(BUZZER_PIN, OUTPUT);
 
@@ -296,6 +294,7 @@ void loop()
         playGameOver(BUZZER_PIN);
         break;
       case 3:
+        playRoll();
         break;
       case 4:
         playBeegees();
