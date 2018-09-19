@@ -13,6 +13,8 @@
  Ported for the ATmega168, then ATmega328, then Arduino 1.0.
  Fixes and cleanup by Joshua Neal <joshua[at]trochotron.com>
 
+ Migration to Particle ecosystem by Brandon Satrom <brandon@particle.io> from June to October, 2018.
+
  Generates random sequence, plays music, and displays button lights.
 
  Simon tones from Wikipedia
@@ -40,15 +42,13 @@
  was removed to reduce component count.  This version of simon relies on the
  internal default 1MHz osciallator. Do not set the external fuses.
  */
-
-#define CHOICE_OFF      0 //Used to control LEDs
-#define CHOICE_NONE     0 //Used to check buttons
-#define CHOICE_RED	(1 << 0)
-#define CHOICE_GREEN	(1 << 1)
-#define CHOICE_BLUE	(1 << 2)
-#define CHOICE_YELLOW	(1 << 3)
-
-#include "music/notes.h" // Used for the MODE_BEEGEES, for playing the melody on the buzzer!
+#include "Particle.h"
+#include "Adafruit_SSD1306.h"
+#include "macros.h"
+#include "display/display.h"
+#include "interrupts/interrupts.h"
+#include "leds/leds.h"
+#include "music/music.h"
 
 // Define game parameters
 #define ROUNDS_TO_WIN      13 //Number of rounds to succesfully remember before you win. 13 is do-able.
@@ -63,55 +63,73 @@ byte gameMode = MODE_MEMORY; //By default, let's play the memory game
 byte gameBoard[32]; //Contains the combination of buttons as we advance
 byte gameRound = 0; //Counts the number of succesful rounds the player has made it through
 
-boolean gameConfigured = false;
+extern Adafruit_SSD1306 display;
+extern byte appmode;
+extern byte btncounter;
+extern byte btnid;
 
+boolean gameConfigured = false;
+const char score[] = "Current Score";
+
+void configureGame();
+void playGame();
 boolean play_memory(void);
 boolean play_battle(void);
 void add_to_moves(void);
 void setLEDs(byte leds);
 byte wait_for_button(void);
-byte checkButton(void);
-void toner(byte which, int buzz_length_ms);
-void buzz_sound(int buzz_length_ms, int buzz_delay_us);
 void play_winner(void);
 void winner_sound(void);
 void play_loser(void);
 void play_beegees();
-void changeLED(void);
 void attractMode(void);
 void playMoves(void);
 
+void initSimon() {
+  appmode = 1;
+  btnid = 0;
+
+  configureGame();
+  setupBackButtonInterrupt();
+
+  while (appmode) {
+    playGame();
+  }
+}
+
 void configureGame()
 {
-  if (!gameConfigured) {
-    //Setup hardware inputs/outputs. These pins are defined in the hardware_versions header file
+  const char *simonSays[] = { "Simon",
+      "Says" };
 
-    //Mode checking
-    gameMode = MODE_MEMORY; // By default, we're going to play the memory game
+  clearScreen();
+  messageBoxWithArray(simonSays, 2, 2);
 
-    // Check to see if the lower right button is pressed
-    if (checkButton() == CHOICE_YELLOW) play_beegees();
+  delay(2000);
+  clearScreen();
 
-    // Check to see if upper right button is pressed
-    if (checkButton() == CHOICE_GREEN)
-    {
-      gameMode = MODE_BATTLE; //Put game into battle mode
+  //Setup hardware inputs/outputs. These pins are defined in the hardware_versions header file
 
-      //Turn on the upper right (green) LED
-      setLEDs(CHOICE_GREEN);
-      toner(CHOICE_GREEN, 150);
+  //Mode checking
+  gameMode = MODE_MEMORY; // By default, we're going to play the memory game
 
-      setLEDs(CHOICE_RED | CHOICE_BLUE | CHOICE_YELLOW); // Turn on the other LEDs until you release button
+  //Check to see if upper right button is pressed
+  if (checkButton() == CHOICE_GREEN)
+  {
+    gameMode = MODE_BATTLE; //Put game into battle mode
 
-      while(checkButton() != CHOICE_NONE) ; // Wait for user to stop pressing button
+    //Turn on the upper right (green) LED
+    setLEDs(CHOICE_GREEN);
+    toner(CHOICE_GREEN, 150);
 
-      //Now do nothing. Battle mode will be serviced in the main routine
-    }
+    setLEDs(CHOICE_RED | CHOICE_BLUE | CHOICE_YELLOW); // Turn on the other LEDs until you release button
 
-    play_winner(); // After setup is complete, say hello to the world
+    while(checkButton() != CHOICE_NONE) ; // Wait for user to stop pressing button
 
-    gameConfigured = true;
+    //Now do nothing. Battle mode will be serviced in the main routine
   }
+
+  play_winner(); // After setup is complete, say hello to the world
 }
 
 void playGame()
@@ -123,8 +141,6 @@ void playGame()
   delay(1000);
   setLEDs(CHOICE_OFF); // Turn off LEDs
   delay(250);
-
-  fireSimonEvent();
 
   if (gameMode == MODE_MEMORY)
   {
@@ -156,11 +172,17 @@ boolean play_memory(void)
 
   while (gameRound < ROUNDS_TO_WIN)
   {
+    int lenModifier = gameRound < 10 ? 1 : 18;
+    int x = 55 - (lenModifier);
+
     clearScreen();
-    display.setCursor(85, -35);
-    display.setTextSize(6);
-    display.println();
-    display.print(' ');
+    display.setTextSize(1);
+    display.setCursor(64 - strlen(score) * 3, 5);
+    display.println(score);
+    display.drawFastHLine(0, 14, 128, WHITE);
+
+    display.setTextSize(4);
+    display.setCursor(x, 25);
     display.println(gameRound);
     display.display();
 
@@ -181,7 +203,6 @@ boolean play_memory(void)
     delay(1000); // Player was correct, delay before playing moves
   }
 
-  fireSimonWinnerEvent();
   return true; // Player made it through all the rounds to win!
 }
 
@@ -244,31 +265,6 @@ void add_to_moves(void)
 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 //The following functions control the hardware
 
-// Lights a given LEDs
-// Pass in a byte that is made up from CHOICE_RED, CHOICE_YELLOW, etc
-void setLEDs(byte leds)
-{
-  if ((leds & CHOICE_RED) != 0)
-    digitalWrite(RED_LED, HIGH);
-  else
-    digitalWrite(RED_LED, LOW);
-
-  if ((leds & CHOICE_GREEN) != 0)
-    digitalWrite(GREEN_LED, HIGH);
-  else
-    digitalWrite(GREEN_LED, LOW);
-
-  if ((leds & CHOICE_BLUE) != 0)
-    digitalWrite(BLUE_LED, HIGH);
-  else
-    digitalWrite(BLUE_LED, LOW);
-
-  if ((leds & CHOICE_YELLOW) != 0)
-    digitalWrite(YELLOW_LED, HIGH);
-  else
-    digitalWrite(YELLOW_LED, LOW);
-}
-
 // Wait for a button to be pressed.
 // Returns one of LED colors (LED_RED, etc.) if successful, 0 if timed out
 byte wait_for_button(void)
@@ -293,68 +289,6 @@ byte wait_for_button(void)
   }
 
   return CHOICE_NONE; // If we get here, we've timed out!
-}
-
-// Returns a '1' bit in the position corresponding to CHOICE_RED, CHOICE_GREEN, etc.
-byte checkButton(void)
-{
-  if (digitalRead(RED_BUTTON_A) == 0) return(CHOICE_RED);
-  else if (digitalRead(GREEN_BUTTON_C) == 0) return(CHOICE_GREEN);
-  else if (digitalRead(BLUE_BUTTON_B) == 0) return(CHOICE_BLUE);
-  else if (digitalRead(YELLOW_BUTTON_D) == 0) return(CHOICE_YELLOW);
-
-  return(CHOICE_NONE); // If no button is pressed, return none
-}
-
-// Light an LED and play tone
-// Red, upper left:     440Hz - 2.272ms - 1.136ms pulse
-// Green, upper right:  880Hz - 1.136ms - 0.568ms pulse
-// Blue, lower left:    587.33Hz - 1.702ms - 0.851ms pulse
-// Yellow, lower right: 784Hz - 1.276ms - 0.638ms pulse
-void toner(byte which, int buzz_length_ms)
-{
-  setLEDs(which); //Turn on a given LED
-
-  //Play the sound associated with the given LED
-  switch(which)
-  {
-  case CHOICE_RED:
-    buzz_sound(buzz_length_ms, 1136);
-    break;
-  case CHOICE_GREEN:
-    buzz_sound(buzz_length_ms, 568);
-    break;
-  case CHOICE_BLUE:
-    buzz_sound(buzz_length_ms, 851);
-    break;
-  case CHOICE_YELLOW:
-    buzz_sound(buzz_length_ms, 638);
-    break;
-  }
-
-  setLEDs(CHOICE_OFF); // Turn off all LEDs
-}
-
-// Toggle buzzer every buzz_delay_us, for a duration of buzz_length_ms.
-void buzz_sound(int buzz_length_ms, int buzz_delay_us)
-{
-  // Convert total play time from milliseconds to microseconds
-  long buzz_length_us = buzz_length_ms * (long)1000;
-
-  // Loop until the remaining play time is less than a single buzz_delay_us
-  while (buzz_length_us > (buzz_delay_us * 2))
-  {
-    buzz_length_us -= buzz_delay_us * 2; //Decrease the remaining play time
-
-    // Toggle the buzzer at various speeds
-    digitalWrite(BUZZER_PIN, LOW);
-    digitalWrite(BUZZER_PIN, HIGH);
-    delayMicroseconds(buzz_delay_us);
-
-    digitalWrite(BUZZER_PIN, HIGH);
-    digitalWrite(BUZZER_PIN, LOW);
-    delayMicroseconds(buzz_delay_us);
-  }
 }
 
 // Play the winner sound and lights
@@ -427,58 +361,4 @@ void attractMode(void)
     delay(100);
     if (checkButton() != CHOICE_NONE) return;
   }
-}
-
-//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-// The following functions are related to Beegees Easter Egg only
-
-// Notes in the melody. Each note is about an 1/8th note, "0"s are rests.
-int melody[] = {
-  NOTE_G4, NOTE_A4, 0, NOTE_C5, 0, 0, NOTE_G4, 0, 0, 0,
-  NOTE_E4, 0, NOTE_D4, NOTE_E4, NOTE_G4, 0,
-  NOTE_D4, NOTE_E4, 0, NOTE_G4, 0, 0,
-  NOTE_D4, 0, NOTE_E4, 0, NOTE_G4, 0, NOTE_A4, 0, NOTE_C5, 0};
-
-int noteDuration = 115; // This essentially sets the tempo, 115 is just about right for a disco groove :)
-int LEDnumber = 0; // Keeps track of which LED we are on during the beegees loop
-
-// Do nothing but play bad beegees music
-// This function is activated when user holds bottom right button during power up
-void play_beegees()
-{
-  //Turn on the bottom right (yellow) LED
-  setLEDs(CHOICE_YELLOW);
-  toner(CHOICE_YELLOW, 150);
-
-  setLEDs(CHOICE_RED | CHOICE_GREEN | CHOICE_BLUE); // Turn on the other LEDs until you release button
-
-  while(checkButton() != CHOICE_NONE) ; // Wait for user to stop pressing button
-
-  setLEDs(CHOICE_NONE); // Turn off LEDs
-
-  delay(1000); // Wait a second before playing song
-
-  while(checkButton() == CHOICE_NONE) //Play song until you press a button
-  {
-    // iterate over the notes of the melody:
-    for (int thisNote = 0; thisNote < 32; thisNote++) {
-      changeLED();
-      tone(BUZZER_PIN, melody[thisNote],noteDuration);
-      // to distinguish the notes, set a minimum time between them.
-      // the note's duration + 30% seems to work well:
-      int pauseBetweenNotes = noteDuration * 1.30;
-      delay(pauseBetweenNotes);
-      // stop the tone playing:
-      noTone(BUZZER_PIN);
-    }
-  }
-}
-
-// Each time this function is called the board moves to the next LED
-void changeLED(void)
-{
-  setLEDs(1 << LEDnumber); // Change the LED
-
-  LEDnumber++; // Goto the next LED
-  if(LEDnumber > 3) LEDnumber = 0; // Wrap the counter if needed
 }

@@ -1,0 +1,10 @@
+{
+  "C_Cpp.default.configurationProvider": "particle.particle-vscode-core",
+  "C_Cpp.default.compilerPath": "/Users/bsatrom/.particle/toolchains/gcc-arm/5.3.1/bin/arm-none-eabi-gcc",
+  "C_Cpp.default.browse.path": [
+    "${workspaceFolder}",
+    "/Users/bsatrom/.particle/toolchains/deviceOS/0.7.0/firmware-0.7.0"
+  ],
+  "particle.targetDevice": "b-money",
+  "particle.targetPlatform": "photon"
+}
