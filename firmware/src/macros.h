@@ -5,9 +5,6 @@
 /* Piezo Pin */
 #define BUZZER_PIN TX
 
-/* IR Receiver PIN */
-#define IR_RECEIVER_PIN RX
-
 /* Tactile LED Button Pins */
 /* LEDS */
 #define RED_LED A3
@@ -30,3 +27,6 @@
 /* General Macros */
 #define TEMP_CHECK_INTERVAL 120000
 #define DEBOUNCE_INTERVAL 10
+
+#define MAX_X 128
+#define MAX_Y 64
