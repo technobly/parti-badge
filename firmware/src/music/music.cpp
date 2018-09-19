@@ -1,66 +1,69 @@
 #include "notes.h"
-#include "parti-badge.h"
+#include "macros.h"
 #include "leds/leds.h"
 
 int noteDuration = 115;
 
 const int notes_MarioStartup[] = {
-  11,
-  NOTE_E4, 8,
-  NOTE_E4, 8,
-  NOTE_H, 8,
-  NOTE_E4, 8,
-  NOTE_H, 8,
-  NOTE_C4, 8,
-  NOTE_E4, 8,
-  NOTE_H, 8,
-  NOTE_G4, 8,
-  NOTE_H, 3,
-  NOTE_G3, 8
-};
+    11,
+    NOTE_E4, 8,
+    NOTE_E4, 8,
+    NOTE_H, 8,
+    NOTE_E4, 8,
+    NOTE_H, 8,
+    NOTE_C4, 8,
+    NOTE_E4, 8,
+    NOTE_H, 8,
+    NOTE_G4, 8,
+    NOTE_H, 3,
+    NOTE_G3, 8};
 
 const int notes_MarioGameOver[] = {
-  15,
-  NOTE_C4, 8,
-  NOTE_H, 8,
-  NOTE_H, 8,
-  NOTE_G3, 8,
-  NOTE_H, 4,
-  NOTE_E3, 4,
-  NOTE_A3, 6,
-  NOTE_B3, 6,
-  NOTE_A3, 6,
-  NOTE_GS3, 6,
-  NOTE_AS3, 6,
-  NOTE_GS3, 6,
-  NOTE_G3, 8,
-  NOTE_F3, 8,
-  NOTE_G3, 4
-};
+    15,
+    NOTE_C4, 8,
+    NOTE_H, 8,
+    NOTE_H, 8,
+    NOTE_G3, 8,
+    NOTE_H, 4,
+    NOTE_E3, 4,
+    NOTE_A3, 6,
+    NOTE_B3, 6,
+    NOTE_A3, 6,
+    NOTE_GS3, 6,
+    NOTE_AS3, 6,
+    NOTE_GS3, 6,
+    NOTE_G3, 8,
+    NOTE_F3, 8,
+    NOTE_G3, 4};
 
 const int beegeesMelody[] = {
-  NOTE_G4, NOTE_A4, 0, NOTE_C5, 0, 0, NOTE_G4, 0, 0, 0,
-  NOTE_E4, 0, NOTE_D4, NOTE_E4, NOTE_G4, 0,
-  NOTE_D4, NOTE_E4, 0, NOTE_G4, 0, 0,
-  NOTE_D4, 0, NOTE_E4, 0, NOTE_G4, 0, NOTE_A4, 0, NOTE_C5, 0};
+    NOTE_G4, NOTE_A4, 0, NOTE_C5, 0, 0, NOTE_G4, 0, 0, 0,
+    NOTE_E4, 0, NOTE_D4, NOTE_E4, NOTE_G4, 0,
+    NOTE_D4, NOTE_E4, 0, NOTE_G4, 0, 0,
+    NOTE_D4, 0, NOTE_E4, 0, NOTE_G4, 0, NOTE_A4, 0, NOTE_C5, 0};
 
-void playTones(int tonePin, const int tones[]) {
-  for (int thisNote = 1; thisNote < (tones[0] * 2 + 1); thisNote = thisNote + 2) {
+void playTones(int tonePin, const int tones[])
+{
+  for (int thisNote = 1; thisNote < (tones[0] * 2 + 1); thisNote = thisNote + 2)
+  {
     tone(tonePin, tones[thisNote], (1000 / tones[thisNote + 1]));
     delay((1000 / tones[thisNote + 1]) * 1.30);
     noTone(tonePin);
   }
 }
 
-void playStartup(int tonePin) {
+void playStartup(int tonePin)
+{
   playTones(tonePin, notes_MarioStartup);
 }
 
-void playGameOver(int tonePin) {
+void playGameOver(int tonePin)
+{
   playTones(tonePin, notes_MarioGameOver);
 }
 
-void playBeegees() {
+void playBeegees()
+{
   setLEDs(CHOICE_RED | CHOICE_GREEN | CHOICE_BLUE); // Turn on the other LEDs until you release button
 
   setLEDs(CHOICE_NONE); // Turn off LEDs
@@ -68,9 +71,10 @@ void playBeegees() {
   for (int i = 0; i < 2; i++)
   {
     // iterate over the notes of the melody:
-    for (int thisNote = 0; thisNote < 32; thisNote++) {
+    for (int thisNote = 0; thisNote < 32; thisNote++)
+    {
       changeLED();
-      tone(BUZZER_PIN, beegeesMelody[thisNote],noteDuration);
+      tone(BUZZER_PIN, beegeesMelody[thisNote], noteDuration);
       // to distinguish the notes, set a minimum time between them.
       // the note's duration + 30% seems to work well:
       int pauseBetweenNotes = noteDuration * 1.30;

@@ -27,3 +27,6 @@
 /* General Macros */
 #define TEMP_CHECK_INTERVAL 120000
 #define DEBOUNCE_INTERVAL 10
+
+#define MAX_X 128
+#define MAX_Y 64

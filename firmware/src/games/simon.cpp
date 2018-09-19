@@ -44,7 +44,7 @@
  */
 #include "Particle.h"
 #include "Adafruit_SSD1306.h"
-#include "parti-badge.h"
+#include "macros.h"
 #include "display/display.h"
 #include "interrupts/interrupts.h"
 #include "leds/leds.h"

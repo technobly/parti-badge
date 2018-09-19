@@ -39,7 +39,7 @@
 #include "mainmenu.h"
 #include <qMenuSystem.h>
 
-#include "parti-badge.h" // #define pin assignments and other general macros
+#include "macros.h" // #define pin assignments and other general macros
 
 // Interrupts
 #include "interrupts/interrupts.h"
@@ -193,6 +193,7 @@ void loop()
     switch (btnid)
     {
     case 1:
+    case 5:
       clickedItem = menu.ProcessMenu(ACTION_SELECT);
       btncounter--;
       break;
@@ -315,6 +316,7 @@ void loop()
         etchASketch();
         break;
       case 3:
+        snakeGame();
         break;
       case 4:
         menu.InitMenu(mnuRoot, cntRoot, 5);
