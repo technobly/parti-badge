@@ -40,39 +40,3 @@ void initInputDebouncers()
   joystickCenterDebouncer.attach(JOYSTICK_CENTER, INPUT_PULLUP);
   joystickCenterDebouncer.interval(DEBOUNCE_INTERVAL);
 }
-
-// Set up the tactile LED buttons
-void initLEDButtons()
-{
-  int del = 300;
-  int medDel = 500;
-
-  // Init D7
-  pinMode(D7, INPUT_PULLDOWN);
-
-  // Init LEDs and Outputs
-  pinMode(RED_LED, OUTPUT);
-  pinMode(BLUE_LED, OUTPUT);
-  pinMode(GREEN_LED, OUTPUT);
-  pinMode(YELLOW_LED, OUTPUT);
-
-  digitalWrite(RED_LED, HIGH);
-  delay(del);
-  digitalWrite(BLUE_LED, HIGH);
-  delay(del);
-  digitalWrite(GREEN_LED, HIGH);
-  delay(del);
-  digitalWrite(YELLOW_LED, HIGH);
-  delay(del);
-
-  toggleAllButtons(LOW);
-  delay(medDel);
-
-  toggleAllButtons(HIGH);
-  delay(medDel);
-
-  toggleAllButtons(LOW);
-  delay(medDel);
-
-  toggleAllButtons(HIGH);
-}

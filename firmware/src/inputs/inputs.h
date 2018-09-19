@@ -17,6 +17,5 @@ extern Debounce joystickRightDebouncer;
 extern Debounce joystickCenterDebouncer;
 
 void initInputDebouncers();
-void initLEDButtons();
 
 #endif

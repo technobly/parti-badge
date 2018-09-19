@@ -4,6 +4,81 @@
 #include "music/music.h"
 
 int LEDnumber = 0;
+int fadeIncrement = 5;
+
+void fadeIn(int ledPin)
+{
+  for (int fadeValue = 0; fadeValue <= 255; fadeValue += fadeIncrement)
+  {
+    analogWrite(ledPin, fadeValue);
+    delay(30);
+  }
+}
+
+void fadeOut(int ledPin)
+{
+  for (int fadeValue = 255; fadeValue >= 0; fadeValue -= fadeIncrement)
+  {
+    analogWrite(ledPin, fadeValue);
+    delay(30);
+  }
+}
+
+void fadeAllIn()
+{
+  for (int fadeValue = 5; fadeValue <= 255; fadeValue += fadeIncrement)
+  {
+    analogWrite(RED_LED, fadeValue);
+    analogWrite(BLUE_LED, fadeValue);
+    analogWrite(GREEN_LED, fadeValue);
+    analogWrite(YELLOW_LED, fadeValue);
+    delay(30);
+  }
+}
+
+void fadeAllOut()
+{
+  for (int fadeValue = 255; fadeValue > 0; fadeValue -= fadeIncrement)
+  {
+    analogWrite(RED_LED, fadeValue);
+    analogWrite(BLUE_LED, fadeValue);
+    analogWrite(GREEN_LED, fadeValue);
+    analogWrite(YELLOW_LED, fadeValue);
+    delay(30);
+  }
+}
+
+// Set up the tactile LED buttons
+void initLEDButtons()
+{
+  int del = 300;
+  int medDel = 500;
+
+  // Init D7
+  pinMode(D7, INPUT_PULLDOWN);
+
+  // Init LEDs as Outputs
+  pinMode(RED_LED, OUTPUT);
+  pinMode(BLUE_LED, OUTPUT);
+  pinMode(GREEN_LED, OUTPUT);
+  pinMode(YELLOW_LED, OUTPUT);
+
+  fadeAllIn();
+  fadeAllOut();
+  fadeAllIn();
+  fadeAllOut();
+  fadeAllIn();
+
+  toggleAllButtons(LOW);
+
+  digitalWrite(RED_LED, HIGH);
+  delay(del);
+  digitalWrite(BLUE_LED, HIGH);
+  delay(del);
+  digitalWrite(GREEN_LED, HIGH);
+  delay(del);
+  digitalWrite(YELLOW_LED, HIGH);
+}
 
 // Toggle all the buttons on or off
 void toggleAllButtons(int state)
@@ -49,7 +124,7 @@ void toner(byte which, int buzz_length_ms)
   setLEDs(which); //Turn on a given LED
 
   //Play the sound associated with the given LED
-  switch(which)
+  switch (which)
   {
   case CHOICE_RED:
     buzz_sound(buzz_length_ms, 1136);
@@ -71,12 +146,16 @@ void toner(byte which, int buzz_length_ms)
 // Returns a '1' bit in the position corresponding to CHOICE_RED, CHOICE_GREEN, etc.
 byte checkButton()
 {
-  if (digitalRead(RED_BUTTON_A) == 0) return(CHOICE_RED);
-  else if (digitalRead(GREEN_BUTTON_C) == 0) return(CHOICE_GREEN);
-  else if (digitalRead(BLUE_BUTTON_B) == 0) return(CHOICE_BLUE);
-  else if (digitalRead(YELLOW_BUTTON_D) == 0) return(CHOICE_YELLOW);
+  if (digitalRead(RED_BUTTON_A) == 0)
+    return (CHOICE_RED);
+  else if (digitalRead(GREEN_BUTTON_C) == 0)
+    return (CHOICE_GREEN);
+  else if (digitalRead(BLUE_BUTTON_B) == 0)
+    return (CHOICE_BLUE);
+  else if (digitalRead(YELLOW_BUTTON_D) == 0)
+    return (CHOICE_YELLOW);
 
-  return(CHOICE_NONE); // If no button is pressed, return none
+  return (CHOICE_NONE); // If no button is pressed, return none
 }
 
 // Each time this function is called the board moves to the next LED
@@ -85,5 +164,6 @@ void changeLED()
   setLEDs(1 << LEDnumber); // Change the LED
 
   LEDnumber++; // Goto the next LED
-  if(LEDnumber > 3) LEDnumber = 0; // Wrap the counter if needed
+  if (LEDnumber > 3)
+    LEDnumber = 0; // Wrap the counter if needed
 }
