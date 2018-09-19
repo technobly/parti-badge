@@ -423,7 +423,6 @@ int updateFirstNameHandler(String data)
   wearerFirstName = data;
   wearerInfo.setFirstName(wearerFirstName);
 
-  fireNamedEvent();
   if (displayingWearerDetails)
   {
     displayWearerDetails();
@@ -437,7 +436,6 @@ int updateLastNameHandler(String data)
   wearerLastName = data;
   wearerInfo.setLastName(wearerLastName);
 
-  fireNamedEvent();
   if (displayingWearerDetails)
   {
     displayWearerDetails();
@@ -450,7 +448,6 @@ int updateTwitterHandler(String data)
   wearerTwitter = data;
   wearerInfo.setTwitter(wearerTwitter);
 
-  fireNamedEvent();
   if (displayingWearerDetails)
   {
     displayWearerDetails();
