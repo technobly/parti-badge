@@ -35,19 +35,22 @@ void clearScreen()
   display.setTextWrap(true);
 }
 
-int getCenterX(const char text[], int textSize) {
+int getCenterX(const char text[], int textSize)
+{
   int textWidth = strlen(text) * 9 * textSize;
 
   return 64 - (textWidth / 2);
 }
 
-void messageBoxWithArray(const char *textStrings[], int arrayLen, int textSize) {
+void messageBoxWithArray(const char *textStrings[], int arrayLen, int textSize)
+{
   int textHeight = 12;
   int y = textSize == 1 ? 64 / arrayLen : 18;
   clearScreen();
   display.setTextSize(textSize);
 
-  for (int i = 0; i < arrayLen; i++) {
+  for (int i = 0; i < arrayLen; i++)
+  {
     int x = getCenterX(textStrings[i], textSize);
 
     display.setCursor(x + (15 / textSize) + i, y + textHeight * i * textSize);
@@ -56,7 +59,8 @@ void messageBoxWithArray(const char *textStrings[], int arrayLen, int textSize) 
   display.display();
 }
 
-void showSplashscreen() {
+void showSplashscreen()
+{
   clearScreen();
   display.drawBitmap(0, 16, sparkLogo, 128, 48, 1);
   display.display();
@@ -76,10 +80,12 @@ void displayWearerDetails()
   {
     clearScreen();
     //put Twitter info up in yellow band area
-    if (wearerTwitter.length() > 10) {
+    if (wearerTwitter.length() > 10)
+    {
       display.setTextSize(1);
     }
-    if (wearerTwitter.length() > 0) {
+    if (wearerTwitter.length() > 0)
+    {
       display.println(wearerTwitter);
     }
 
@@ -114,7 +120,8 @@ void displayWearerDetails()
   }
 }
 
-void displayTwitterHandle() {
+void displayTwitterHandle()
+{
   displayingWearerDetails = true;
 
   clearScreen();
@@ -122,7 +129,8 @@ void displayTwitterHandle() {
   display.setCursor(0, 10);
   display.println();
 
-  if (wearerTwitter.length() > 0) {
+  if (wearerTwitter.length() > 0)
+  {
     display.println(wearerTwitter);
   }
 
@@ -173,18 +181,20 @@ void showTempAndHumidity()
   displayingTemp = true;
 }
 
-void displayCredits() {
-  const char *creditStrings[] = { "Created by",
-    "a GLOBAL team", "at Particle!" };
+void displayCredits()
+{
+  const char *creditStrings[] = {"Created by",
+                                 "a GLOBAL team", "at Particle!"};
 
   messageBoxWithArray(creditStrings, 3, 1);
 }
 
-void showKonami() {
+void showKonami()
+{
   display.clearDisplay();
   display.display();
   display.setCursor(0, 0);
   display.drawBitmap(0, 0, konamiLogo, 128, 64, 1);
   display.display();
-  display.startscrollleft(0x00, 0x0F);
+  display.startscrolldiagleft(0x00, 0x07);
 }
