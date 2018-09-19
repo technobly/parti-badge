@@ -331,6 +331,7 @@ void loop()
         showSplashscreen();
         break;
       case 2:
+        showMesh();
         break;
       case 3:
         showKonami();

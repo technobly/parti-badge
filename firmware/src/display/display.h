@@ -11,5 +11,6 @@ void showTitle();
 void showTempAndHumidity();
 void displayCredits();
 void showKonami();
+void showMesh();
 
 #endif

@@ -4,6 +4,7 @@
 #include "images/temp.h"
 #include "images/humidity.h"
 #include "images/konami.h"
+#include "images/mesh.h"
 
 extern Adafruit_SSD1306 display;
 extern String wearerFirstName;
@@ -197,4 +198,14 @@ void showKonami()
   display.drawBitmap(0, 0, konamiLogo, 128, 64, 1);
   display.display();
   display.startscrolldiagleft(0x00, 0x07);
+}
+
+void showMesh()
+{
+  display.clearDisplay();
+  display.display();
+  display.setCursor(0, 0);
+  display.drawBitmap(0, 0, meshLogo, 64, 63, 1);
+  display.display();
+  display.startscrolldiagright(0x00, 0x07);
 }
