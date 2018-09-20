@@ -37,7 +37,7 @@
 
 // Menu System include
 #include "mainmenu.h"
-#include <qMenuSystem.h>
+#include "qMenuSystem.h"
 
 #include "macros.h" // #define pin assignments and other general macros
 
@@ -53,6 +53,7 @@
 #include "music/music.h"
 #include "keylogger/keylogger.h"
 #include "sensors/sensors.h"
+#include "animations/animations.h"
 
 #include "music/roll.h"
 #include "WearerInfo/WearerInfo.h"
@@ -93,8 +94,6 @@ extern bool displayingTemp;
 extern bool displayingWearerDetails;
 extern bool displayingAnimations;
 bool menuShowing = false;
-
-#include "animations/animations.h"
 
 // Display state management
 bool checkingInputs = false;
@@ -175,9 +174,9 @@ void loop()
     yellowButtonDDebouncer.update();
     joystickCenterDebouncer.update();
 
-    if (redButtonADebouncer.read() == LOW ||
+    if ( //redButtonADebouncer.read() == LOW ||
         blueButtonBDebouncer.read() == LOW ||
-        greenButtonCDebouncer.read() == LOW ||
+        //greenButtonCDebouncer.read() == LOW ||
         yellowButtonDDebouncer.read() == LOW ||
         joystickCenterDebouncer.read() == LOW)
     {
@@ -338,6 +337,36 @@ void loop()
         break;
       case 4:
         menu.InitMenu(mnuRoot, cntRoot, 6);
+        break;
+      }
+    }
+    else if (menu.CurrentMenu == mnuAnimations)
+    {
+      switch (clickedItem)
+      {
+      case 1:
+        snowflakes();
+        break;
+      case 2:
+        drawCircles();
+        break;
+      case 3:
+        drawRectangles();
+        break;
+      case 4:
+        drawTriangles();
+        break;
+      case 5:
+        drawRoundedRectangles();
+        break;
+      case 6:
+        scrollText();
+        break;
+      case 7:
+        cycleAnimations();
+        break;
+      case 8:
+        menu.InitMenu(mnuRoot, cntRoot, 7);
         break;
       }
     }

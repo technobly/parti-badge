@@ -47,7 +47,7 @@ void etchASketch()
   initEtchASketch();
   drawFilledCircle(displayX, displayY);
 
-  setupAButtonInterrupt();
+  setupLEDButtonInterrupt();
 
   while (appmode)
   {
@@ -269,7 +269,7 @@ void snakeGame()
   btnid = 0;
   clearScreen();
 
-  setupAButtonInterrupt();
+  setupLEDButtonInterrupt();
 
   minX = 0;
   minY = 8;

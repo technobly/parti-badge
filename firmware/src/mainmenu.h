@@ -13,7 +13,7 @@ static const char itmRootMusic[] = "Music";
 static const char itmRootGames[] = "Games";
 static const char itmRootGraphics[] = "Graphics";
 static const char itmRootAnimations[] = "Animations";
-static const char itmRootBlinky[] = "Blnky";
+static const char itmRootBlinky[] = "Blinky";
 static const char itmRootAbout[] = "About";
 
 static const char *mnuRoot[] = {
@@ -72,12 +72,18 @@ const char *const mnuGraphics[] = {
     itmGraphics1, itmGraphics2, itmGraphics3, itmBack};
 const int cntGraphics = 4;
 
-static const char itmAnimation1[] = "All";
-static const char itmAnimation2[] = "Snowflakes";
+static const char itmAnimation1[] = "Snowflakes";
+static const char itmAnimation2[] = "Circles";
+static const char itmAnimation3[] = "Rectangles";
+static const char itmAnimation4[] = "Triangles";
+static const char itmAnimation5[] = "Round Rects";
+static const char itmAnimation6[] = "Scroll Text";
+static const char itmAnimation7[] = "All";
 const char *const mnuAnimations[] = {
     itmRootAnimations,
-    itmAnimation1, itmAnimation2, itmBack};
-const int cntAnimations = 3;
+    itmAnimation1, itmAnimation2, itmAnimation3, itmAnimation4, 
+    itmAnimation5, itmAnimation6, itmAnimation7, itmBack};
+const int cntAnimations = 8;
 
 static const char itmBlinky1[] = "Light ring";
 static const char itmBlinky2[] = "Pulsing";
