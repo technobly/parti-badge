@@ -134,7 +134,7 @@ void play()
     notelength = beatlength * song1_intro_rhythmn[b];
     if (song1_intro_melody[b] > 0)
     { // if not a rest, play note
-      digitalWrite(YELLOW_LED, HIGH);
+      analogWrite(RED_LED, 255);
       tone(BUZZER_PIN, song1_intro_melody[b], notelength);
     }
     b++;
@@ -151,7 +151,7 @@ void play()
     notelength = beatlength * 2 * song1_verse1_rhythmn[b];
     if (song1_verse1_melody[b] > 0)
     {
-      digitalWrite(YELLOW_LED, HIGH);
+      analogWrite(BLUE_LED, 255);
       tone(BUZZER_PIN, song1_verse1_melody[b], notelength);
       c++;
     }
@@ -169,7 +169,7 @@ void play()
     notelength = beatlength * song1_chorus_rhythmn[b];
     if (song1_chorus_melody[b] > 0)
     {
-      digitalWrite(YELLOW_LED, HIGH);
+      analogWrite(GREEN_LED, 255);
       tone(BUZZER_PIN, song1_chorus_melody[b], notelength);
       c++;
     }
@@ -183,7 +183,9 @@ void play()
   }
   delay(notelength); // necessary because BUZZER_PIN is on independent timer
   noTone(BUZZER_PIN);
-  digitalWrite(YELLOW_LED, LOW);
+  analogWrite(RED_LED, 0);
+  analogWrite(BLUE_LED, 0);
+  analogWrite(GREEN_LED, 0);
   delay(notelength * beatseparationconstant); // create separation between notes
   if (a == 7)
   { // loop back around to beginning of song

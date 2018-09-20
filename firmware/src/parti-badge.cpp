@@ -370,6 +370,27 @@ void loop()
         break;
       }
     }
+    else if (menu.CurrentMenu == mnuBlinky)
+    {
+      switch (clickedItem)
+      {
+      case 1:
+        ledChase();
+        break;
+      case 2:
+        ledPulse();
+        break;
+      case 3:
+        ledRandom();
+        break;
+      case 4:
+        ledSeeSaw();
+        break;
+      case 5:
+        menu.InitMenu(mnuRoot, cntRoot, 8);
+        break;
+      }
+    }
   }
   else if (clickedItem == -1 && menuShowing)
   {

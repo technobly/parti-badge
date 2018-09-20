@@ -1,7 +1,12 @@
 #include "Particle.h"
 #include "macros.h"
 #include "leds.h"
+#include "interrupts/interrupts.h"
 #include "music/music.h"
+
+extern byte appmode;
+extern byte btncounter;
+extern byte btnid;
 
 int LEDnumber = 0;
 int fadeIncrement = 5;
@@ -70,23 +75,26 @@ void initLEDButtons()
   fadeAllIn();
 
   toggleAllButtons(LOW);
+  delay(medDel);
 
-  digitalWrite(RED_LED, HIGH);
+  analogWrite(RED_LED, 255);
   delay(del);
-  digitalWrite(BLUE_LED, HIGH);
+  analogWrite(BLUE_LED, 255);
   delay(del);
-  digitalWrite(GREEN_LED, HIGH);
+  analogWrite(GREEN_LED, 255);
   delay(del);
-  digitalWrite(YELLOW_LED, HIGH);
+  analogWrite(YELLOW_LED, 255);
 }
 
 // Toggle all the buttons on or off
 void toggleAllButtons(int state)
 {
-  digitalWrite(RED_LED, state);
-  digitalWrite(BLUE_LED, state);
-  digitalWrite(GREEN_LED, state);
-  digitalWrite(YELLOW_LED, state);
+  int analogState = state == HIGH ? 255 : 0;
+
+  analogWrite(RED_LED, analogState);
+  analogWrite(BLUE_LED, analogState);
+  analogWrite(GREEN_LED, analogState);
+  analogWrite(YELLOW_LED, analogState);
 }
 
 // Lights a given LEDs
@@ -94,24 +102,24 @@ void toggleAllButtons(int state)
 void setLEDs(byte leds)
 {
   if ((leds & CHOICE_RED) != 0)
-    digitalWrite(RED_LED, HIGH);
+    analogWrite(RED_LED, 255);
   else
-    digitalWrite(RED_LED, LOW);
+    analogWrite(RED_LED, 0);
 
   if ((leds & CHOICE_GREEN) != 0)
-    digitalWrite(GREEN_LED, HIGH);
+    analogWrite(GREEN_LED, 255);
   else
-    digitalWrite(GREEN_LED, LOW);
+    analogWrite(GREEN_LED, 0);
 
   if ((leds & CHOICE_BLUE) != 0)
-    digitalWrite(BLUE_LED, HIGH);
+    analogWrite(BLUE_LED, 255);
   else
-    digitalWrite(BLUE_LED, LOW);
+    analogWrite(BLUE_LED, 0);
 
   if ((leds & CHOICE_YELLOW) != 0)
-    digitalWrite(YELLOW_LED, HIGH);
+    analogWrite(YELLOW_LED, 255);
   else
-    digitalWrite(YELLOW_LED, LOW);
+    analogWrite(YELLOW_LED, 0);
 }
 
 // Light an LED and play tone
@@ -166,4 +174,42 @@ void changeLED()
   LEDnumber++; // Goto the next LED
   if (LEDnumber > 3)
     LEDnumber = 0; // Wrap the counter if needed
+}
+
+void ledChase()
+{
+}
+
+void ledPulse()
+{
+  appmode = 1;
+  btnid = 0;
+
+  setupLEDButtonInterrupt();
+
+  while (appmode)
+  {
+    fadeAllIn();
+    fadeAllOut();
+  }
+}
+
+void ledRandom()
+{
+  appmode = 1;
+  btnid = 0;
+
+  while (appmode)
+  {
+  }
+}
+
+void ledSeeSaw()
+{
+  appmode = 1;
+  btnid = 0;
+
+  while (appmode)
+  {
+  }
 }

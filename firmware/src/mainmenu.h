@@ -81,11 +81,11 @@ static const char itmAnimation6[] = "Scroll Text";
 static const char itmAnimation7[] = "All";
 const char *const mnuAnimations[] = {
     itmRootAnimations,
-    itmAnimation1, itmAnimation2, itmAnimation3, itmAnimation4, 
+    itmAnimation1, itmAnimation2, itmAnimation3, itmAnimation4,
     itmAnimation5, itmAnimation6, itmAnimation7, itmBack};
 const int cntAnimations = 8;
 
-static const char itmBlinky1[] = "Light ring";
+static const char itmBlinky1[] = "Chase";
 static const char itmBlinky2[] = "Pulsing";
 static const char itmBlinky3[] = "Random";
 static const char itmBlinky4[] = "See-saw";

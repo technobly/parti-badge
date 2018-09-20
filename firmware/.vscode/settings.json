@@ -6,5 +6,10 @@
     "/Users/bsatrom/.particle/toolchains/deviceOS/0.7.0/firmware-0.7.0"
   ],
   "particle.targetDevice": "b-money",
-  "particle.targetPlatform": "photon"
+  "particle.targetPlatform": "photon",
+  "files.associations": {
+    "*.h": "cpp",
+    "locale": "cpp",
+    "string": "cpp"
+  }
 }

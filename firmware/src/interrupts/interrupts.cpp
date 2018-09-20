@@ -109,10 +109,12 @@ void ESC()
     detachInterrupt(BLUE_BUTTON_B);
     detachInterrupt(YELLOW_BUTTON_D);
 
-    resetDisplayBools();
     appmode = 0;
     btnid = 4;
     btncounter++;
+
+    resetDisplayBools();
+    toggleAllButtons(LOW);
   }
 }
 
@@ -125,6 +127,7 @@ void BACK()
     btncounter++;
     resetDisplayBools();
     toggleAllButtons(LOW);
+
     detachInterrupt(JOYSTICK_LEFT);
     attachInterrupt(JOYSTICK_LEFT, LEFT, FALLING); // Set the default interrupt back up
   }
