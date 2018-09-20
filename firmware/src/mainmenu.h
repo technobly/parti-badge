@@ -91,5 +91,5 @@ static const char itmBlinky3[] = "Random";
 static const char itmBlinky4[] = "See-saw";
 const char *const mnuBlinky[] = {
     itmRootBlinky,
-    itmBlinky4, itmBlinky2, itmBlinky3, itmBlinky4, itmBack};
+    itmBlinky1, itmBlinky2, itmBlinky3, itmBlinky4, itmBack};
 const int cntBlinky = 5;

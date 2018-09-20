@@ -178,6 +178,32 @@ void changeLED()
 
 void ledChase()
 {
+  appmode = 1;
+  btnid = 0;
+  int del = 100;
+
+  setupBackButtonInterrupt();
+
+  toggleAllButtons(LOW);
+
+  while (appmode)
+  {
+    analogWrite(BLUE_LED, 255);
+    delay(del);
+    analogWrite(GREEN_LED, 255);
+    delay(del);
+    analogWrite(YELLOW_LED, 255);
+    analogWrite(RED_LED, 255);
+    delay(del);
+
+    analogWrite(BLUE_LED, 0);
+    delay(del);
+    analogWrite(GREEN_LED, 0);
+    delay(del);
+    analogWrite(YELLOW_LED, 0);
+    analogWrite(RED_LED, 0);
+    delay(del);
+  }
 }
 
 void ledPulse()
@@ -185,7 +211,7 @@ void ledPulse()
   appmode = 1;
   btnid = 0;
 
-  setupLEDButtonInterrupt();
+  setupBackButtonInterrupt();
 
   while (appmode)
   {
