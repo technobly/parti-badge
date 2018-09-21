@@ -21,6 +21,7 @@ void fadeAllOut();
 
 void ledChase();
 void ledPulse();
+void ledPulseChase();
 void ledRandom();
 void ledSeeSaw();
 

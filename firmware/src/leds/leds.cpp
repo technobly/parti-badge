@@ -208,6 +208,36 @@ void ledChase()
   }
 }
 
+void ledPulseChase()
+{
+  appmode = 1;
+  btnid = 0;
+  int del = 50;
+
+  setupBackButtonInterrupt();
+
+  while (appmode)
+  {
+    fadeIn(BLUE_LED);
+    delay(del);
+    fadeIn(GREEN_LED);
+    delay(del);
+    fadeIn(YELLOW_LED);
+    delay(del);
+    fadeIn(RED_LED);
+    delay(del);
+
+    fadeOut(BLUE_LED);
+    delay(del);
+    fadeOut(GREEN_LED);
+    delay(del);
+    fadeOut(YELLOW_LED);
+    delay(del);
+    fadeOut(RED_LED);
+    delay(del);
+  }
+}
+
 void ledPulse()
 {
   appmode = 1;

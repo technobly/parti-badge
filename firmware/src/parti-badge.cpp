@@ -92,7 +92,7 @@ String wearerTwitter;
 // Display variables
 extern bool displayingTemp;
 extern bool displayingWearerDetails;
-extern bool displayingAnimations;
+extern bool displayingCarousel;
 bool menuShowing = false;
 
 // Display state management
@@ -266,6 +266,9 @@ void loop()
         showTempAndHumidity();
         break;
       case 5:
+        displayCarousel();
+        break;
+      case 6:
         menu.InitMenu(mnuRoot, cntRoot, 1);
         break;
       }
@@ -328,7 +331,7 @@ void loop()
       switch (clickedItem)
       {
       case 1:
-        showSplashscreen();
+        showSpark();
         break;
       case 2:
         showSpectra();
@@ -385,12 +388,15 @@ void loop()
         ledPulse();
         break;
       case 3:
-        ledRandom();
+        ledPulseChase();
         break;
       case 4:
-        ledSeeSaw();
+        ledRandom();
         break;
       case 5:
+        ledSeeSaw();
+        break;
+      case 6:
         menu.InitMenu(mnuRoot, cntRoot, 8);
         break;
       }
@@ -435,6 +441,11 @@ void loop()
     {
       menu.InitMenu((const char **)mnuRoot, cntRoot, 8);
     }
+  }
+
+  if (displayingCarousel)
+  {
+    displayCarousel();
   }
 
   if (currentMillis - previousEnvReading > TEMP_CHECK_INTERVAL)
