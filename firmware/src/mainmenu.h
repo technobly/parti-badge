@@ -65,12 +65,13 @@ const char *const mnuGames[] = {
 const int cntGames = 4;
 
 static const char itmGraphics1[] = "Spark";
-static const char itmGraphics2[] = "Mesh";
-static const char itmGraphics3[] = "Konami";
+static const char itmGraphics2[] = "Spectra";
+static const char itmGraphics3[] = "Mesh";
+static const char itmGraphics4[] = "Konami";
 const char *const mnuGraphics[] = {
     itmRootGraphics,
-    itmGraphics1, itmGraphics2, itmGraphics3, itmBack};
-const int cntGraphics = 4;
+    itmGraphics1, itmGraphics2, itmGraphics3, itmGraphics4, itmBack};
+const int cntGraphics = 5;
 
 static const char itmAnimation1[] = "Snowflakes";
 static const char itmAnimation2[] = "Circles";

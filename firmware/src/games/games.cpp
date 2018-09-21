@@ -31,7 +31,6 @@ void initEtchASketch()
   display.println("Use the joystick...");
   display.display();
   delay(2000);
-
   clearScreen();
 }
 
@@ -78,6 +77,11 @@ void etchASketch()
       displayX++;
     }
 
+    if ((lastX != displayX) || (lastY != displayY))
+    {
+      drawFilledCircle(displayX, displayY);
+    }
+
     // Reset the screen
     joystickCenterDebouncer.update();
     if (joystickCenterDebouncer.read() == LOW)
@@ -85,11 +89,6 @@ void etchASketch()
       clearScreen();
       displayX = display.width() / 2;
       displayY = display.height() / 2;
-    }
-
-    if ((lastX != displayX) || (lastY != displayY))
-    {
-      drawFilledCircle(displayX, displayY);
     }
   }
 }

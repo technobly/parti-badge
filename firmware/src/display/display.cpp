@@ -1,6 +1,7 @@
 #include "Adafruit_SSD1306.h"
 
 #include "images/spark.h"
+#include "images/spectra.h"
 #include "images/temp.h"
 #include "images/humidity.h"
 #include "images/konami.h"
@@ -65,7 +66,11 @@ void showSplashscreen()
   clearScreen();
   display.drawBitmap(0, 16, sparkLogo, 128, 48, 1);
   display.display();
-  delay(3000);
+  delay(2000);
+  clearScreen();
+  display.drawBitmap(0, 0, spectraLogo, 128, 64, 1);
+  display.display();
+  delay(2000);
 }
 
 // Display the wearer's first and last name on the display
@@ -208,4 +213,14 @@ void showMesh()
   display.drawBitmap(0, 0, meshLogo, 64, 63, 1);
   display.display();
   display.startscrolldiagright(0x00, 0x07);
+}
+
+void showSpectra()
+{
+  display.clearDisplay();
+  display.display();
+  display.setCursor(0, 0);
+  display.drawBitmap(0, 0, spectraLogo, 128, 64, 1);
+  display.display();
+  display.startscrollleft(0x00, 0x0F);
 }

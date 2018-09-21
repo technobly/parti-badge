@@ -111,7 +111,8 @@ void initWearerDetails();
 
 void setup()
 {
-  Serial.begin(115200);
+  Serial.begin();
+
   resetDisplayBools();
 
   // Get the current deviceId
@@ -330,12 +331,15 @@ void loop()
         showSplashscreen();
         break;
       case 2:
-        showMesh();
+        showSpectra();
         break;
       case 3:
-        showKonami();
+        showMesh();
         break;
       case 4:
+        showKonami();
+        break;
+      case 5:
         menu.InitMenu(mnuRoot, cntRoot, 6);
         break;
       }

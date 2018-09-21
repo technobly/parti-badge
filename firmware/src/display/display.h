@@ -12,5 +12,6 @@ void showTempAndHumidity();
 void displayCredits();
 void showKonami();
 void showMesh();
+void showSpectra();
 
 #endif

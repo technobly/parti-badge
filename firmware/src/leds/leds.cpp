@@ -193,6 +193,7 @@ void ledChase()
     analogWrite(GREEN_LED, 255);
     delay(del);
     analogWrite(YELLOW_LED, 255);
+    delay(del);
     analogWrite(RED_LED, 255);
     delay(del);
 
@@ -201,6 +202,7 @@ void ledChase()
     analogWrite(GREEN_LED, 0);
     delay(del);
     analogWrite(YELLOW_LED, 0);
+    delay(del);
     analogWrite(RED_LED, 0);
     delay(del);
   }
@@ -224,9 +226,18 @@ void ledRandom()
 {
   appmode = 1;
   btnid = 0;
+  int r = 0;
+  int del = 150;
+
+  pin_t leds[4] = {RED_LED, GREEN_LED, YELLOW_LED, RED_LED};
 
   while (appmode)
   {
+    r = random(3);
+
+    analogWrite(leds[r], 255);
+    delay(del);
+    analogWrite(leds[r], 0);
   }
 }
 
@@ -234,8 +245,27 @@ void ledSeeSaw()
 {
   appmode = 1;
   btnid = 0;
+  int del = 100;
 
+  toggleAllButtons(LOW);
   while (appmode)
   {
+    analogWrite(BLUE_LED, 255);
+    delay(del);
+    analogWrite(GREEN_LED, 255);
+    delay(del);
+    analogWrite(YELLOW_LED, 255);
+    delay(del);
+    analogWrite(RED_LED, 255);
+    delay(del);
+
+    analogWrite(RED_LED, 0);
+    delay(del);
+    analogWrite(YELLOW_LED, 0);
+    delay(del);
+    analogWrite(GREEN_LED, 0);
+    delay(del);
+    analogWrite(BLUE_LED, 0);
+    delay(del);
   }
 }
