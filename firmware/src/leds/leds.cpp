@@ -3,6 +3,7 @@
 #include "leds.h"
 #include "interrupts/interrupts.h"
 #include "music/music.h"
+#include "display/display.h"
 
 extern byte appmode;
 extern byte btncounter;
@@ -188,6 +189,8 @@ void ledChase()
 
   while (appmode)
   {
+    displayCarousel();
+
     analogWrite(BLUE_LED, 255);
     delay(del);
     analogWrite(GREEN_LED, 255);
@@ -218,6 +221,8 @@ void ledPulseChase()
 
   while (appmode)
   {
+    displayCarousel();
+
     fadeIn(BLUE_LED);
     delay(del);
     fadeIn(GREEN_LED);
@@ -247,6 +252,8 @@ void ledPulse()
 
   while (appmode)
   {
+    displayCarousel();
+
     fadeAllIn();
     fadeAllOut();
   }
@@ -263,6 +270,8 @@ void ledRandom()
 
   while (appmode)
   {
+    displayCarousel();
+
     r = random(3);
 
     analogWrite(leds[r], 255);
@@ -280,6 +289,8 @@ void ledSeeSaw()
   toggleAllButtons(LOW);
   while (appmode)
   {
+    displayCarousel();
+
     analogWrite(BLUE_LED, 255);
     delay(del);
     analogWrite(GREEN_LED, 255);
