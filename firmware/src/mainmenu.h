@@ -13,7 +13,7 @@ static const char itmRootMusic[] = "Music";
 static const char itmRootGames[] = "Games";
 static const char itmRootGraphics[] = "Graphics";
 static const char itmRootAnimations[] = "Animations";
-static const char itmRootBlinky[] = "Blnky";
+static const char itmRootBlinky[] = "Blinky";
 static const char itmRootAbout[] = "About";
 
 static const char *mnuRoot[] = {
@@ -27,10 +27,11 @@ static const char itmDisplay1[] = "Badge Marquee";
 static const char itmDisplay2[] = "Name";
 static const char itmDisplay3[] = "Twitter Handle";
 static const char itmDisplay4[] = "Temp & Humidity";
+static const char itmDisplay5[] = "Carousel";
 const char *const mnuDisplay[] = {
     itmRootDisplay,
-    itmDisplay1, itmDisplay2, itmDisplay3, itmDisplay4, itmBack};
-const int cntDisplay = 5;
+    itmDisplay1, itmDisplay2, itmDisplay3, itmDisplay4, itmDisplay5, itmBack};
+const int cntDisplay = 6;
 
 static const char itmMesh1[] = "Mesh Network";
 static const char itmMesh2[] = "Network Scan";
@@ -65,25 +66,33 @@ const char *const mnuGames[] = {
 const int cntGames = 4;
 
 static const char itmGraphics1[] = "Spark";
-static const char itmGraphics2[] = "Mesh";
-static const char itmGraphics3[] = "Konami";
-const char *const mnuGraphics[] = {
+static const char itmGraphics2[] = "Spectra";
+static const char itmGraphics3[] = "Mesh";
+static const char itmGraphics4[] = "Konami";
+static const char *const mnuGraphics[] = {
     itmRootGraphics,
-    itmGraphics1, itmGraphics2, itmGraphics3, itmBack};
-const int cntGraphics = 4;
+    itmGraphics1, itmGraphics2, itmGraphics3, itmGraphics4, itmBack};
+const int cntGraphics = 5;
 
-static const char itmAnimation1[] = "All";
-static const char itmAnimation2[] = "Snowflakes";
+static const char itmAnimation1[] = "Snowflakes";
+static const char itmAnimation2[] = "Circles";
+static const char itmAnimation3[] = "Rectangles";
+static const char itmAnimation4[] = "Triangles";
+static const char itmAnimation5[] = "Round Rects";
+static const char itmAnimation6[] = "Scroll Text";
+static const char itmAnimation7[] = "All";
 const char *const mnuAnimations[] = {
     itmRootAnimations,
-    itmAnimation1, itmAnimation2, itmBack};
-const int cntAnimations = 3;
+    itmAnimation1, itmAnimation2, itmAnimation3, itmAnimation4,
+    itmAnimation5, itmAnimation6, itmAnimation7, itmBack};
+const int cntAnimations = 8;
 
-static const char itmBlinky1[] = "Light ring";
+static const char itmBlinky1[] = "Chase";
 static const char itmBlinky2[] = "Pulsing";
-static const char itmBlinky3[] = "Random";
-static const char itmBlinky4[] = "See-saw";
+static const char itmBlinky3[] = "Pulse Chase";
+static const char itmBlinky4[] = "Random";
+static const char itmBlinky5[] = "See-saw";
 const char *const mnuBlinky[] = {
     itmRootBlinky,
-    itmBlinky4, itmBlinky2, itmBlinky3, itmBlinky4, itmBack};
-const int cntBlinky = 5;
+    itmBlinky1, itmBlinky2, itmBlinky3, itmBlinky4, itmBlinky5, itmBack};
+const int cntBlinky = 6;

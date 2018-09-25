@@ -1,10 +1,13 @@
 #include "Adafruit_SSD1306.h"
 
+#include "macros.h"
 #include "images/spark.h"
+#include "images/spectra.h"
 #include "images/temp.h"
 #include "images/humidity.h"
 #include "images/konami.h"
 #include "images/mesh.h"
+#include "display.h"
 
 extern Adafruit_SSD1306 display;
 extern String wearerFirstName;
@@ -16,14 +19,49 @@ extern int currentHumidity;
 
 bool displayingTemp = false;
 bool displayingWearerDetails = false;
-bool displayingAnimations = false;
+bool displayingCarousel = false;
+
+// Array of function pointers so we can rotate through each in carousel mode
+void (*carouselFuncs[])(void) = {
+    showTitle,
+    showSpark,
+    showTempAndHumidity,
+    showSpectra,
+    displayWearerDetails};
+int funcArraySize = sizeof(carouselFuncs) / sizeof(carouselFuncs[0]);
+int currentFunc = 0;
+unsigned long prevCarouselRotation;
+
+void displayCarousel()
+{
+  unsigned long currentMillis = millis();
+
+  if (!displayingCarousel)
+  {
+    currentFunc = 0;
+    prevCarouselRotation = millis();
+    carouselFuncs[currentFunc]();
+    displayingCarousel = true;
+  }
+  else if (currentMillis - prevCarouselRotation > CAROUSEL_INTERVAL)
+  {
+    prevCarouselRotation = currentMillis;
+    carouselFuncs[currentFunc]();
+    currentFunc++;
+
+    if (currentFunc == funcArraySize)
+    {
+      currentFunc = 0;
+    }
+  }
+}
 
 // Reset all display-related state booleans
 void resetDisplayBools()
 {
   displayingTemp = false;
   displayingWearerDetails = false;
-  displayingAnimations = false;
+  displayingCarousel = false;
 }
 
 // Clear the OLED display
@@ -65,7 +103,11 @@ void showSplashscreen()
   clearScreen();
   display.drawBitmap(0, 16, sparkLogo, 128, 48, 1);
   display.display();
-  delay(3000);
+  delay(2000);
+  clearScreen();
+  display.drawBitmap(0, 0, spectraLogo, 128, 64, 1);
+  display.display();
+  delay(2000);
 }
 
 // Display the wearer's first and last name on the display
@@ -182,6 +224,14 @@ void showTempAndHumidity()
   displayingTemp = true;
 }
 
+void showSpark()
+{
+  clearScreen();
+  display.drawBitmap(0, 16, sparkLogo, 128, 48, 1);
+  display.display();
+  display.startscrollleft(0x00, 0x0F);
+}
+
 void displayCredits()
 {
   const char *creditStrings[] = {"Created by",
@@ -208,4 +258,14 @@ void showMesh()
   display.drawBitmap(0, 0, meshLogo, 64, 63, 1);
   display.display();
   display.startscrolldiagright(0x00, 0x07);
+}
+
+void showSpectra()
+{
+  display.clearDisplay();
+  display.display();
+  display.setCursor(0, 0);
+  display.drawBitmap(0, 0, spectraLogo, 128, 64, 1);
+  display.display();
+  display.startscrollleft(0x00, 0x0F);
 }

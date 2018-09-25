@@ -106,11 +106,15 @@ void ESC()
 {
   if ((long)(micros() - last_micros) >= debouncing_time * 1000)
   {
-    detachInterrupt(RED_BUTTON_A);
-    resetDisplayBools();
+    detachInterrupt(BLUE_BUTTON_B);
+    detachInterrupt(YELLOW_BUTTON_D);
+
     appmode = 0;
     btnid = 4;
     btncounter++;
+
+    resetDisplayBools();
+    toggleAllButtons(LOW);
   }
 }
 
@@ -123,14 +127,16 @@ void BACK()
     btncounter++;
     resetDisplayBools();
     toggleAllButtons(LOW);
+
     detachInterrupt(JOYSTICK_LEFT);
     attachInterrupt(JOYSTICK_LEFT, LEFT, FALLING); // Set the default interrupt back up
   }
 }
 
-void setupAButtonInterrupt()
+void setupLEDButtonInterrupt()
 {
-  attachInterrupt(RED_BUTTON_A, ESC, FALLING);
+  attachInterrupt(BLUE_BUTTON_B, ESC, FALLING);
+  attachInterrupt(YELLOW_BUTTON_D, ESC, FALLING);
 }
 
 void setupBackButtonInterrupt()
