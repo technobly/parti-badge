@@ -62,7 +62,7 @@
 #include "events/events.h"
 
 // SYSTEM_MODE(SEMI_AUTOMATIC);
-SYSTEM_THREAD(ENABLED);
+// SYSTEM_THREAD(ENABLED);
 
 // Init Display
 Adafruit_SSD1306 display(RESET);
@@ -313,12 +313,9 @@ void loop()
       switch (clickedItem)
       {
       case 1:
-        initSimon();
-        break;
-      case 2:
         etchASketch();
         break;
-      case 3:
+      case 2:
         snakeGame();
         break;
       case 4:

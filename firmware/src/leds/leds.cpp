@@ -152,21 +152,6 @@ void toner(byte which, int buzz_length_ms)
   setLEDs(CHOICE_OFF); // Turn off all LEDs
 }
 
-// Returns a '1' bit in the position corresponding to CHOICE_RED, CHOICE_GREEN, etc.
-byte checkButton()
-{
-  if (digitalRead(RED_BUTTON_A) == 0)
-    return (CHOICE_RED);
-  else if (digitalRead(GREEN_BUTTON_C) == 0)
-    return (CHOICE_GREEN);
-  else if (digitalRead(BLUE_BUTTON_B) == 0)
-    return (CHOICE_BLUE);
-  else if (digitalRead(YELLOW_BUTTON_D) == 0)
-    return (CHOICE_YELLOW);
-
-  return (CHOICE_NONE); // If no button is pressed, return none
-}
-
 // Each time this function is called the board moves to the next LED
 void changeLED()
 {

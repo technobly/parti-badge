@@ -14,7 +14,6 @@ void initLEDButtons();
 void toggleAllButtons(int state);
 void setLEDs(byte leds);
 void toner(byte which, int buzz_length_ms);
-byte checkButton();
 void changeLED();
 void fadeAllIn();
 void fadeAllOut();

@@ -57,13 +57,12 @@ const char *const mnuMusic[] = {
     itmMusic1, itmMusic2, itmMusic3, itmMusic4, itmBack};
 const int cntMusic = 5;
 
-static const char itmGame1[] = "Simon Says";
-static const char itmGame2[] = "Etch a Sketch";
-static const char itmGame3[] = "Snake";
+static const char itmGame1[] = "Etch a Sketch";
+static const char itmGame2[] = "Snake";
 const char *const mnuGames[] = {
     itmRootGames,
-    itmGame1, itmGame2, itmGame3, itmBack};
-const int cntGames = 4;
+    itmGame1, itmGame2, itmBack};
+const int cntGames = 3;
 
 static const char itmGraphics1[] = "Spark";
 static const char itmGraphics2[] = "Spectra";

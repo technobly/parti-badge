@@ -47,19 +47,15 @@
 #include "macros.h"
 #include "display/display.h"
 #include "interrupts/interrupts.h"
+#include "inputs/inputs.h"
 #include "leds/leds.h"
 #include "music/music.h"
 
 // Define game parameters
-#define ROUNDS_TO_WIN      13 //Number of rounds to succesfully remember before you win. 13 is do-able.
-#define ENTRY_TIME_LIMIT   3000 //Amount of time to press a button before game times out. 3000ms = 3 sec
-
-#define MODE_MEMORY  0
-#define MODE_BATTLE  1
-#define MODE_BEEGEES 2
+#define ROUNDS_TO_WIN 13      //Number of rounds to succesfully remember before you win. 13 is do-able.
+#define ENTRY_TIME_LIMIT 3000 //Amount of time to press a button before game times out. 3000ms = 3 sec
 
 // Game state variables
-byte gameMode = MODE_MEMORY; //By default, let's play the memory game
 byte gameBoard[32]; //Contains the combination of buttons as we advance
 byte gameRound = 0; //Counts the number of succesful rounds the player has made it through
 
@@ -74,60 +70,38 @@ const char score[] = "Current Score";
 void configureGame();
 void playGame();
 boolean play_memory(void);
-boolean play_battle(void);
 void add_to_moves(void);
-void setLEDs(byte leds);
 byte wait_for_button(void);
 void play_winner(void);
 void winner_sound(void);
 void play_loser(void);
-void play_beegees();
 void attractMode(void);
 void playMoves(void);
 
-void initSimon() {
+void initSimon()
+{
   appmode = 1;
   btnid = 0;
 
   configureGame();
   setupBackButtonInterrupt();
 
-  while (appmode) {
+  while (appmode)
+  {
     playGame();
   }
 }
 
 void configureGame()
 {
-  const char *simonSays[] = { "Simon",
-      "Says" };
+  const char *simonSays[] = {"Simon",
+                             "Says"};
 
   clearScreen();
   messageBoxWithArray(simonSays, 2, 2);
 
   delay(2000);
   clearScreen();
-
-  //Setup hardware inputs/outputs. These pins are defined in the hardware_versions header file
-
-  //Mode checking
-  gameMode = MODE_MEMORY; // By default, we're going to play the memory game
-
-  //Check to see if upper right button is pressed
-  if (checkButton() == CHOICE_GREEN)
-  {
-    gameMode = MODE_BATTLE; //Put game into battle mode
-
-    //Turn on the upper right (green) LED
-    setLEDs(CHOICE_GREEN);
-    toner(CHOICE_GREEN, 150);
-
-    setLEDs(CHOICE_RED | CHOICE_BLUE | CHOICE_YELLOW); // Turn on the other LEDs until you release button
-
-    while(checkButton() != CHOICE_NONE) ; // Wait for user to stop pressing button
-
-    //Now do nothing. Battle mode will be serviced in the main routine
-  }
 
   play_winner(); // After setup is complete, say hello to the world
 }
@@ -142,21 +116,11 @@ void playGame()
   setLEDs(CHOICE_OFF); // Turn off LEDs
   delay(250);
 
-  if (gameMode == MODE_MEMORY)
-  {
-    // Play memory game and handle result
-    if (play_memory() == true)
-      play_winner(); // Player won, play winner tones
-    else
-      play_loser(); // Player lost, play loser tones
-  }
-
-  if (gameMode == MODE_BATTLE)
-  {
-    play_battle(); // Play game until someone loses
-
+  // Play memory game and handle result
+  if (play_memory() == true)
+    play_winner(); // Player won, play winner tones
+  else
     play_loser(); // Player lost, play loser tones
-  }
 }
 
 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -191,13 +155,15 @@ boolean play_memory(void)
     playMoves(); // Play back the current game board
 
     // Then require the player to repeat the sequence.
-    for (byte currentMove = 0 ; currentMove < gameRound ; currentMove++)
+    for (byte currentMove = 0; currentMove < gameRound; currentMove++)
     {
       byte choice = wait_for_button(); // See what button the user presses
 
-      if (choice == 0) return false; // If wait timed out, player loses
+      if (choice == 0)
+        return false; // If wait timed out, player loses
 
-      if (choice != gameBoard[currentMove]) return false; // If the choice is incorect, player loses
+      if (choice != gameBoard[currentMove])
+        return false; // If the choice is incorect, player loses
     }
 
     delay(1000); // Player was correct, delay before playing moves
@@ -206,39 +172,10 @@ boolean play_memory(void)
   return true; // Player made it through all the rounds to win!
 }
 
-// Play the special 2 player battle mode
-// A player begins by pressing a button then handing it to the other player
-// That player repeats the button and adds one, then passes back.
-// This function returns when someone loses
-boolean play_battle(void)
-{
-  gameRound = 0; // Reset the game frame back to one frame
-
-  while (1) // Loop until someone fails
-  {
-    byte newButton = wait_for_button(); // Wait for user to input next move
-    gameBoard[gameRound++] = newButton; // Add this new button to the game array
-
-    // Then require the player to repeat the sequence.
-    for (byte currentMove = 0 ; currentMove < gameRound ; currentMove++)
-    {
-      byte choice = wait_for_button();
-
-      if (choice == 0) return false; // If wait timed out, player loses.
-
-      if (choice != gameBoard[currentMove]) return false; // If the choice is incorect, player loses.
-    }
-
-    delay(100); // Give the user an extra 100ms to hand the game to the other player
-  }
-
-  return true; // We should never get here
-}
-
 // Plays the current contents of the game moves
 void playMoves(void)
 {
-  for (byte currentMove = 0 ; currentMove < gameRound ; currentMove++)
+  for (byte currentMove = 0; currentMove < gameRound; currentMove++)
   {
     toner(gameBoard[currentMove], 150);
 
@@ -254,10 +191,14 @@ void add_to_moves(void)
   byte newButton = random(0, 4); //min (included), max (exluded)
 
   // We have to convert this number, 0 to 3, to CHOICEs
-  if(newButton == 0) newButton = CHOICE_RED;
-  else if(newButton == 1) newButton = CHOICE_GREEN;
-  else if(newButton == 2) newButton = CHOICE_BLUE;
-  else if(newButton == 3) newButton = CHOICE_YELLOW;
+  if (newButton == 0)
+    newButton = CHOICE_RED;
+  else if (newButton == 1)
+    newButton = CHOICE_GREEN;
+  else if (newButton == 2)
+    newButton = CHOICE_BLUE;
+  else if (newButton == 3)
+    newButton = CHOICE_YELLOW;
 
   gameBoard[gameRound++] = newButton; // Add this new button to the game array
 }
@@ -271,7 +212,7 @@ byte wait_for_button(void)
 {
   long startTime = millis(); // Remember the time we started the this loop
 
-  while ( (millis() - startTime) < ENTRY_TIME_LIMIT) // Loop until too much time has passed
+  while ((millis() - startTime) < ENTRY_TIME_LIMIT) // Loop until too much time has passed
   {
     byte button = checkButton();
 
@@ -279,13 +220,13 @@ byte wait_for_button(void)
     {
       toner(button, 150); // Play the button the user just pressed
 
-      while(checkButton() != CHOICE_NONE) ;  // Now let's wait for user to release button
+      while (checkButton() != CHOICE_NONE)
+        ; // Now let's wait for user to release button
 
       delay(10); // This helps with debouncing and accidental double taps
 
       return button;
     }
-
   }
 
   return CHOICE_NONE; // If we get here, we've timed out!
@@ -309,9 +250,9 @@ void play_winner(void)
 void winner_sound(void)
 {
   // Toggle the buzzer at various speeds
-  for (byte x = 250 ; x > 70 ; x--)
+  for (byte x = 250; x > 70; x--)
   {
-    for (byte y = 0 ; y < 3 ; y++)
+    for (byte y = 0; y < 3; y++)
     {
       digitalWrite(BUZZER_PIN, HIGH);
       digitalWrite(BUZZER_PIN, LOW);
@@ -343,22 +284,26 @@ void play_loser(void)
 // Show an "attract mode" display while waiting for user to press button.
 void attractMode(void)
 {
-  while(1)
+  while (1)
   {
     setLEDs(CHOICE_RED);
     delay(100);
-    if (checkButton() != CHOICE_NONE) return;
+    if (checkButton() != CHOICE_NONE)
+      return;
 
     setLEDs(CHOICE_BLUE);
     delay(100);
-    if (checkButton() != CHOICE_NONE) return;
+    if (checkButton() != CHOICE_NONE)
+      return;
 
     setLEDs(CHOICE_GREEN);
     delay(100);
-    if (checkButton() != CHOICE_NONE) return;
+    if (checkButton() != CHOICE_NONE)
+      return;
 
     setLEDs(CHOICE_YELLOW);
     delay(100);
-    if (checkButton() != CHOICE_NONE) return;
+    if (checkButton() != CHOICE_NONE)
+      return;
   }
 }

@@ -16,6 +16,7 @@
 #include "macros.h"
 #include "images/spark.h"
 #include "display/display.h"
+#include "leds/leds.h"
 
 #define a3f 208 // 208 Hz
 #define b3f 233 // 233 Hz
@@ -107,6 +108,7 @@ void playRoll()
   btnid = 0;
 
   setupDisplay();
+  toggleAllButtons(LOW);
 
   // play next step in song
   while (appmode)

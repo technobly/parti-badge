@@ -17,5 +17,6 @@ extern Debounce joystickRightDebouncer;
 extern Debounce joystickCenterDebouncer;
 
 void initInputDebouncers();
+byte checkButton();
 
 #endif
