@@ -12,21 +12,21 @@ extern byte btnid;
 int LEDnumber = 0;
 int fadeIncrement = 5;
 
-void fadeIn(int ledPin)
+void fadeIn(int ledPin, int delayInt)
 {
   for (int fadeValue = 0; fadeValue <= 255; fadeValue += fadeIncrement)
   {
     analogWrite(ledPin, fadeValue);
-    delay(30);
+    delay(delayInt);
   }
 }
 
-void fadeOut(int ledPin)
+void fadeOut(int ledPin, int delayInt)
 {
   for (int fadeValue = 255; fadeValue >= 0; fadeValue -= fadeIncrement)
   {
     analogWrite(ledPin, fadeValue);
-    delay(30);
+    delay(delayInt);
   }
 }
 
@@ -38,7 +38,7 @@ void fadeAllIn()
     analogWrite(BLUE_LED, fadeValue);
     analogWrite(GREEN_LED, fadeValue);
     analogWrite(YELLOW_LED, fadeValue);
-    delay(30);
+    delay(15);
   }
 }
 
@@ -50,7 +50,7 @@ void fadeAllOut()
     analogWrite(BLUE_LED, fadeValue);
     analogWrite(GREEN_LED, fadeValue);
     analogWrite(YELLOW_LED, fadeValue);
-    delay(30);
+    delay(15);
   }
 }
 
@@ -184,7 +184,6 @@ void ledChase()
   int del = 100;
 
   setupBackButtonInterrupt();
-
   toggleAllButtons(LOW);
 
   while (appmode)
@@ -215,30 +214,32 @@ void ledPulseChase()
 {
   appmode = 1;
   btnid = 0;
-  int del = 50;
+  int del = 5;
+  int fadeDel = 10;
 
   setupBackButtonInterrupt();
+  toggleAllButtons(LOW);
 
   while (appmode)
   {
     displayCarousel();
 
-    fadeIn(BLUE_LED);
+    fadeIn(BLUE_LED, fadeDel);
     delay(del);
-    fadeIn(GREEN_LED);
+    fadeIn(GREEN_LED, fadeDel);
     delay(del);
-    fadeIn(YELLOW_LED);
+    fadeIn(YELLOW_LED, fadeDel);
     delay(del);
-    fadeIn(RED_LED);
+    fadeIn(RED_LED, fadeDel);
     delay(del);
 
-    fadeOut(BLUE_LED);
+    fadeOut(BLUE_LED, fadeDel);
     delay(del);
-    fadeOut(GREEN_LED);
+    fadeOut(GREEN_LED, fadeDel);
     delay(del);
-    fadeOut(YELLOW_LED);
+    fadeOut(YELLOW_LED, fadeDel);
     delay(del);
-    fadeOut(RED_LED);
+    fadeOut(RED_LED, fadeDel);
     delay(del);
   }
 }
@@ -249,6 +250,7 @@ void ledPulse()
   btnid = 0;
 
   setupBackButtonInterrupt();
+  toggleAllButtons(LOW);
 
   while (appmode)
   {
@@ -266,13 +268,16 @@ void ledRandom()
   int r = 0;
   int del = 150;
 
-  pin_t leds[4] = {RED_LED, GREEN_LED, YELLOW_LED, RED_LED};
+  pin_t leds[4] = {RED_LED, BLUE_LED, GREEN_LED, YELLOW_LED};
+
+  setupBackButtonInterrupt();
+  toggleAllButtons(LOW);
 
   while (appmode)
   {
     displayCarousel();
 
-    r = random(3);
+    r = random(4);
 
     analogWrite(leds[r], 255);
     delay(del);
@@ -284,9 +289,11 @@ void ledSeeSaw()
 {
   appmode = 1;
   btnid = 0;
-  int del = 100;
+  int del = 150;
 
+  setupBackButtonInterrupt();
   toggleAllButtons(LOW);
+
   while (appmode)
   {
     displayCarousel();
