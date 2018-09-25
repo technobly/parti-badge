@@ -16,8 +16,10 @@ extern String wearerTwitter;
 extern bool titleShown;
 extern int currentTemp;
 extern int currentHumidity;
+extern int currentBatteryReading;
 
 bool displayingTemp = false;
+bool displayingBattery = false;
 bool displayingWearerDetails = false;
 bool displayingCarousel = false;
 
@@ -62,6 +64,7 @@ void resetDisplayBools()
   displayingTemp = false;
   displayingWearerDetails = false;
   displayingCarousel = false;
+  displayingBattery = false;
 }
 
 // Clear the OLED display
@@ -196,11 +199,25 @@ void showTitle()
   display.display();
 }
 
+void showBattery()
+{
+  clearScreen();
+
+  display.setTextSize(1);
+  display.setCursor(40, 16);
+  display.println("Battery");
+  display.setTextSize(3);
+  display.setCursor(37, 30);
+  display.print((int)currentBatteryReading);
+  display.println("%");
+  display.display();
+
+  displayingBattery = true;
+}
+
 // Show the temperature and humidity on the display
 void showTempAndHumidity()
 {
-  displayingTemp = true;
-
   clearScreen();
 
   display.drawBitmap(7, 18, tempImage, 16, 43, 1);

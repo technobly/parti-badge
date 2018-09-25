@@ -78,11 +78,13 @@ WearerInfo wearerInfo;
 Adafruit_Si7021 envSensor = Adafruit_Si7021();
 int currentTemp;
 int currentHumidity;
+int currentBatteryReading;
 
 // Timing variables
 unsigned long elapsedTime;
 unsigned long startTime = 0;
 unsigned long previousEnvReading = 0;
+unsigned long previousBatteryReading = 0;
 
 // Wearer details
 String wearerFirstName;
@@ -93,6 +95,7 @@ String wearerTwitter;
 extern bool displayingTemp;
 extern bool displayingWearerDetails;
 extern bool displayingCarousel;
+extern bool displayingBattery;
 bool menuShowing = false;
 
 // Display state management
@@ -145,6 +148,9 @@ void setup()
 
   // Get an initial temp and humidity reading
   getTempAndHumidity();
+
+  // Get an Initial Battery Reading
+  getBatteryReading();
 
   //Init Tactile LED Buttons
   initLEDButtons();
@@ -281,6 +287,7 @@ void loop()
         showTempAndHumidity();
         break;
       case 2:
+        showBattery();
         break;
       case 3:
         menu.InitMenu(mnuRoot, cntRoot, 3);
@@ -443,6 +450,12 @@ void loop()
   if (displayingCarousel)
   {
     displayCarousel();
+  }
+
+  if (currentMillis = previousBatteryReading > BATT_CHECK_INTERVAL)
+  {
+    previousBatteryReading = currentMillis;
+    getBatteryReading();
   }
 
   if (currentMillis - previousEnvReading > TEMP_CHECK_INTERVAL)

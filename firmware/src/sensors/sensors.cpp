@@ -5,7 +5,9 @@
 extern Adafruit_Si7021 envSensor;
 extern int currentTemp;
 extern int currentHumidity;
+extern int currentBatteryReading;
 extern bool displayingTemp;
+extern bool displayingBattery;
 
 // Get temp and humidity from the sensors
 void getTempAndHumidity()
@@ -22,5 +24,19 @@ void getTempAndHumidity()
   if (displayingTemp && (prevTemp != currentTemp || prevHumidity != currentHumidity))
   {
     showTempAndHumidity();
+  }
+}
+
+void getBatteryReading()
+{
+  int prevBattery = currentBatteryReading;
+
+  currentBatteryReading = round(analogRead(BATT) * 100 / 4095);
+
+  fireBatteryEvent(currentBatteryReading);
+
+  if (displayingBattery && (prevBattery != currentBatteryReading))
+  {
+    showBattery();
   }
 }

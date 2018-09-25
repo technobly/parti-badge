@@ -10,6 +10,7 @@ void displayWearerDetails();
 void displayTwitterHandle();
 void showTitle();
 void showTempAndHumidity();
+void showBattery();
 void displayCredits();
 void showSpark();
 void showKonami();
