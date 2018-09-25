@@ -37,7 +37,7 @@
 
 // Menu System include
 #include "mainmenu.h"
-#include <qMenuSystem.h>
+#include "qMenuSystem.h"
 
 #include "macros.h" // #define pin assignments and other general macros
 
@@ -53,6 +53,7 @@
 #include "music/music.h"
 #include "keylogger/keylogger.h"
 #include "sensors/sensors.h"
+#include "animations/animations.h"
 
 #include "music/roll.h"
 #include "WearerInfo/WearerInfo.h"
@@ -60,7 +61,7 @@
 #include "Adafruit_Si7021.h"
 #include "events/events.h"
 
-SYSTEM_MODE(SEMI_AUTOMATIC);
+// SYSTEM_MODE(SEMI_AUTOMATIC);
 SYSTEM_THREAD(ENABLED);
 
 // Init Display
@@ -91,10 +92,8 @@ String wearerTwitter;
 // Display variables
 extern bool displayingTemp;
 extern bool displayingWearerDetails;
-extern bool displayingAnimations;
+extern bool displayingCarousel;
 bool menuShowing = false;
-
-#include "animations/animations.h"
 
 // Display state management
 bool checkingInputs = false;
@@ -112,7 +111,8 @@ void initWearerDetails();
 
 void setup()
 {
-  Serial.begin(115200);
+  Serial.begin();
+
   resetDisplayBools();
 
   // Get the current deviceId
@@ -153,7 +153,7 @@ void setup()
   playStartup(BUZZER_PIN);
 
   // Connect to the Particle device cloud
-  Particle.connect();
+  // Particle.connect();
 
   // Fetch badge wearer details from EEPROM
   initWearerDetails();
@@ -175,9 +175,9 @@ void loop()
     yellowButtonDDebouncer.update();
     joystickCenterDebouncer.update();
 
-    if (redButtonADebouncer.read() == LOW ||
+    if ( //redButtonADebouncer.read() == LOW ||
         blueButtonBDebouncer.read() == LOW ||
-        greenButtonCDebouncer.read() == LOW ||
+        //greenButtonCDebouncer.read() == LOW ||
         yellowButtonDDebouncer.read() == LOW ||
         joystickCenterDebouncer.read() == LOW)
     {
@@ -266,6 +266,9 @@ void loop()
         showTempAndHumidity();
         break;
       case 5:
+        displayCarousel();
+        break;
+      case 6:
         menu.InitMenu(mnuRoot, cntRoot, 1);
         break;
       }
@@ -328,16 +331,73 @@ void loop()
       switch (clickedItem)
       {
       case 1:
-        showSplashscreen();
+        showSpark();
         break;
       case 2:
-        showMesh();
+        showSpectra();
         break;
       case 3:
-        showKonami();
+        showMesh();
         break;
       case 4:
+        showKonami();
+        break;
+      case 5:
         menu.InitMenu(mnuRoot, cntRoot, 6);
+        break;
+      }
+    }
+    else if (menu.CurrentMenu == mnuAnimations)
+    {
+      switch (clickedItem)
+      {
+      case 1:
+        snowflakes();
+        break;
+      case 2:
+        drawCircles();
+        break;
+      case 3:
+        drawRectangles();
+        break;
+      case 4:
+        drawTriangles();
+        break;
+      case 5:
+        drawRoundedRectangles();
+        break;
+      case 6:
+        scrollText();
+        break;
+      case 7:
+        cycleAnimations();
+        break;
+      case 8:
+        menu.InitMenu(mnuRoot, cntRoot, 7);
+        break;
+      }
+    }
+    else if (menu.CurrentMenu == mnuBlinky)
+    {
+      switch (clickedItem)
+      {
+      case 1:
+        ledChase();
+        break;
+      case 2:
+        ledPulse();
+        break;
+      case 3:
+        ledPulseChase();
+        break;
+      case 4:
+        ledRandom();
+        break;
+      case 5:
+        ledSeeSaw();
+        break;
+      case 6:
+        menu.InitMenu(mnuRoot, cntRoot, 8);
         break;
       }
     }
@@ -381,6 +441,11 @@ void loop()
     {
       menu.InitMenu((const char **)mnuRoot, cntRoot, 8);
     }
+  }
+
+  if (displayingCarousel)
+  {
+    displayCarousel();
   }
 
   if (currentMillis - previousEnvReading > TEMP_CHECK_INTERVAL)

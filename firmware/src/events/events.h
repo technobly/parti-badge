@@ -1,5 +1,5 @@
-#ifndef PARTICLE_ROLL_H
-#define PARTICLE_ROLL_H
+#ifndef PARTICLE_EVENTS_H
+#define PARTICLE_EVENTS_H
 
 void fireEnvSensorsEvent(int temp, int humidity);
 

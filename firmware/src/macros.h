@@ -3,7 +3,7 @@
 #define GAME_MODE 2
 
 /* Piezo Pin */
-#define BUZZER_PIN TX
+#define BUZZER_PIN D8
 
 /* Tactile LED Button Pins */
 /* LEDS */
@@ -12,9 +12,9 @@
 #define BLUE_LED A1
 #define YELLOW_LED A0
 /* Buttons */
-#define RED_BUTTON_A WKP
+#define RED_BUTTON_A MOSI
 #define BLUE_BUTTON_B A5
-#define GREEN_BUTTON_C DAC
+#define GREEN_BUTTON_C SCK
 #define YELLOW_BUTTON_D A4
 
 /* Joystick Buttons */
@@ -26,7 +26,8 @@
 
 /* General Macros */
 #define TEMP_CHECK_INTERVAL 120000
-#define DEBOUNCE_INTERVAL 10
+#define CAROUSEL_INTERVAL 10000
+#define DEBOUNCE_INTERVAL 50
 
 #define MAX_X 128
 #define MAX_Y 64

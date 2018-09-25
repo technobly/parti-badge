@@ -2,7 +2,7 @@
 #define PARTICLE_INTERRUPTS_H
 
 void setupJoystickInterrupts();
-void setupAButtonInterrupt();
+void setupLEDButtonInterrupt();
 void setupBackButtonInterrupt();
 
 #endif

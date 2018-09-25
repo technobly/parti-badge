@@ -31,7 +31,6 @@ void initEtchASketch()
   display.println("Use the joystick...");
   display.display();
   delay(2000);
-
   clearScreen();
 }
 
@@ -47,7 +46,7 @@ void etchASketch()
   initEtchASketch();
   drawFilledCircle(displayX, displayY);
 
-  setupAButtonInterrupt();
+  setupLEDButtonInterrupt();
 
   while (appmode)
   {
@@ -78,6 +77,11 @@ void etchASketch()
       displayX++;
     }
 
+    if ((lastX != displayX) || (lastY != displayY))
+    {
+      drawFilledCircle(displayX, displayY);
+    }
+
     // Reset the screen
     joystickCenterDebouncer.update();
     if (joystickCenterDebouncer.read() == LOW)
@@ -85,11 +89,6 @@ void etchASketch()
       clearScreen();
       displayX = display.width() / 2;
       displayY = display.height() / 2;
-    }
-
-    if ((lastX != displayX) || (lastY != displayY))
-    {
-      drawFilledCircle(displayX, displayY);
     }
   }
 }
@@ -269,7 +268,7 @@ void snakeGame()
   btnid = 0;
   clearScreen();
 
-  setupAButtonInterrupt();
+  setupLEDButtonInterrupt();
 
   minX = 0;
   minY = 8;
