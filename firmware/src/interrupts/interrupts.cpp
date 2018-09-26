@@ -106,7 +106,9 @@ void ESC()
 {
   if ((long)(micros() - last_micros) >= debouncing_time * 1000)
   {
+    detachInterrupt(RED_BUTTON_A);
     detachInterrupt(BLUE_BUTTON_B);
+    detachInterrupt(GREEN_BUTTON_C);
     detachInterrupt(YELLOW_BUTTON_D);
 
     appmode = 0;
@@ -135,7 +137,9 @@ void BACK()
 
 void setupLEDButtonInterrupt()
 {
+  attachInterrupt(RED_BUTTON_A, ESC, FALLING);
   attachInterrupt(BLUE_BUTTON_B, ESC, FALLING);
+  attachInterrupt(GREEN_BUTTON_C, ESC, FALLING);
   attachInterrupt(YELLOW_BUTTON_D, ESC, FALLING);
 }
 
