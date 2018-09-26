@@ -7,6 +7,7 @@
 #include "images/humidity.h"
 #include "images/konami.h"
 #include "images/mesh.h"
+#include "images/battery.h"
 #include "display.h"
 
 extern Adafruit_SSD1306 display;
@@ -210,6 +211,7 @@ void showBattery()
   display.setCursor(37, 30);
   display.print((int)currentBatteryReading);
   display.println("%");
+  // Show battery image based on reading
   display.display();
   display.setTextSize(1);
 

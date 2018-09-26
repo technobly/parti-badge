@@ -20,8 +20,7 @@ void fireTowerSendEvent()
   if (lastSentTowerEvent == 0 || millis() - lastSentTowerEvent > eventDelay)
   {
     lastSentTowerEvent = millis();
-    // Mesh.publish("tower-send", NULL);
-    Particle.publish("tower-send", NULL, PRIVATE);
+    Mesh.publish("tower-send", NULL);
   }
 }
 
@@ -31,7 +30,6 @@ void fireHelloPingEvent()
   if (lastHelloEvent == 0 || millis() - lastHelloEvent > eventDelay)
   {
     lastHelloEvent = millis();
-    // Mesh.publish("mesh-ping", "hello!");
-    Particle.publish("mesh-ping", "hello!", PRIVATE);
+    Mesh.publish("mesh-ping", "hello!");
   }
 }

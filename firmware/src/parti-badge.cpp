@@ -118,6 +118,9 @@ void setup()
 {
   Serial.begin();
 
+  // setup Mesh
+  meshSetup();
+
   resetDisplayBools();
 
   // Get the current deviceId

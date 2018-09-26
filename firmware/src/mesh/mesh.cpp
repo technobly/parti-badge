@@ -4,6 +4,12 @@
 
 //MeshSignal signal;
 
+void meshSetup()
+{
+  Mesh.on();
+  Mesh.connect();
+}
+
 void towerFullHandler(const char *event, const char *data)
 {
   ledChase();
@@ -29,15 +35,10 @@ void zachButtonHandler(const char *event, const char *data)
 
 void setupMeshEvents()
 {
-  // Mesh.subscribe("tower-full", towerFullHandler);
-  // Mesh.subscribe("tower-full-slomo", towerFullSloMohandler);
-  // Mesh.subscribe("mesh-ping", meshPingHandler);
-  // Mesh.subscribe("zach-button", zachButtonHandler);
-
-  Particle.subscribe("tower-full", towerFullHandler);
-  Particle.subscribe("tower-full-slomo", towerFullSloMohandler);
-  Particle.subscribe("mesh-ping", meshPingHandler);
-  Particle.subscribe("zach-button", zachButtonHandler);
+  Mesh.subscribe("tower-full", towerFullHandler);
+  Mesh.subscribe("tower-full-slomo", towerFullSloMohandler);
+  Mesh.subscribe("mesh-ping", meshPingHandler);
+  Mesh.subscribe("zach-button", zachButtonHandler);
 }
 
 void getMeshNetworkInfo()
