@@ -162,9 +162,6 @@ void setup()
   // Connect to the Particle device cloud
   // Particle.connect();
 
-  // Init UDP Communication
-  openSocket();
-
   // Fetch badge wearer details from EEPROM
   initWearerDetails();
 
@@ -456,7 +453,7 @@ void loop()
     displayCarousel();
   }
 
-  if (currentMillis = previousBatteryReading > BATT_CHECK_INTERVAL)
+  if (currentMillis - previousBatteryReading > BATT_CHECK_INTERVAL)
   {
     previousBatteryReading = currentMillis;
     getBatteryReading();
@@ -466,6 +463,12 @@ void loop()
   {
     previousEnvReading = currentMillis;
     getTempAndHumidity();
+  }
+
+  blueButtonBDebouncer.update();
+  if (blueButtonBDebouncer.read() == LOW)
+  {
+    fireTowerSendEvent();
   }
 }
 

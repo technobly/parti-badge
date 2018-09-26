@@ -211,6 +211,7 @@ void showBattery()
   display.print((int)currentBatteryReading);
   display.println("%");
   display.display();
+  display.setTextSize(1);
 
   displayingBattery = true;
 }
@@ -237,6 +238,7 @@ void showTempAndHumidity()
   display.println("%");
   display.drawBitmap(105, 28, humidityImage, 20, 27, 1);
   display.display();
+  display.setTextSize(1);
 
   displayingTemp = true;
 }
