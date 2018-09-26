@@ -54,6 +54,7 @@
 #include "keylogger/keylogger.h"
 #include "sensors/sensors.h"
 #include "animations/animations.h"
+#include "udp/udp.h"
 
 #include "music/roll.h"
 #include "WearerInfo/WearerInfo.h"
@@ -160,6 +161,9 @@ void setup()
 
   // Connect to the Particle device cloud
   // Particle.connect();
+
+  // Init UDP Communication
+  openSocket();
 
   // Fetch badge wearer details from EEPROM
   initWearerDetails();

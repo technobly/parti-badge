@@ -9,3 +9,9 @@ void fireBatteryEvent(int battery)
 {
   Particle.publish("battery-charge", String(battery), PRIVATE);
 }
+
+void fireTowerSendEvent()
+{
+  // Mesh.publish("tower-send", NULL);
+  Particle.publish("tower-send", NULL, PRIVATE);
+}
