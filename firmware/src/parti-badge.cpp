@@ -54,6 +54,7 @@
 #include "keylogger/keylogger.h"
 #include "sensors/sensors.h"
 #include "animations/animations.h"
+#include "mesh/mesh.h"
 #include "udp/udp.h"
 
 #include "music/roll.h"
@@ -63,7 +64,7 @@
 #include "events/events.h"
 
 // SYSTEM_MODE(SEMI_AUTOMATIC);
-// SYSTEM_THREAD(ENABLED);
+SYSTEM_THREAD(ENABLED);
 
 // Init Display
 Adafruit_SSD1306 display(RESET);
@@ -160,7 +161,7 @@ void setup()
   playStartup(BUZZER_PIN);
 
   // Connect to the Particle device cloud
-  // Particle.connect();
+  Particle.connect();
 
   // Fetch badge wearer details from EEPROM
   initWearerDetails();
@@ -285,13 +286,12 @@ void loop()
       switch (clickedItem)
       {
       case 1:
+        getMeshNetworkInfo();
         break;
       case 2:
-        break;
-      case 3:
         fireHelloPingEvent();
         break;
-      case 4:
+      case 3:
         menu.InitMenu(mnuRoot, cntRoot, 3);
         break;
       }
