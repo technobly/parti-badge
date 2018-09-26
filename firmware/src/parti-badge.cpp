@@ -139,6 +139,9 @@ void setup()
   // Set up cloud variables and functions
   cloudInit();
 
+  // Set up mesh subscribe handlers
+  setupMeshEvents();
+
   // Set the Piezo buzzer as an output
   pinMode(BUZZER_PIN, OUTPUT);
 

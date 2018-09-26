@@ -16,5 +16,6 @@ void showSpark();
 void showKonami();
 void showMesh();
 void showSpectra();
+void displayMeshPing();
 
 #endif

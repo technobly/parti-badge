@@ -288,3 +288,13 @@ void showSpectra()
   display.display();
   display.startscrollleft(0x00, 0x0F);
 }
+
+void displayMeshPing()
+{
+  clearScreen();
+  display.setTextSize(1);
+  display.setCursor(0, 10);
+  display.println();
+  display.println("You got a mesh ping!");
+  display.display();
+}
