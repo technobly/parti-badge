@@ -182,9 +182,9 @@ void loop()
     yellowButtonDDebouncer.update();
     joystickCenterDebouncer.update();
 
-    if ( //redButtonADebouncer.read() == LOW ||
+    if (redButtonADebouncer.read() == LOW ||
         blueButtonBDebouncer.read() == LOW ||
-        //greenButtonCDebouncer.read() == LOW ||
+        greenButtonCDebouncer.read() == LOW ||
         yellowButtonDDebouncer.read() == LOW ||
         joystickCenterDebouncer.read() == LOW)
     {
@@ -277,6 +277,22 @@ void loop()
         break;
       case 6:
         menu.InitMenu(mnuRoot, cntRoot, 1);
+        break;
+      }
+    }
+    else if (menu.CurrentMenu == mnuMesh)
+    {
+      switch (clickedItem)
+      {
+      case 1:
+        break;
+      case 2:
+        break;
+      case 3:
+        fireHelloPingEvent();
+        break;
+      case 4:
+        menu.InitMenu(mnuRoot, cntRoot, 3);
         break;
       }
     }

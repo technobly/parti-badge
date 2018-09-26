@@ -1,6 +1,7 @@
 #include "Particle.h"
 
 unsigned long lastSentTowerEvent = 0;
+unsigned long lastHelloEvent = 0;
 unsigned long eventDelay = 5000;
 
 void fireEnvSensorsEvent(int temp, int humidity)
@@ -21,5 +22,16 @@ void fireTowerSendEvent()
     lastSentTowerEvent = millis();
     // Mesh.publish("tower-send", NULL);
     Particle.publish("tower-send", NULL, PRIVATE);
+  }
+}
+
+void fireHelloPingEvent()
+{
+  // Make sure that events are at least five seconds apart
+  if (lastHelloEvent == 0 || millis() - lastHelloEvent > eventDelay)
+  {
+    lastHelloEvent = millis();
+    // Mesh.publish("mesh-ping", "hello!");
+    Particle.publish("mesh-ping", "hello!", PRIVATE);
   }
 }

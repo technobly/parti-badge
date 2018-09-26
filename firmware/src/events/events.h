@@ -4,5 +4,6 @@
 void fireEnvSensorsEvent(int temp, int humidity);
 void fireBatteryEvent(int battery);
 void fireTowerSendEvent();
+void fireHelloPingEvent();
 
 #endif

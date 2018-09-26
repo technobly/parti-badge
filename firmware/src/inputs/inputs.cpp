@@ -22,11 +22,11 @@ void initInputDebouncers()
   pinMode(SCK, INPUT);
 
   // Init Buttons as Inputs
-  redButtonADebouncer.attach(RED_BUTTON_A, INPUT);
+  redButtonADebouncer.attach(RED_BUTTON_A, INPUT_PULLUP);
   redButtonADebouncer.interval(DEBOUNCE_INTERVAL);
   blueButtonBDebouncer.attach(BLUE_BUTTON_B, INPUT_PULLUP);
   blueButtonBDebouncer.interval(DEBOUNCE_INTERVAL);
-  greenButtonCDebouncer.attach(GREEN_BUTTON_C, INPUT);
+  greenButtonCDebouncer.attach(GREEN_BUTTON_C, INPUT_PULLUP);
   greenButtonCDebouncer.interval(DEBOUNCE_INTERVAL);
   yellowButtonDDebouncer.attach(YELLOW_BUTTON_D, INPUT_PULLUP);
   yellowButtonDDebouncer.interval(DEBOUNCE_INTERVAL);
