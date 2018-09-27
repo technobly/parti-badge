@@ -487,10 +487,45 @@ void loop()
     getTempAndHumidity();
   }
 
+  redButtonADebouncer.update();
+  if (redButtonADebouncer.read() == LOW)
+  {
+    digitalWrite(RED_BUTTON_A, HIGH);
+  }
+  else
+  {
+    digitalWrite(RED_BUTTON_A, LOW);
+  }
+
   blueButtonBDebouncer.update();
   if (blueButtonBDebouncer.read() == LOW)
   {
     fireTowerSendEvent();
+    digitalWrite(BLUE_BUTTON_B, HIGH);
+  }
+  else
+  {
+    digitalWrite(BLUE_BUTTON_B, LOW);
+  }
+
+  greenButtonCDebouncer.update();
+  if (greenButtonCDebouncer.read() == LOW)
+  {
+    digitalWrite(GREEN_BUTTON_C, HIGH);
+  }
+  else
+  {
+    digitalWrite(GREEN_BUTTON_C, LOW);
+  }
+
+  yellowButtonDDebouncer.update();
+  if (yellowButtonDDebouncer.read() == LOW)
+  {
+    digitalWrite(YELLOW_BUTTON_D, HIGH);
+  }
+  else
+  {
+    digitalWrite(YELLOW_BUTTON_D, LOW);
   }
 }
 
