@@ -487,6 +487,7 @@ void loop()
     getTempAndHumidity();
   }
 
+  /*
   redButtonADebouncer.update();
   if (redButtonADebouncer.read() == LOW)
   {
@@ -527,6 +528,7 @@ void loop()
   {
     digitalWrite(YELLOW_BUTTON_D, LOW);
   }
+  */
 }
 
 // Init our Device Cloud variables and functions

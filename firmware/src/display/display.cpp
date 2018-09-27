@@ -207,14 +207,14 @@ void showBattery()
   display.setTextSize(1);
   display.setCursor(40, 16);
   display.println("Battery");
-  display.setTextSize(3);
+  display.setTextSize(2);
   display.setCursor(37, 30);
   display.print((int)currentBatteryReading);
   display.println("%");
 
   // Show battery image based on reading
-  int battX = 15;
-  int battY = 50;
+  int battX = 20;
+  int battY = 40;
   if (currentBatteryReading > 0 && currentBatteryReading <= 20)
   {
     display.drawBitmap(battX, battY, batteryEmptyImage, 72, 32, 1);
