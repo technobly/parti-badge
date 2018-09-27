@@ -211,7 +211,27 @@ void showBattery()
   display.setCursor(37, 30);
   display.print((int)currentBatteryReading);
   display.println("%");
+
   // Show battery image based on reading
+  int battX = 15;
+  int battY = 50;
+  if (currentBatteryReading > 0 && currentBatteryReading <= 20)
+  {
+    display.drawBitmap(battX, battY, batteryEmptyImage, 72, 32, 1);
+  }
+  else if (currentBatteryReading > 20 && currentBatteryReading <= 50)
+  {
+    display.drawBitmap(battX, battY, batteryLowImage, 72, 32, 1);
+  }
+  else if (currentBatteryReading > 50 && currentBatteryReading <= 90)
+  {
+    display.drawBitmap(battX, battY, batteryMediumImage, 72, 32, 1);
+  }
+  else
+  {
+    display.drawBitmap(battX, battY, batteryFullImage, 72, 32, 1);
+  }
+
   display.display();
   display.setTextSize(1);
 
