@@ -1,4 +1,7 @@
 #include "Particle.h"
+#include "qMenuSystem.h"
+
+extern qMenuSystem menu;
 
 unsigned long lastSentTowerEvent = 0;
 unsigned long lastHelloEvent = 0;
@@ -31,5 +34,7 @@ void fireHelloPingEvent()
   {
     lastHelloEvent = millis();
     Mesh.publish("mesh-ping", "hello!");
+
+    menu.MessageBox("You sent a ping!");
   }
 }
