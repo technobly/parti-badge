@@ -28,9 +28,8 @@ void meshPingHandler(const char *event, const char *data)
 
 void zachButtonHandler(const char *event, const char *data)
 {
-  // TODO: Replace with display text and LED animation
-  // displayHiFromZ();
-  ledRandom();
+  displayHiFromZ();
+  ledPulse(false);
 }
 
 void gatewayPublishHandler(const char *event, const char *data)

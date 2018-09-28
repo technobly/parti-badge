@@ -232,7 +232,7 @@ void ledPulseChase()
   }
 }
 
-void ledPulse()
+void ledPulse(bool showCarousel)
 {
   appmode = 1;
   btnid = 0;
@@ -243,7 +243,10 @@ void ledPulse()
 
   while (appmode)
   {
-    displayCarousel();
+    if (showCarousel)
+    {
+      displayCarousel();
+    }
 
     fadeAllIn();
     fadeAllOut();

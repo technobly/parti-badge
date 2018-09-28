@@ -415,7 +415,7 @@ void loop()
         ledChase();
         break;
       case 2:
-        ledPulse();
+        ledPulse(true);
         break;
       case 3:
         ledPulseChase();

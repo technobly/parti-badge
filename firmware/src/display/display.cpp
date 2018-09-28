@@ -336,3 +336,15 @@ void displayGatewayPing(const char *data)
   display.display();
   display.setTextWrap(false);
 }
+
+void displayHiFromZ()
+{
+  const char *text = "Welcome to Spectra!";
+  clearScreen();
+  display.setTextSize(1);
+  display.setCursor(5, 2);
+  display.println(text);
+  display.drawBitmap(0, 0, spectraLogo, 128, 64, 1);
+  display.display();
+  display.startscrollleft(0x00, 0x0F);
+}

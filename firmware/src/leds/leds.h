@@ -19,7 +19,7 @@ void fadeAllIn();
 void fadeAllOut();
 
 void ledChase();
-void ledPulse();
+void ledPulse(bool showCarousel);
 void ledPulseChase();
 void ledRandom();
 void ledSeeSaw();
