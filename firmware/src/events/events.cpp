@@ -35,6 +35,6 @@ void fireHelloPingEvent()
     lastHelloEvent = millis();
     Mesh.publish("mesh-ping", "hello!");
 
-    menu.MessageBox("You sent a ping!");
+    menu.MessageBox("Mesh ping sent!");
   }
 }

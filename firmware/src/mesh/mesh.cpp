@@ -33,12 +33,20 @@ void zachButtonHandler(const char *event, const char *data)
   ledRandom();
 }
 
+void gatewayPublishHandler(const char *event, const char *data)
+{
+  displayGatewayPing(data);
+}
+
 void setupMeshEvents()
 {
   Mesh.subscribe("tower-full", towerFullHandler);
   Mesh.subscribe("tower-full-slomo", towerFullSloMohandler);
   Mesh.subscribe("mesh-ping", meshPingHandler);
   Mesh.subscribe("zach-button", zachButtonHandler);
+
+  // Workshop subscriptions
+  Mesh.subscribe("gateway-setup-clicked", gatewayPublishHandler);
 }
 
 void getMeshNetworkInfo()

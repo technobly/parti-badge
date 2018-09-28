@@ -313,10 +313,26 @@ void showSpectra()
 
 void displayMeshPing()
 {
+  const char *text = "You got a mesh ping!";
   clearScreen();
   display.setTextSize(1);
-  display.setCursor(0, 10);
-  display.println();
-  display.println("You got a mesh ping!");
+  display.setCursor(2, 35);
+  display.setTextWrap(true);
+  display.println(text);
   display.display();
+}
+
+void displayGatewayPing(const char *data)
+{
+  int textWidth = 8 + strlen(data) * 9;
+  int x = 64 - (textWidth / 2);
+  int y = 32;
+
+  clearScreen();
+  display.setTextSize(1);
+  display.setCursor(x + 10, y + 5 - 12 / 2);
+  display.setTextWrap(true);
+  display.printlnf("Hello, %s!", data);
+  display.display();
+  display.setTextWrap(false);
 }

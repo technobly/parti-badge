@@ -165,7 +165,7 @@ void setup()
   initLEDButtons();
 
   // Play a startup sound on the Piezo
-  //playStartup(BUZZER_PIN);
+  playStartup(BUZZER_PIN);
 
   // Connect to the Particle device cloud
   // Particle.connect();

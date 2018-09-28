@@ -17,5 +17,6 @@ void showKonami();
 void showMesh();
 void showSpectra();
 void displayMeshPing();
+void displayGatewayPing(const char *data);
 
 #endif
