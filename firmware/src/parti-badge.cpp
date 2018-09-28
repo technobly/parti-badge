@@ -63,7 +63,7 @@
 #include "Adafruit_Si7021.h"
 #include "events/events.h"
 
-SYSTEM_MODE(SEMI_AUTOMATIC);
+// SYSTEM_MODE(SEMI_AUTOMATIC);
 SYSTEM_THREAD(ENABLED);
 
 // Init Display
@@ -98,6 +98,7 @@ extern bool displayingTemp;
 extern bool displayingWearerDetails;
 extern bool displayingCarousel;
 extern bool displayingBattery;
+extern bool showingLightAnimation;
 bool menuShowing = false;
 
 // Display state management
@@ -228,6 +229,8 @@ void loop()
 
   if (clickedItem > 0 && menuShowing)
   {
+    clearScreen();
+
     if (menu.CurrentMenu == mnuRoot)
     {
       switch (clickedItem)
@@ -487,48 +490,54 @@ void loop()
     getTempAndHumidity();
   }
 
-  /*
-  redButtonADebouncer.update();
-  if (redButtonADebouncer.read() == LOW)
-  {
-    digitalWrite(RED_BUTTON_A, HIGH);
-  }
-  else
-  {
-    digitalWrite(RED_BUTTON_A, LOW);
-  }
-
   blueButtonBDebouncer.update();
   if (blueButtonBDebouncer.read() == LOW)
   {
     fireTowerSendEvent();
-    digitalWrite(BLUE_BUTTON_B, HIGH);
-  }
-  else
-  {
-    digitalWrite(BLUE_BUTTON_B, LOW);
   }
 
-  greenButtonCDebouncer.update();
-  if (greenButtonCDebouncer.read() == LOW)
+  if (!showingLightAnimation)
   {
-    digitalWrite(GREEN_BUTTON_C, HIGH);
-  }
-  else
-  {
-    digitalWrite(GREEN_BUTTON_C, LOW);
-  }
+    redButtonADebouncer.update();
+    if (redButtonADebouncer.read() == LOW)
+    {
+      digitalWrite(RED_BUTTON_A, HIGH);
+    }
+    else
+    {
+      digitalWrite(RED_BUTTON_A, LOW);
+    }
 
-  yellowButtonDDebouncer.update();
-  if (yellowButtonDDebouncer.read() == LOW)
-  {
-    digitalWrite(YELLOW_BUTTON_D, HIGH);
+    blueButtonBDebouncer.update();
+    if (blueButtonBDebouncer.read() == LOW)
+    {
+      digitalWrite(BLUE_BUTTON_B, HIGH);
+    }
+    else
+    {
+      digitalWrite(BLUE_BUTTON_B, LOW);
+    }
+
+    greenButtonCDebouncer.update();
+    if (greenButtonCDebouncer.read() == LOW)
+    {
+      digitalWrite(GREEN_BUTTON_C, HIGH);
+    }
+    else
+    {
+      digitalWrite(GREEN_BUTTON_C, LOW);
+    }
+
+    yellowButtonDDebouncer.update();
+    if (yellowButtonDDebouncer.read() == LOW)
+    {
+      digitalWrite(YELLOW_BUTTON_D, HIGH);
+    }
+    else
+    {
+      digitalWrite(YELLOW_BUTTON_D, LOW);
+    }
   }
-  else
-  {
-    digitalWrite(YELLOW_BUTTON_D, LOW);
-  }
-  */
 }
 
 // Init our Device Cloud variables and functions

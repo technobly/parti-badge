@@ -23,6 +23,7 @@ bool displayingTemp = false;
 bool displayingBattery = false;
 bool displayingWearerDetails = false;
 bool displayingCarousel = false;
+bool showingLightAnimation = false;
 
 // Array of function pointers so we can rotate through each in carousel mode
 void (*carouselFuncs[])(void) = {
@@ -66,6 +67,7 @@ void resetDisplayBools()
   displayingWearerDetails = false;
   displayingCarousel = false;
   displayingBattery = false;
+  showingLightAnimation = false;
 }
 
 // Clear the OLED display

@@ -8,6 +8,7 @@
 extern byte appmode;
 extern byte btncounter;
 extern byte btnid;
+extern bool showingLightAnimation;
 
 int LEDnumber = 0;
 int fadeIncrement = 5;
@@ -167,6 +168,7 @@ void ledChase()
   appmode = 1;
   btnid = 0;
   int del = 100;
+  showingLightAnimation = true;
 
   setupBackButtonInterrupt();
   toggleAllButtons(LOW);
@@ -201,6 +203,7 @@ void ledPulseChase()
   btnid = 0;
   int del = 5;
   int fadeDel = 10;
+  showingLightAnimation = true;
 
   setupBackButtonInterrupt();
   toggleAllButtons(LOW);
@@ -233,6 +236,7 @@ void ledPulse()
 {
   appmode = 1;
   btnid = 0;
+  showingLightAnimation = true;
 
   setupBackButtonInterrupt();
   toggleAllButtons(LOW);
@@ -252,6 +256,7 @@ void ledRandom()
   btnid = 0;
   int r = 0;
   int del = 150;
+  showingLightAnimation = true;
 
   pin_t leds[4] = {RED_LED, BLUE_LED, GREEN_LED, YELLOW_LED};
 
@@ -275,6 +280,7 @@ void ledSeeSaw()
   appmode = 1;
   btnid = 0;
   int del = 150;
+  showingLightAnimation = true;
 
   setupBackButtonInterrupt();
   toggleAllButtons(LOW);
