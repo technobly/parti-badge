@@ -63,7 +63,7 @@
 #include "Adafruit_Si7021.h"
 #include "events/events.h"
 
-// SYSTEM_MODE(SEMI_AUTOMATIC);
+SYSTEM_MODE(SEMI_AUTOMATIC);
 SYSTEM_THREAD(ENABLED);
 
 // Init Display
@@ -168,7 +168,7 @@ void setup()
   playStartup(BUZZER_PIN);
 
   // Connect to the Particle device cloud
-  // Particle.connect();
+  Particle.connect();
 
   // Fetch badge wearer details from EEPROM
   initWearerDetails();
