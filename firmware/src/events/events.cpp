@@ -6,6 +6,7 @@ extern qMenuSystem menu;
 unsigned long lastSentTowerEvent = 0;
 unsigned long lastHelloEvent = 0;
 unsigned long lastSentZEvent = 0;
+unsigned long lastGatewayEvent = 0;
 unsigned long eventDelay = 5000;
 
 void fireEnvSensorsEvent(int temp, int humidity)
@@ -47,6 +48,18 @@ void fireHelloPingEvent()
     lastHelloEvent = millis();
     Mesh.publish("mesh-ping", "hello!");
 
-    menu.MessageBox("Mesh ping sent!");
+    menu.MessageBox("Hello ping!");
+  }
+}
+
+void fireGatewayPingEvent()
+{
+  // Make sure that events are at least five seconds apart
+  if (lastGatewayEvent == 0 || millis() - lastGatewayEvent > eventDelay)
+  {
+    lastGatewayEvent = millis();
+    Mesh.publish("gateway-ping", NULL);
+
+    menu.MessageBox("Gateway ping!");
   }
 }

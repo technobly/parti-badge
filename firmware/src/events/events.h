@@ -6,5 +6,6 @@ void fireBatteryEvent(int battery);
 void fireTowerSendEvent();
 void fireHelloPingEvent();
 void fireHelloFromZEvent();
+void fireGatewayPingEvent();
 
 #endif

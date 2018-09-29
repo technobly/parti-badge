@@ -301,6 +301,9 @@ void loop()
         fireHelloPingEvent();
         break;
       case 3:
+        fireGatewayPingEvent();
+        break;
+      case 4:
         menu.InitMenu(mnuRoot, cntRoot, 3);
         break;
       }
