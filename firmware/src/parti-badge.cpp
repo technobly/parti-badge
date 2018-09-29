@@ -354,6 +354,9 @@ void loop()
       case 2:
         snakeGame();
         break;
+      case 3:
+        initSimon();
+        break;
       case 4:
         menu.InitMenu(mnuRoot, cntRoot, 5);
         break;

@@ -90,21 +90,7 @@ void playBeegees()
 // Toggle buzzer every buzz_delay_us, for a duration of buzz_length_ms.
 void buzz_sound(int buzz_length_ms, int buzz_delay_us)
 {
-  // Convert total play time from milliseconds to microseconds
-  long buzz_length_us = buzz_length_ms * (long)1000;
-
-  // Loop until the remaining play time is less than a single buzz_delay_us
-  while (buzz_length_us > (buzz_delay_us * 2))
-  {
-    buzz_length_us -= buzz_delay_us * 2; //Decrease the remaining play time
-
-    // Toggle the buzzer at various speeds
-    digitalWrite(BUZZER_PIN, LOW);
-    digitalWrite(BUZZER_PIN, HIGH);
-    delayMicroseconds(buzz_delay_us);
-
-    digitalWrite(BUZZER_PIN, HIGH);
-    digitalWrite(BUZZER_PIN, LOW);
-    delayMicroseconds(buzz_delay_us);
-  }
+  tone(BUZZER_PIN, buzz_delay_us, buzz_length_ms);
+  delay(buzz_length_ms);
+  noTone(BUZZER_PIN);
 }

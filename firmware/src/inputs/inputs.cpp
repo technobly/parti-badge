@@ -45,20 +45,15 @@ void initInputDebouncers()
 }
 
 // Returns a '1' bit in the position corresponding to CHOICE_RED, CHOICE_GREEN, etc.
-byte checkButton()
+byte checkButton(void)
 {
-  redButtonADebouncer.update();
-  blueButtonBDebouncer.update();
-  greenButtonCDebouncer.update();
-  yellowButtonDDebouncer.update();
-
-  if (redButtonADebouncer.read() == LOW)
+  if (digitalRead(RED_BUTTON_A) == 0)
     return (CHOICE_RED);
-  else if (greenButtonCDebouncer.read() == LOW)
+  else if (digitalRead(GREEN_BUTTON_C) == 0)
     return (CHOICE_GREEN);
-  else if (blueButtonBDebouncer.read() == LOW)
+  else if (digitalRead(BLUE_BUTTON_B) == 0)
     return (CHOICE_BLUE);
-  else if (yellowButtonDDebouncer.read() == LOW)
+  else if (digitalRead(YELLOW_BUTTON_D) == 0)
     return (CHOICE_YELLOW);
 
   return (CHOICE_NONE); // If no button is pressed, return none
