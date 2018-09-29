@@ -301,7 +301,7 @@ byte wait_for_button(void)
 // Play the winner sound and lights
 void play_winner(void)
 {
-  playStartup(BUZZER_PIN);
+  playStartup(BUZZER_PIN, false);
 
   setLEDs(CHOICE_GREEN | CHOICE_BLUE);
   setLEDs(CHOICE_RED | CHOICE_YELLOW);
@@ -312,7 +312,7 @@ void play_winner(void)
 // Play the loser sound/lights
 void play_loser(void)
 {
-  playGameOver(BUZZER_PIN);
+  playGameOver(BUZZER_PIN, false);
 
   setLEDs(CHOICE_RED | CHOICE_GREEN);
   setLEDs(CHOICE_BLUE | CHOICE_YELLOW);

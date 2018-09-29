@@ -42,24 +42,29 @@ const int beegeesMelody[] = {
     NOTE_D4, NOTE_E4, 0, NOTE_G4, 0, 0,
     NOTE_D4, 0, NOTE_E4, 0, NOTE_G4, 0, NOTE_A4, 0, NOTE_C5, 0};
 
-void playTones(int tonePin, const int tones[])
+void playTones(int tonePin, const int tones[], bool lightLEDs)
 {
   for (int thisNote = 1; thisNote < (tones[0] * 2 + 1); thisNote = thisNote + 2)
   {
+    if (lightLEDs)
+    {
+      changeLED();
+    }
+
     tone(tonePin, tones[thisNote], (1000 / tones[thisNote + 1]));
     delay((1000 / tones[thisNote + 1]) * 1.30);
     noTone(tonePin);
   }
 }
 
-void playStartup(int tonePin)
+void playStartup(int tonePin, bool lightLEDs)
 {
-  playTones(tonePin, notes_MarioStartup);
+  playTones(tonePin, notes_MarioStartup, lightLEDs);
 }
 
-void playGameOver(int tonePin)
+void playGameOver(int tonePin, bool lightLEDs)
 {
-  playTones(tonePin, notes_MarioGameOver);
+  playTones(tonePin, notes_MarioGameOver, lightLEDs);
 }
 
 void playBeegees()

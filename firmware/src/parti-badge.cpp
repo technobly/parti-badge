@@ -165,7 +165,7 @@ void setup()
   initLEDButtons();
 
   // Play a startup sound on the Piezo
-  playStartup(BUZZER_PIN);
+  playStartup(BUZZER_PIN, false);
 
   // Connect to the Particle device cloud
   Particle.connect();
@@ -328,10 +328,10 @@ void loop()
       switch (clickedItem)
       {
       case 1:
-        playStartup(BUZZER_PIN);
+        playStartup(BUZZER_PIN, true);
         break;
       case 2:
-        playGameOver(BUZZER_PIN);
+        playGameOver(BUZZER_PIN, true);
         break;
       case 3:
         playRoll();
