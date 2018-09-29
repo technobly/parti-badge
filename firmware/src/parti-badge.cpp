@@ -507,41 +507,41 @@ void loop()
     redButtonADebouncer.update();
     if (redButtonADebouncer.read() == LOW)
     {
-      digitalWrite(RED_BUTTON_A, HIGH);
+      analogWrite(RED_LED, 255);
     }
     else
     {
-      digitalWrite(RED_BUTTON_A, LOW);
+      analogWrite(RED_LED, 0);
     }
 
     blueButtonBDebouncer.update();
     if (blueButtonBDebouncer.read() == LOW)
     {
-      digitalWrite(BLUE_BUTTON_B, HIGH);
+      analogWrite(BLUE_LED, 255);
     }
     else
     {
-      digitalWrite(BLUE_BUTTON_B, LOW);
+      analogWrite(BLUE_LED, 0);
     }
 
     greenButtonCDebouncer.update();
     if (greenButtonCDebouncer.read() == LOW)
     {
-      digitalWrite(GREEN_BUTTON_C, HIGH);
+      analogWrite(GREEN_LED, 255);
     }
     else
     {
-      digitalWrite(GREEN_BUTTON_C, LOW);
+      analogWrite(GREEN_LED, 0);
     }
 
     yellowButtonDDebouncer.update();
     if (yellowButtonDDebouncer.read() == LOW)
     {
-      digitalWrite(YELLOW_BUTTON_D, HIGH);
+      analogWrite(YELLOW_LED, 255);
     }
     else
     {
-      digitalWrite(YELLOW_BUTTON_D, LOW);
+      analogWrite(YELLOW_LED, 0);
     }
   }
 }
