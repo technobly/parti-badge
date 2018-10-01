@@ -344,7 +344,7 @@ void displayHiFromZ()
   const char *text = "Welcome to Spectra!";
   clearScreen();
   display.setTextSize(1);
-  display.setCursor(5, 2);
+  display.setCursor(10, 35);
   display.println(text);
   display.drawBitmap(0, 0, spectraLogo, 128, 64, 1);
   display.display();
@@ -354,11 +354,20 @@ void displayHiFromZ()
 void displayMeshStatus(const char *status)
 {
   clearScreen();
-  display.setTextSize(2);
-  menu.MessageBox(status);
 
   display.setTextSize(1);
-  display.setCursor(1, 2);
+  display.setCursor(9, 2);
   display.println("Mesh Network Status");
+
+  display.setTextSize(2);
+  if (strlen(status) > 6)
+  {
+    display.setCursor(1, 35);
+  }
+  else
+  {
+    display.setCursor(28, 35);
+  }
+  display.println(status);
   display.display();
 }
