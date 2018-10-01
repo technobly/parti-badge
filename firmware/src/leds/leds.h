@@ -17,6 +17,7 @@ void toner(byte which, int buzz_length_ms);
 void changeLED();
 void fadeAllIn();
 void fadeAllOut();
+void pulseLED(int ledPin);
 
 void ledChase();
 void ledPulse(bool showCarousel);

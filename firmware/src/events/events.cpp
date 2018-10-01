@@ -1,5 +1,7 @@
 #include "Particle.h"
 #include "qMenuSystem.h"
+#include "macros.h"
+#include "leds/leds.h"
 
 extern qMenuSystem menu;
 
@@ -62,4 +64,16 @@ void fireGatewayPingEvent()
 
     menu.MessageBox("Gateway ping!");
   }
+}
+
+void pulseLEDHandler(const char *event, const char *data)
+{
+  if (data == "red")
+    pulseLED(RED_LED);
+  else if (data == "blue")
+    pulseLED(BLUE_LED);
+  else if (data == "green")
+    pulseLED(GREEN_LED);
+  else if (data == "yellow")
+    pulseLED(YELLOW_LED);
 }

@@ -19,5 +19,6 @@ void showSpectra();
 void displayMeshPing();
 void displayGatewayPing(const char *data);
 void displayHiFromZ();
+void displayMeshStatus(const char *status);
 
 #endif

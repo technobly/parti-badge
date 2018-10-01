@@ -31,6 +31,16 @@ void fadeOut(int ledPin, int delayInt)
   }
 }
 
+void pulseLED(int ledPin)
+{
+  toggleAllButtons(LOW);
+  for (int i = 0; i < 3; i++)
+  {
+    fadeIn(ledPin, 15);
+    fadeOut(ledPin, 15);
+  }
+}
+
 void fadeAllIn()
 {
   for (int fadeValue = 5; fadeValue <= 255; fadeValue += fadeIncrement)

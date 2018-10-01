@@ -561,6 +561,8 @@ void cloudInit()
   Particle.function("updateTwttr", updateTwitterHandler);
 
   Particle.function("checkTemp", checkTempHandler);
+
+  Particle.subscribe("pulseLed", pulseLEDHandler, MY_DEVICES);
 }
 
 // Fetch wearer details from our WearerInfo class

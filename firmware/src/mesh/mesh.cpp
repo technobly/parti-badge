@@ -2,8 +2,6 @@
 #include "display/display.h"
 #include "leds/leds.h"
 
-//MeshSignal signal;
-
 void meshSetup()
 {
   Mesh.on();
@@ -50,8 +48,16 @@ void setupMeshEvents()
 
 void getMeshNetworkInfo()
 {
-  Serial.printlnf("Connecting? %s", Mesh.connecting() ? "YES" : "NO");
-  Serial.printlnf("Network ready? %s", Mesh.ready() ? "YES" : "NO");
-  Serial.printlnf("Listening? %s", Mesh.listening() ? "YES" : "NO");
-  //Serial.printlnf("Signal: %f", signal.getStrength());
+  if (Mesh.ready())
+  {
+    displayMeshStatus("Active");
+  }
+  else if (Mesh.connecting())
+  {
+    displayMeshStatus("Connecting");
+  }
+  else if (Mesh.listening())
+  {
+    displayMeshStatus("Listening");
+  }
 }

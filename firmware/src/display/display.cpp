@@ -1,4 +1,5 @@
 #include "Adafruit_SSD1306.h"
+#include "qMenuSystem.h"
 
 #include "macros.h"
 #include "images/spark.h"
@@ -11,6 +12,7 @@
 #include "display.h"
 
 extern Adafruit_SSD1306 display;
+extern qMenuSystem menu;
 extern String wearerFirstName;
 extern String wearerLastName;
 extern String wearerTwitter;
@@ -347,4 +349,16 @@ void displayHiFromZ()
   display.drawBitmap(0, 0, spectraLogo, 128, 64, 1);
   display.display();
   display.startscrollleft(0x00, 0x0F);
+}
+
+void displayMeshStatus(const char *status)
+{
+  clearScreen();
+  display.setTextSize(2);
+  menu.MessageBox(status);
+
+  display.setTextSize(1);
+  display.setCursor(1, 2);
+  display.println("Mesh Network Status");
+  display.display();
 }

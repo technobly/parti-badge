@@ -33,7 +33,7 @@ const char *const mnuDisplay[] = {
     itmDisplay1, itmDisplay2, itmDisplay3, itmDisplay4, itmDisplay5, itmBack};
 const int cntDisplay = 6;
 
-static const char itmMesh1[] = "Mesh Network";
+static const char itmMesh1[] = "Mesh Info";
 static const char itmMesh2[] = "Hello Ping";
 static const char itmMesh3[] = "Gateway Ping";
 const char *const mnuMesh[] = {
