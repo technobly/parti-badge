@@ -11,6 +11,8 @@ unsigned long lastSentZEvent = 0;
 unsigned long lastGatewayEvent = 0;
 unsigned long eventDelay = 5000;
 
+extern bool showingLightAnimation;
+
 void fireEnvSensorsEvent(int temp, int humidity)
 {
   Particle.publish("env-sensors", "{\"temp\":" + String(temp) + ",\"humidity\":" + String(humidity) + "}", PRIVATE);
@@ -68,12 +70,17 @@ void fireGatewayPingEvent()
 
 void pulseLEDHandler(const char *event, const char *data)
 {
-  if (data == "red")
+  showingLightAnimation = true;
+
+  if (strcmp(data, "red") == 0)
     pulseLED(RED_LED);
-  else if (data == "blue")
+  else if (strcmp(data, "blue") == 0)
     pulseLED(BLUE_LED);
-  else if (data == "green")
+  else if (strcmp(data, "green") == 0)
     pulseLED(GREEN_LED);
-  else if (data == "yellow")
+  else if (strcmp(data, "yellow") == 0)
     pulseLED(YELLOW_LED);
+
+  delay(2000);
+  showingLightAnimation = false;
 }

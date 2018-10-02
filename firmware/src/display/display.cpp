@@ -332,7 +332,7 @@ void displayGatewayPing(const char *data)
 
   clearScreen();
   display.setTextSize(1);
-  display.setCursor(x + 10, y + 5 - 12 / 2);
+  display.setCursor(14, y + 5 - 12 / 2);
   display.setTextWrap(true);
   display.printlnf("Hello, %s!", data);
   display.display();
