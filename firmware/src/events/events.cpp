@@ -9,6 +9,7 @@ unsigned long lastSentTowerEvent = 0;
 unsigned long lastHelloEvent = 0;
 unsigned long lastSentZEvent = 0;
 unsigned long lastGatewayEvent = 0;
+unsigned long lastSpookyEvent = 0;
 unsigned long eventDelay = 5000;
 
 extern bool showingLightAnimation;
@@ -33,7 +34,6 @@ void fireTowerSendEvent()
   }
 }
 
-// TODO: Re-implement a call to this for Zach's badge
 void fireHelloFromZEvent()
 {
   // Make sure that events are at least five seconds apart
@@ -65,6 +65,32 @@ void fireGatewayPingEvent()
     Mesh.publish("gateway-ping", NULL);
 
     menu.MessageBox("Gateway ping!");
+  }
+}
+
+void fireStartSpookyEvent()
+{
+  // Make sure that events are at least five seconds apart
+  if (lastSpookyEvent == 0 || millis() - lastSpookyEvent > eventDelay)
+  {
+    lastSpookyEvent = millis();
+    Mesh.publish("spooky-start", NULL);
+    Particle.publish("spooky-start", NULL, PRIVATE);
+
+    menu.MessageBox("Start spooky!");
+  }
+}
+
+void fireStopSpookyEvent()
+{
+  // Make sure that events are at least five seconds apart
+  if (lastSpookyEvent == 0 || millis() - lastSpookyEvent > eventDelay)
+  {
+    lastSpookyEvent = millis();
+    Mesh.publish("spooky-stop", NULL);
+    Particle.publish("spooky-stop", NULL, PRIVATE);
+
+    menu.MessageBox("Stop spooky!");
   }
 }
 

@@ -304,6 +304,12 @@ void loop()
         fireGatewayPingEvent();
         break;
       case 4:
+        fireStartSpookyEvent();
+        break;
+      case 5:
+        fireStopSpookyEvent();
+        break;
+      case 6:
         menu.InitMenu(mnuRoot, cntRoot, 3);
         break;
       }

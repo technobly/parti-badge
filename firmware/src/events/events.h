@@ -7,6 +7,8 @@ void fireTowerSendEvent();
 void fireHelloPingEvent();
 void fireHelloFromZEvent();
 void fireGatewayPingEvent();
+void fireStartSpookyEvent();
+void fireStopSpookyEvent();
 void pulseLEDHandler(const char *event, const char *data);
 
 #endif

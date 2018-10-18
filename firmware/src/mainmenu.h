@@ -36,10 +36,12 @@ const int cntDisplay = 6;
 static const char itmMesh1[] = "Mesh Info";
 static const char itmMesh2[] = "Hello Ping";
 static const char itmMesh3[] = "Gateway Ping";
+static const char itmMesh4[] = "Start spooky!";
+static const char itmMesh5[] = "End spooky!";
 const char *const mnuMesh[] = {
     itmRootMesh,
-    itmMesh1, itmMesh2, itmMesh3, itmBack};
-const int cntMesh = 4;
+    itmMesh1, itmMesh2, itmMesh3, itmMesh4, itmMesh5, itmBack};
+const int cntMesh = 6;
 
 static const char itmSensors1[] = "Temp & Humidity";
 static const char itmSensors2[] = "Battery Status";
