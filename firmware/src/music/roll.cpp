@@ -137,6 +137,7 @@ void play()
     if (song1_intro_melody[b] > 0)
     { // if not a rest, play note
       analogWrite(RED_LED, 255);
+      Mesh.publish("tone", String(song1_intro_melody[b]));
       tone(BUZZER_PIN, song1_intro_melody[b], notelength);
     }
     b++;
@@ -154,6 +155,7 @@ void play()
     if (song1_verse1_melody[b] > 0)
     {
       analogWrite(BLUE_LED, 255);
+      Mesh.publish("tone", String(song1_verse1_melody[b]));
       tone(BUZZER_PIN, song1_verse1_melody[b], notelength);
       c++;
     }
@@ -172,6 +174,7 @@ void play()
     if (song1_chorus_melody[b] > 0)
     {
       analogWrite(GREEN_LED, 255);
+      Mesh.publish("tone", String(song1_chorus_melody[b]));
       tone(BUZZER_PIN, song1_chorus_melody[b], notelength);
       c++;
     }
@@ -184,7 +187,9 @@ void play()
     }
   }
   delay(notelength); // necessary because BUZZER_PIN is on independent timer
+
   noTone(BUZZER_PIN);
+  Mesh.publish("no-tone", NULL);
   analogWrite(RED_LED, 0);
   analogWrite(BLUE_LED, 0);
   analogWrite(GREEN_LED, 0);

@@ -59,11 +59,12 @@
 
 #include "music/roll.h"
 #include "WearerInfo/WearerInfo.h"
+#include "music/xmassongs.h"
 
 #include "Adafruit_Si7021.h"
 #include "events/events.h"
 
-SYSTEM_MODE(SEMI_AUTOMATIC);
+// SYSTEM_MODE(SEMI_AUTOMATIC);
 SYSTEM_THREAD(ENABLED);
 
 // Init Display
@@ -168,7 +169,7 @@ void setup()
   playStartup(BUZZER_PIN, false);
 
   // Connect to the Particle device cloud
-  Particle.connect();
+  // Particle.connect();
 
   // Fetch badge wearer details from EEPROM
   initWearerDetails();
@@ -346,6 +347,21 @@ void loop()
         playBeegees();
         break;
       case 5:
+        playJoyToTheWorld();
+        break;
+      case 6:
+        playWeWishYouAMerryXmas();
+        break;
+      case 7:
+        playRudolfTheRedNosedReindeer();
+        break;
+      case 8:
+        playJingleBells();
+        break;
+      case 9:
+        playSilentNight();
+        break;
+      case 10:
         menu.InitMenu(mnuRoot, cntRoot, 4);
         break;
       }

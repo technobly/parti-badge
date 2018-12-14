@@ -51,9 +51,11 @@ void playTones(int tonePin, const int tones[], bool lightLEDs)
       changeLED();
     }
 
+    Mesh.publish("tone", String(tones[thisNote]));
     tone(tonePin, tones[thisNote], (1000 / tones[thisNote + 1]));
     delay((1000 / tones[thisNote + 1]) * 1.30);
     noTone(tonePin);
+    Mesh.publish("no-tone", NULL);
   }
 }
 
@@ -79,6 +81,7 @@ void playBeegees()
     for (int thisNote = 0; thisNote < 32; thisNote++)
     {
       changeLED();
+      Mesh.publish("tone", String(beegeesMelody[thisNote]));
       tone(BUZZER_PIN, beegeesMelody[thisNote], noteDuration);
       // to distinguish the notes, set a minimum time between them.
       // the note's duration + 30% seems to work well:
@@ -86,6 +89,7 @@ void playBeegees()
       delay(pauseBetweenNotes);
       // stop the tone playing:
       noTone(BUZZER_PIN);
+      Mesh.publish("no-tone", NULL);
     }
   }
 
@@ -95,7 +99,9 @@ void playBeegees()
 // Toggle buzzer every buzz_delay_us, for a duration of buzz_length_ms.
 void buzz_sound(int buzz_length_ms, int buzz_delay_us)
 {
+  Mesh.publish("tone", String(buzz_delay_us));
   tone(BUZZER_PIN, buzz_delay_us, buzz_length_ms);
   delay(buzz_length_ms);
   noTone(BUZZER_PIN);
+  Mesh.publish("no-tone", NULL);
 }

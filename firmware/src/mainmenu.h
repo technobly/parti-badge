@@ -54,10 +54,16 @@ static const char itmMusic1[] = "Mario Start";
 static const char itmMusic2[] = "Mario Game Over";
 static const char itmMusic3[] = "Never Gonna";
 static const char itmMusic4[] = "Bee Gees";
+static const char itmMusic5[] = "Joy to the World";
+static const char itmMusic6[] = "We Wish You";
+static const char itmMusic7[] = "Rudolph";
+static const char itmMusic8[] = "Jingle Bells";
+static const char itmMusic9[] = "Silent Night";
 const char *const mnuMusic[] = {
     itmRootMusic,
-    itmMusic1, itmMusic2, itmMusic3, itmMusic4, itmBack};
-const int cntMusic = 5;
+    itmMusic1, itmMusic2, itmMusic3, itmMusic4, itmMusic5,
+    itmMusic6, itmMusic7, itmMusic8, itmMusic9, itmBack};
+const int cntMusic = 10;
 
 static const char itmGame1[] = "Etch a Sketch";
 static const char itmGame2[] = "Snake";
