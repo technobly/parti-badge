@@ -1,3 +1,28 @@
+# #PartiBadge Sumo Bot Edition
+
+- Fixed Particle Logo
+- Sped up refresh rate of display by 400%
+- Sped up boot time with SEMI_AUTOMATIC mode (runs setup() before connected to Particle Cloud) and shortened some things
+- Added Sumo Bot Menu
+    - Added RC Controller for [Particle Mesh Sumo Bot](https://github.com/technobly/particle-mesh-sumo-bot)
+    - TODO: Add Logo Turtle OS control system
+- Left rest of PartiBadge functionality in-tact
+
+## Local Compile
+
+```
+$ git checkout v0.9.0-rc.3
+$ cd firmware/main
+// enter DFU mode
+firmware/main $ make clean all -s APPDIR=~/code/debugging/technobly/parti-badge/firmware PLATFORM=xenon COMPILE_LTO=n program-dfu
+```
+
+![sumo bot menu](https://raw.github.com/technobly/parti-badge/sumo-bot/images/sumo-bot-menu.png)
+
+(original README.md follows)
+
+---
+
 # #PartiBadge
 
 The #PartiBadge is a Wi-Fi connected, full-featured, Particle-powered conference badge. Because who want to wear a piece of plastic around their neck when they can wear a PCB?
