@@ -68,9 +68,6 @@ void fadeAllOut()
 // Set up the tactile LED buttons
 void initLEDButtons()
 {
-  int del = 300;
-  int medDel = 500;
-
   // Init D7
   pinMode(D7, INPUT_PULLDOWN);
 
@@ -80,15 +77,19 @@ void initLEDButtons()
   pinMode(GREEN_LED, OUTPUT);
   pinMode(YELLOW_LED, OUTPUT);
 
+  // Button attract animations
+  // #define LONG_ATTRACT_MODE
+#ifdef LONG_ATTRACT_MODE
   fadeAllIn();
   fadeAllOut();
   fadeAllIn();
   fadeAllOut();
   fadeAllIn();
 
+  int del = 300;
+  int medDel = 500;
   toggleAllButtons(LOW);
   delay(medDel);
-
   analogWrite(RED_LED, 255);
   delay(del);
   analogWrite(BLUE_LED, 255);
@@ -96,6 +97,10 @@ void initLEDButtons()
   analogWrite(GREEN_LED, 255);
   delay(del);
   analogWrite(YELLOW_LED, 255);
+#else
+  fadeAllIn();
+  fadeAllOut();
+#endif
 }
 
 // Toggle all the buttons on or off

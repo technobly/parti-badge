@@ -106,16 +106,16 @@ void messageBoxWithArray(const char *textStrings[], int arrayLen, int textSize)
   display.display();
 }
 
-void showSplashscreen()
+void showSplashscreen(system_tick_t wait)
 {
   clearScreen();
   display.drawBitmap(0, 16, sparkLogo, 128, 48, 1);
   display.display();
-  delay(2000);
-  clearScreen();
-  display.drawBitmap(0, 0, spectraLogo, 128, 64, 1);
-  display.display();
-  delay(2000);
+  delay(wait);
+  // clearScreen();
+  // display.drawBitmap(0, 0, spectraLogo, 128, 64, 1);
+  // display.display();
+  // delay(wait);
 }
 
 // Display the wearer's first and last name on the display
@@ -200,7 +200,7 @@ void showTitle()
   display.setCursor(1, 18);
   display.println("PartiBadge");
   display.setCursor(0, 35);
-  display.println("Spectra 18");
+  display.println("Sumo Bot");
   display.display();
 }
 

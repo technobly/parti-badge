@@ -5,7 +5,7 @@ void displayCarousel();
 void resetDisplayBools();
 void messageBoxWithArray(const char *textStrings[], int arrayLen, int textSize);
 void clearScreen();
-void showSplashscreen();
+void showSplashscreen(system_tick_t wait);
 void displayWearerDetails();
 void displayTwitterHandle();
 void showTitle();

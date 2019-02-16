@@ -5,7 +5,8 @@ static const char itmEnabled[] = "Enabled";
 static const char itmDisabled[] = "Disabled";
 
 // mnu* note - first item is menu title and it does not count toward cnt
-static const char itmRoot[] = "Spectra 2018 Badge";
+static const char itmRoot[] = "PartiBadge";
+static const char itmRootMode[] = "Sumo Bot";
 static const char itmRootDisplay[] = "Display";
 static const char itmRootMesh[] = "Mesh Tools";
 static const char itmRootSensors[] = "Sensors";
@@ -18,10 +19,16 @@ static const char itmRootAbout[] = "About";
 
 static const char *mnuRoot[] = {
     itmRoot,
-    itmRootDisplay, itmRootMesh, itmRootSensors, itmRootMusic,
-    itmRootGames, itmRootGraphics, itmRootAnimations, itmRootBlinky,
-    itmRootAbout};
-const int cntRoot = 9;
+    itmRootMode, itmRootDisplay, itmRootMesh, itmRootSensors, itmRootMusic,
+    itmRootGames, itmRootGraphics, itmRootAnimations, itmRootBlinky, itmRootAbout};
+const int cntRoot = 10;
+
+static const char itmMode1[] = "RC Mode";
+static const char itmMode2[] = "Logo Turtle OS";
+const char *const mnuMode[] = {
+    itmRootMode,
+    itmMode1, itmMode2, itmBack};
+const int cntMode = 2;
 
 static const char itmDisplay1[] = "Badge Marquee";
 static const char itmDisplay2[] = "Name";

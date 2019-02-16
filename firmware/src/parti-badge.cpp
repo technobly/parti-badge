@@ -56,6 +56,7 @@
 #include "animations/animations.h"
 #include "mesh/mesh.h"
 #include "udp/udp.h"
+#include "rc-sumo/rc-sumo.h"
 
 #include "music/roll.h"
 #include "WearerInfo/WearerInfo.h"
@@ -64,7 +65,7 @@
 #include "Adafruit_Si7021.h"
 #include "events/events.h"
 
-// SYSTEM_MODE(SEMI_AUTOMATIC);
+SYSTEM_MODE(SEMI_AUTOMATIC);
 SYSTEM_THREAD(ENABLED);
 
 // Init Display
@@ -136,7 +137,7 @@ void setup()
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
 
   // Show Particle Splashscreen
-  showSplashscreen();
+  showSplashscreen(1000);
 
   // Show the title screen
   showTitle();
@@ -166,10 +167,10 @@ void setup()
   initLEDButtons();
 
   // Play a startup sound on the Piezo
-  playStartup(BUZZER_PIN, false);
+  // playStartup(BUZZER_PIN, false);
 
   // Connect to the Particle device cloud
-  // Particle.connect();
+  Particle.connect();
 
   // Fetch badge wearer details from EEPROM
   initWearerDetails();
@@ -183,6 +184,7 @@ void loop()
   unsigned long currentMillis = millis();
   int clickedItem = 0;
 
+  // Display MENU by button press if not showing already
   if (menuShowing == false)
   {
     redButtonADebouncer.update();
@@ -237,35 +239,53 @@ void loop()
       switch (clickedItem)
       {
       case 1:
-        menu.InitMenu((const char **)mnuDisplay, cntDisplay, 1);
+        menu.InitMenu((const char **)mnuMode, cntMode, 1);
         break;
       case 2:
-        menu.InitMenu((const char **)mnuMesh, cntMesh, 1);
+        menu.InitMenu((const char **)mnuDisplay, cntDisplay, 1);
         break;
       case 3:
-        menu.InitMenu((const char **)mnuSensors, cntSensors, 1);
+        menu.InitMenu((const char **)mnuMesh, cntMesh, 1);
         break;
       case 4:
-        menu.InitMenu((const char **)mnuMusic, cntMusic, 1);
+        menu.InitMenu((const char **)mnuSensors, cntSensors, 1);
         break;
       case 5:
-        menu.InitMenu((const char **)mnuGames, cntGames, 1);
+        menu.InitMenu((const char **)mnuMusic, cntMusic, 1);
         break;
       case 6:
-        menu.InitMenu((const char **)mnuGraphics, cntGraphics, 1);
+        menu.InitMenu((const char **)mnuGames, cntGames, 1);
         break;
       case 7:
-        menu.InitMenu((const char **)mnuAnimations, cntAnimations, 1);
+        menu.InitMenu((const char **)mnuGraphics, cntGraphics, 1);
         break;
       case 8:
-        menu.InitMenu((const char **)mnuBlinky, cntBlinky, 1);
+        menu.InitMenu((const char **)mnuAnimations, cntAnimations, 1);
         break;
       case 9:
+        menu.InitMenu((const char **)mnuBlinky, cntBlinky, 1);
+        break;
+      case 10:
         displayCredits();
         break;
       }
     }
     // Logic for sub menus
+    else if (menu.CurrentMenu == mnuMode)
+    {
+      switch (clickedItem)
+      {
+      case 1:
+        updateRcSumo();
+        break;
+      case 2:
+        // updateLogoOS();
+        break;
+      case 3:
+        menu.InitMenu(mnuRoot, cntRoot, 1);
+        break;
+      }
+    }
     else if (menu.CurrentMenu == mnuDisplay)
     {
       switch (clickedItem)
@@ -287,7 +307,7 @@ void loop()
         displayCarousel();
         break;
       case 6:
-        menu.InitMenu(mnuRoot, cntRoot, 1);
+        menu.InitMenu(mnuRoot, cntRoot, 2);
         break;
       }
     }
@@ -326,7 +346,7 @@ void loop()
         showBattery();
         break;
       case 3:
-        menu.InitMenu(mnuRoot, cntRoot, 3);
+        menu.InitMenu(mnuRoot, cntRoot, 4);
         break;
       }
     }
@@ -362,7 +382,7 @@ void loop()
         playSilentNight();
         break;
       case 10:
-        menu.InitMenu(mnuRoot, cntRoot, 4);
+        menu.InitMenu(mnuRoot, cntRoot, 5);
         break;
       }
     }
@@ -380,7 +400,7 @@ void loop()
         initSimon();
         break;
       case 4:
-        menu.InitMenu(mnuRoot, cntRoot, 5);
+        menu.InitMenu(mnuRoot, cntRoot, 6);
         break;
       }
     }
@@ -401,7 +421,7 @@ void loop()
         showKonami();
         break;
       case 5:
-        menu.InitMenu(mnuRoot, cntRoot, 6);
+        menu.InitMenu(mnuRoot, cntRoot, 7);
         break;
       }
     }
@@ -431,7 +451,7 @@ void loop()
         cycleAnimations();
         break;
       case 8:
-        menu.InitMenu(mnuRoot, cntRoot, 7);
+        menu.InitMenu(mnuRoot, cntRoot, 8);
         break;
       }
     }
@@ -455,7 +475,7 @@ void loop()
         ledSeeSaw();
         break;
       case 6:
-        menu.InitMenu(mnuRoot, cntRoot, 8);
+        menu.InitMenu(mnuRoot, cntRoot, 9);
         break;
       }
     }
@@ -467,37 +487,41 @@ void loop()
     }
 
     //2nd level menus
-    else if (menu.CurrentMenu == mnuDisplay)
+    else if (menu.CurrentMenu == mnuMode)
     {
       menu.InitMenu((const char **)mnuRoot, cntRoot, 1);
     }
-    else if (menu.CurrentMenu == mnuMesh)
+    else if (menu.CurrentMenu == mnuDisplay)
     {
       menu.InitMenu((const char **)mnuRoot, cntRoot, 2);
     }
-    else if (menu.CurrentMenu == mnuSensors)
+    else if (menu.CurrentMenu == mnuMesh)
     {
       menu.InitMenu((const char **)mnuRoot, cntRoot, 3);
     }
-    else if (menu.CurrentMenu == mnuMusic)
+    else if (menu.CurrentMenu == mnuSensors)
     {
       menu.InitMenu((const char **)mnuRoot, cntRoot, 4);
     }
-    else if (menu.CurrentMenu == mnuGames)
+    else if (menu.CurrentMenu == mnuMusic)
     {
       menu.InitMenu((const char **)mnuRoot, cntRoot, 5);
     }
-    else if (menu.CurrentMenu == mnuGraphics)
+    else if (menu.CurrentMenu == mnuGames)
     {
       menu.InitMenu((const char **)mnuRoot, cntRoot, 6);
     }
-    else if (menu.CurrentMenu == mnuAnimations)
+    else if (menu.CurrentMenu == mnuGraphics)
     {
       menu.InitMenu((const char **)mnuRoot, cntRoot, 7);
     }
-    else if (menu.CurrentMenu == mnuBlinky)
+    else if (menu.CurrentMenu == mnuAnimations)
     {
       menu.InitMenu((const char **)mnuRoot, cntRoot, 8);
+    }
+    else if (menu.CurrentMenu == mnuBlinky)
+    {
+      menu.InitMenu((const char **)mnuRoot, cntRoot, 9);
     }
   }
 
