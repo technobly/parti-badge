@@ -32,6 +32,7 @@ Adafruit_Si7021::Adafruit_Si7021(void) {
 }
 
 bool Adafruit_Si7021::begin(void) {
+  Wire.setSpeed(400000); // LET'S GO!!!!!!!
   Wire.begin();
 
   reset();
