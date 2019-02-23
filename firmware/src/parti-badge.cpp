@@ -57,6 +57,7 @@
 #include "mesh/mesh.h"
 #include "udp/udp.h"
 #include "rc-sumo/rc-sumo.h"
+#include "logo-turtle-os/logo-turtle-os.h"
 
 #include "music/roll.h"
 #include "WearerInfo/WearerInfo.h"
@@ -279,7 +280,7 @@ void loop()
         updateRcSumo();
         break;
       case 2:
-        // updateLogoOS();
+        updateLogoTurtleOS();
         break;
       case 3:
         menu.InitMenu(mnuRoot, cntRoot, 1);

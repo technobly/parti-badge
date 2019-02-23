@@ -5,13 +5,16 @@
 - Sped up boot time with SEMI_AUTOMATIC mode (runs setup() before connected to Particle Cloud) and shortened some things
 - Added Sumo Bot Menu
     - Added RC Controller for [Particle Mesh Sumo Bot](https://github.com/technobly/particle-mesh-sumo-bot)
-    - TODO: Add Logo Turtle OS control system
+        - Try driving with the joystick and turning at the same time with buttons for smooth figure 8's!
+    - Added Logo Turtle OS control system
+        - Enter a string of commands `F` `B` `L` `R` and press `>` to send to the Sumo Bot.
+        - Use `^` and `v` to adjust the default Command Delay of 500 ms (100 ~ 1000 ms).
 - Left rest of PartiBadge functionality in-tact
 
 ## Local Compile
 
 ```
-$ git checkout v0.9.0-rc.3
+$ git checkout v0.9.0
 $ cd firmware/main
 // enter DFU mode
 firmware/main $ make clean all -s APPDIR=~/code/debugging/technobly/parti-badge/firmware PLATFORM=xenon COMPILE_LTO=n program-dfu
